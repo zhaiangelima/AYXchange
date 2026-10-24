@@ -1,1 +1,408 @@
+<!doctype html>
+<html lang="en">
+
+<!-- =========================================================
+     HEAD: settings + styles (nothing here is visible)
+     ========================================================= -->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>AYXchange</title>
+
+  <style>
+    /* ---------- 0. FONTS ---------- */
+    /* @import Google Fonts: DM Sans (body) + Manrope (headings) */
+
+
+    /* ---------- 1. COLORS (variables) ---------- */
+    :root {
+      /* --ink, --muted, --green, --lime, --paper, --line,
+         --white, --dark, --orange, --purple */
+    }
+
+
+    /* ---------- 2. PAGE BASICS ---------- */
+    * { }
+    body { }
+
+
+    /* ---------- 3. APP LAYOUT (sidebar + main) ---------- */
+    .app { }
+    .main { }
+
+
+    /* ---------- 4. SIDEBAR ---------- */
+    .sidebar { }
+    .brand { }
+    .logo { }
+    .profile { }
+    .avatar { }
+    .pname { }
+    .verified { }
+    .navlabel { }
+    .nav { }
+    .nav button { }
+    .nav button.active { }
+    .nav .ico { }
+    .side-bottom { }
+    .demo { }
+
+
+    /* ---------- 5. TOP BAR ---------- */
+    .topbar { }
+    .crumb { }
+    .top-right { }
+    .datechip { }
+    .iconbtn { }
+
+
+    /* ---------- 6. SCREENS (show/hide + animation) ---------- */
+    .screen { }
+    .screen.active { }
+    @keyframes appear { }
+
+
+    /* ---------- 7. SHARED TEXT ---------- */
+    .heading-row { }
+    .eyebrow { }
+    .title { }
+    .subtitle { }
+
+
+    /* ---------- 8. SHARED BUTTONS ---------- */
+    .btn { }
+    .primary { }
+    .darkbtn { }
+    .outline { }
+
+
+    /* ---------- 9. SHARED TAGS / BOXES ---------- */
+    .tag { }
+    .tag.live { }
+    .box { }
+    .slot { }
+
+
+    /* ---------- 10. DISCOVER SCREEN (Yujing) ---------- */
+    .discovery-layout { }
+    .mentor-card { }
+    .card-photo { }
+    .card-top { }
+    .card-info { }
+    .pills { }
+    .pill { }
+    .bio { }
+    .card-actions { }
+    .circlebtn { }
+    .pass { }
+    .like { }
+    .details { }
+    .moment { }
+    .matchline { }
+    .face { }
+    .line { }
+    .matchtext { }
+    .avail { }
+    .gridstats { }
+    .stat { }
+
+
+    /* ---------- 11. CHAT SCREEN (Yujing) ---------- */
+    .columns { }
+    .chatbox { }
+    .chathead { }
+    .chatmsgs { }
+    .daylabel { }
+    .msg { }
+    .msg.self { }
+    .bubble { }
+    .suggestion { }
+    .composer { }
+    .panel { }
+    .safety { }
+    .progress { }
+
+
+    /* ---------- 12. SCHEDULE SCREEN (Angelina) ---------- */
+    .schedule { }
+    .steps { }
+    .calendar-head { }
+    .days { }
+    .day { }
+    .day.selected { }
+    .times { }
+    .time { }
+    .time.selected { }
+    .sched-bottom { }
+    .sched-note { }
+
+
+    /* ---------- 13. ROOM SCREEN (Angelina) ---------- */
+    .room { }
+    .roomtop { }
+    .roomgrid { }
+    .videoarea { }
+    .tile { }
+    .tile.mentor { }
+    .tile .person { }
+    .tile .who { }
+    .tile .mic { }
+    .controls { }
+    .control { }
+    .control.end { }
+    .roomside { }
+    .task { }
+    .formula { }
+    .roomchat { }
+
+
+    /* ---------- 14. TAKEAWAY SCREEN (Angelina) ---------- */
+    .takeaway-layout { }
+    .takeaway { }
+    .saved { }
+    .prompt { }
+    .field { }
+    .pillset { }
+    .mentor-end { }
+    .success { }
+
+
+    /* ---------- 15. POPUPS (match modal + toast) ---------- */
+    .match-modal { }
+    .match-modal.show { }
+    .modal-card { }
+    .spark { }
+    .duo { }
+    .modal-actions { }
+    .toast { }
+    .toast.show { }
+
+
+    /* ---------- 16. TABLET (under 920px wide) ---------- */
+    @media (max-width: 920px) { }
+
+
+    /* ---------- 17. PHONE (under 620px wide) ---------- */
+    @media (max-width: 620px) { }
+  </style>
+</head>
+<!-- =========================================================
+     BODY: everything you see
+     ========================================================= -->
+<body>
+<div class="app">
+
+  <!-- ===================== SIDEBAR (Yujing) ===================== -->
+  <aside class="sidebar">
+    <!-- Brand: logo + "AYXchange" -->
+
+    <!-- Profile mini-card: avatar, name, verified -->
+
+    <!-- Navigation: label "Workspace" + 5 buttons
+         (Discover, Messages, Sessions, Project room, My takeaways)
+         each button has data-screen="..." -->
+
+    <!-- Bottom: "Fictional demo" badge + tagline -->
+  </aside>
+
+
+  <main class="main">
+
+    <!-- ===================== TOP BAR (Yujing) ===================== -->
+    <div class="topbar">
+      <!-- Breadcrumb: "Workspace / [current screen]" -->
+
+      <!-- Right side: date chip, notifications button, avatar -->
+    </div>
+
+
+    <!-- ===================== YUJING: SCREENS 1-2 ===================== -->
+
+    <!-- ========== SCREEN 1: DISCOVER ========== -->
+    <section class="screen active" id="discover">
+      <!-- 1a. Heading row: eyebrow, title, subtitle, Edit profile button -->
+
+      <div class="discovery-layout">
+        <!-- LEFT COLUMN -->
+        <div>
+          <!-- 1b. Mentor card:
+                   - background photo
+                   - top tags: "Open to mentor", "% shared interests"
+                   - Pass (x) and Like (heart) buttons
+                   - info: name, role, interest pills, bio -->
+
+          <!-- 1c. 3 stats: shared interests, overlapping hours, verified -->
+        </div>
+
+        <!-- RIGHT COLUMN -->
+        <div class="details">
+          <!-- 1d. Mentor Moment box (the tip) -->
+
+          <!-- 1e. "Why this connection?" box (match line + reason) -->
+
+          <!-- 1f. Mentor availability box (time slots) -->
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ========== SCREEN 2: CHAT ========== -->
+    <section class="screen" id="chat">
+      <!-- 2a. Heading row: eyebrow, title, subtitle, "Mutual match" tag -->
+
+      <div class="columns">
+        <!-- LEFT: chat box -->
+        <div class="chatbox">
+          <!-- 2b. Chat header: mentor avatar, name, role, Plan a session button -->
+
+          <!-- 2c. Messages (id="messages"):
+                   - day label
+                   - Warm Start suggestion
+                   - 3 starter messages -->
+
+          <!-- 2d. Composer: message input + Send button -->
+        </div>
+
+        <!-- RIGHT: side panel -->
+        <aside class="panel">
+          <!-- 2e. Warm Start: progress bar + 3 steps (Ask, Try, Make it yours)
+                   + "Choose a time" button -->
+        </aside>
+      </div>
+    </section>
+
+
+    <!-- ===================== ANGELINA: SCREENS 3-5 ===================== -->
+
+    <!-- ========== SCREEN 3: SCHEDULE ========== -->
+    <section class="screen" id="schedule">
+      <!-- 3a. Heading row: eyebrow, title, subtitle -->
+
+      <div class="schedule">
+        <!-- 3b. Steps: 01 Match - 02 Plan - 03 Meet -->
+
+        <!-- 3c. Calendar header: month + arrows -->
+
+        <!-- 3d. 7 day boxes (Friday selected) -->
+
+        <!-- 3e. Selected day label + 3 time buttons -->
+
+        <!-- 3f. Bottom: session note + Confirm session button -->
+      </div>
+    </section>
+
+
+    <!-- ========== SCREEN 4: PROJECT ROOM ========== -->
+    <section class="screen" id="room">
+      <!-- 4a. Heading row: eyebrow, title, subtitle, "Session in progress" tag -->
+
+      <div class="room">
+        <!-- 4b. Room top bar: session name, time, "Private room" tag -->
+
+        <div class="roomgrid">
+          <!-- LEFT: video area -->
+          <div class="videoarea">
+            <!-- 4c. Student video tile (mic, avatar, name) -->
+
+            <!-- 4d. Mentor video tile (mic, avatar, name) -->
+
+            <!-- 4e. Controls: Mute, Camera, React, Share, End session -->
+          </div>
+
+          <!-- RIGHT: side panel -->
+          <div class="roomside">
+            <!-- 4f. Mini activity: C-rate question + formula -->
+
+            <!-- 4g. Answer box + Check button -->
+
+            <!-- 4h. Session chat -->
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+    <!-- ========== SCREEN 5: TAKEAWAY ========== -->
+    <section class="screen" id="takeaway">
+      <!-- 5a. Heading row: eyebrow, title, subtitle -->
+
+      <div class="takeaway-layout">
+        <!-- LEFT card -->
+        <div class="takeaway">
+          <!-- 5b. "What we learned" saved box -->
+
+          <!-- 5c. Note for future you (textarea) -->
+
+          <!-- 5d. Your next step (input) -->
+
+          <!-- 5e. Success message (hidden) + Save takeaway button -->
+        </div>
+
+        <!-- RIGHT card -->
+        <div class="takeaway">
+          <!-- 5f. Mentor mini-card -->
+
+          <!-- 5g. Summary text + "Notes saved / Room shared" pills -->
+
+          <!-- 5h. Meet again button + Back to discovery button -->
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+
+<!-- ===================== POPUPS ===================== -->
+
+<!-- Match popup (Yujing) -->
+<div class="match-modal" id="matchModal">
+  <div class="modal-card">
+    <!-- spark, eyebrow, "It's a match!", both avatars, reason text,
+         buttons: Keep exploring + Say hello -->
+  </div>
+</div>
+
+<!-- Toast message (shared) -->
+<div class="toast" id="toast"></div>
+Part 3: Script
+The script holds what happens when you click things. Paste this last, at the end of the file.
+<!-- =========================================================
+     SCRIPT: what happens when you click things
+     ========================================================= -->
+<script>
+  // ---------- SHARED ----------
+  // names: screen id -> name shown in the breadcrumb
+  // go(id): show one screen, highlight its nav button, update breadcrumb
+  // connect each nav button to go()
+  // toast(msg): show a quick message at the bottom
+
+
+  // ---------- SCREEN 1: DISCOVER (Yujing) ----------
+  // likeMentor(): open the match popup
+  // closeMatch(): close the match popup
+
+
+  // ---------- SCREEN 2: CHAT (Yujing) ----------
+  // sendMessage(): add your typed message as a bubble
+
+
+  // ---------- SCREEN 3: SCHEDULE (Angelina) ----------
+  // chosen: the picked time
+  // selectTime(el): highlight a time button
+  // bookSession(): confirm, show toast, go to the room
+
+
+  // ---------- SCREEN 4: ROOM (Angelina) ----------
+  // (buttons use toast() and go('takeaway') directly)
+
+
+  // ---------- SCREEN 5: TAKEAWAY (Angelina) ----------
+  // saveTakeaway(): show the success message + toast
+</script>
+</body>
+</html>
+
+
+
 

@@ -1,408 +1,3101 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 
-<!-- =========================================================
-     HEAD: settings + styles (nothing here is visible)
-     ========================================================= -->
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>AYXchange</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AYXchange</title>
 
-  <style>
-    /* ---------- 0. FONTS ---------- */
-    /* @import Google Fonts: DM Sans (body) + Manrope (headings) */
+    <style>
+        /* ==========================================================
+           1. COLORS + BASICS
+           ========================================================== */
+        :root {
+            --bg: #f6f7f9;          /* page background */
+            --surface: #ffffff;     /* panels */
+            --text: #15171c;        /* main text */
+            --muted: #687080;       /* secondary text */
+            --faint: #9aa1ad;       /* hints */
+            --line: #e3e6eb;        /* borders */
+            --blue: #2c5be8;        /* main color */
+            --blue-dark: #1f45bd;   /* button hover */
+            --blue-tint: #edf1fd;   /* selected things */
+            --danger: #c93c3c;
+            --ok: #1d7a4c;
+            --ok-tint: #e8f5ee;
+        }
 
+        * { box-sizing: border-box; }
 
-    /* ---------- 1. COLORS (variables) ---------- */
-    :root {
-      /* --ink, --muted, --green, --lime, --paper, --line,
-         --white, --dark, --orange, --purple */
-    }
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-size: 15px;
+            line-height: 1.5;
+        }
 
-
-    /* ---------- 2. PAGE BASICS ---------- */
-    * { }
-    body { }
-
-
-    /* ---------- 3. APP LAYOUT (sidebar + main) ---------- */
-    .app { }
-    .main { }
-
-
-    /* ---------- 4. SIDEBAR ---------- */
-    .sidebar { }
-    .brand { }
-    .logo { }
-    .profile { }
-    .avatar { }
-    .pname { }
-    .verified { }
-    .navlabel { }
-    .nav { }
-    .nav button { }
-    .nav button.active { }
-    .nav .ico { }
-    .side-bottom { }
-    .demo { }
-
-
-    /* ---------- 5. TOP BAR ---------- */
-    .topbar { }
-    .crumb { }
-    .top-right { }
-    .datechip { }
-    .iconbtn { }
+        h1 { font-size: 24px; margin: 0 0 4px; letter-spacing: -0.3px; }
+        h2 { font-size: 17px; margin: 0; }
+        h3 { font-size: 15px; margin: 0 0 6px; }
+        p { margin: 0; }
+        .muted { color: var(--muted); }
+        .small { font-size: 13px; }
+        .hidden { display: none !important; }
 
 
-    /* ---------- 6. SCREENS (show/hide + animation) ---------- */
-    .screen { }
-    .screen.active { }
-    @keyframes appear { }
+        /* ==========================================================
+           2. BUTTONS + INPUTS
+           ========================================================== */
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+            height: 38px; padding: 0 16px;
+            border-radius: 8px; border: 1px solid transparent;
+            font: inherit; font-size: 14px; font-weight: 600;
+            cursor: pointer; white-space: nowrap;
+        }
+        .btn-primary { background: var(--blue); color: #fff; }
+        .btn-primary:hover { background: var(--blue-dark); }
+        .btn-secondary { background: var(--surface); color: var(--text); border-color: var(--line); }
+        .btn-secondary:hover { background: var(--bg); }
+        .btn-ghost { background: transparent; color: var(--muted); }
+        .btn-ghost:hover { color: var(--text); }
+        .btn-danger { background: var(--danger); color: #fff; }
+        .btn-block { width: 100%; }
+        .btn-sm { height: 32px; padding: 0 12px; font-size: 13px; }
+        .btn:disabled { opacity: 0.55; cursor: default; }
+        .btn.on { background: var(--blue-tint); border-color: var(--blue); color: var(--blue-dark); }
+
+        .field { display: block; margin-bottom: 14px; }
+        .field span { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+        input, select, textarea {
+            width: 100%;
+            font: inherit; font-size: 15px; color: var(--text);
+            background: var(--surface);
+            border: 1px solid var(--line); border-radius: 8px;
+            padding: 9px 12px;
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none; border-color: var(--blue);
+            box-shadow: 0 0 0 3px var(--blue-tint);
+        }
+        textarea { resize: vertical; }
+        input:disabled { background: var(--bg); color: var(--muted); }
+        .error { color: var(--danger); font-size: 13px; min-height: 20px; margin: -4px 0 8px; }
 
 
-    /* ---------- 7. SHARED TEXT ---------- */
-    .heading-row { }
-    .eyebrow { }
-    .title { }
-    .subtitle { }
+        /* ==========================================================
+           3. SHARED PIECES
+           ========================================================== */
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+        }
+
+        /* Round profile picture (photo, avatar, or initials) */
+        .avatar {
+            width: 40px; height: 40px; flex: none;
+            border-radius: 50%; overflow: hidden;
+            display: grid; place-items: center;
+            font-weight: 700; font-size: 14px; color: #2a2f3a;
+        }
+        .avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .avatar.sm { width: 32px; height: 32px; font-size: 12px; }
+        .avatar.lg { width: 96px; height: 96px; font-size: 30px; }
+
+        .logo-row { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+        .logo-mark {
+            width: 28px; height: 28px; border-radius: 7px;
+            background: var(--blue); color: #fff;
+            display: grid; place-items: center;
+            font-weight: 800; font-size: 15px;
+        }
+        .logo-text { font-weight: 700; font-size: 18px; letter-spacing: -0.3px; }
+
+        .badge {
+            display: inline-block; font-size: 12px; font-weight: 600;
+            padding: 2px 8px; border-radius: 99px;
+            background: var(--blue-tint); color: var(--blue-dark);
+        }
+        .badge.ok { background: var(--ok-tint); color: var(--ok); }
+
+        .empty-state { padding: 36px 20px; text-align: center; color: var(--muted); }
+        .empty-state h3 { color: var(--text); }
+
+        .toast {
+            position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%);
+            background: var(--text); color: #fff;
+            padding: 10px 16px; border-radius: 8px; font-size: 14px;
+            opacity: 0; transition: opacity 0.2s; pointer-events: none; z-index: 70;
+        }
+        .toast.show { opacity: 1; }
 
 
-    /* ---------- 8. SHARED BUTTONS ---------- */
-    .btn { }
-    .primary { }
-    .darkbtn { }
-    .outline { }
+        /* ==========================================================
+           4. SIGN-IN PAGE
+           ========================================================== */
+        .auth { min-height: 100vh; display: grid; place-items: center; padding: 24px 16px; }
+        .auth-box { width: 100%; max-width: 400px; }
+        .auth-box > .logo-row { justify-content: center; margin-bottom: 20px; cursor: default; }
+        .auth-panel { padding: 28px; }
+        .auth-panel h1 { font-size: 21px; }
+        .auth-panel .muted { margin-bottom: 20px; }
+        .auth-panel .segmented { margin-bottom: 20px; }
+        .auth .fine { text-align: center; font-size: 12px; color: var(--faint); margin-top: 14px; }
+        .back { display: block; background: none; border: 0; padding: 0; margin-bottom: 14px; color: var(--muted); font: inherit; font-size: 13px; cursor: pointer; }
+        .setup-warning {
+            border: 1px solid #f0c36d; background: #fff8e6; color: #7a5200;
+            border-radius: 8px; padding: 10px 12px; font-size: 13px; margin-bottom: 16px;
+        }
+
+        .link-btn {
+            display: block; margin: 14px auto 0; border: 0; background: none; cursor: pointer;
+            font: inherit; font-size: 14px; font-weight: 600; color: var(--blue);
+        }
+
+        /* Student / Mentor switch (also Video / In person) */
+        .segmented { display: grid; grid-template-columns: 1fr 1fr; background: var(--bg); border-radius: 9px; padding: 3px; margin-bottom: 16px; }
+        .segmented button {
+            border: 0; background: transparent; border-radius: 7px; padding: 8px;
+            font: inherit; font-size: 14px; font-weight: 600; color: var(--muted); cursor: pointer;
+        }
+        .segmented button.on { background: var(--surface); color: var(--text); box-shadow: 0 1px 2px rgba(0,0,0,0.08); }
 
 
-    /* ---------- 9. SHARED TAGS / BOXES ---------- */
-    .tag { }
-    .tag.live { }
-    .box { }
-    .slot { }
+        /* ==========================================================
+           5. HEADER + TABS
+           ========================================================== */
+        .header { background: var(--surface); border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 10; }
+        .header-inner {
+            max-width: 1040px; margin: 0 auto; padding: 0 20px;
+            display: flex; align-items: center; gap: 24px; height: 60px;
+        }
+        .tabs { display: flex; gap: 4px; height: 100%; flex: 1; overflow-x: auto; }
+        .tabs button {
+            height: 100%; border: 0; background: none; padding: 0 12px;
+            font: inherit; font-size: 14px; font-weight: 600; color: var(--muted);
+            border-bottom: 2px solid transparent; cursor: pointer; white-space: nowrap;
+        }
+        .tabs button:hover { color: var(--text); }
+        .tabs button.on { color: var(--text); border-bottom-color: var(--blue); }
+
+        .me-spot { position: relative; }
+        .avatar-btn { border: 0; padding: 0; background: none; cursor: pointer; border-radius: 50%; }
+        .menu {
+            position: absolute; right: 0; top: 48px; width: 250px; z-index: 20;
+            background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(20, 24, 33, 0.12); padding: 6px;
+        }
+        .menu-head { display: flex; gap: 10px; align-items: center; padding: 10px; border-bottom: 1px solid var(--line); margin-bottom: 6px; }
+        .menu-head b { display: block; font-size: 14px; }
+        .menu-item {
+            display: block; width: 100%; text-align: left; border: 0; background: none;
+            padding: 9px 10px; border-radius: 8px; font: inherit; font-size: 14px; color: var(--text); cursor: pointer;
+        }
+        .menu-item:hover { background: var(--bg); }
+        .menu-item.danger { color: var(--danger); }
 
 
-    /* ---------- 10. DISCOVER SCREEN (Yujing) ---------- */
-    .discovery-layout { }
-    .mentor-card { }
-    .card-photo { }
-    .card-top { }
-    .card-info { }
-    .pills { }
-    .pill { }
-    .bio { }
-    .card-actions { }
-    .circlebtn { }
-    .pass { }
-    .like { }
-    .details { }
-    .moment { }
-    .matchline { }
-    .face { }
-    .line { }
-    .matchtext { }
-    .avail { }
-    .gridstats { }
-    .stat { }
+        /* ==========================================================
+           6. PAGE LAYOUT
+           ========================================================== */
+        .page { max-width: 1040px; margin: 0 auto; padding: 28px 20px 60px; }
+        .screen { display: none; }
+        .screen.on { display: block; }
+        .page-head { margin-bottom: 20px; }
+
+        .two-col { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 20px; align-items: start; }
+        .col-main { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+        .col-side { display: flex; flex-direction: column; gap: 16px; }
+        .side-card { padding: 18px; }
+        .side-card h3 { margin-bottom: 10px; }
 
 
-    /* ---------- 11. CHAT SCREEN (Yujing) ---------- */
-    .columns { }
-    .chatbox { }
-    .chathead { }
-    .chatmsgs { }
-    .daylabel { }
-    .msg { }
-    .msg.self { }
-    .bubble { }
-    .suggestion { }
-    .composer { }
-    .panel { }
-    .safety { }
-    .progress { }
+        /* ==========================================================
+           7. HOME: composer, feed, requests
+           ========================================================== */
+        .composer { padding: 16px; }
+        .composer-row { display: flex; gap: 12px; }
+        .composer textarea { border: 0; padding: 8px 0; box-shadow: none; min-height: 70px; }
+        .composer-foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; border-top: 1px solid var(--line); padding-top: 12px; margin-top: 6px; }
+
+        .feed-title { padding: 14px 18px; border-bottom: 1px solid var(--line); font-weight: 600; }
+        .post { padding: 18px; border-bottom: 1px solid var(--line); }
+        .post:last-child { border-bottom: 0; }
+        .post-head { display: flex; gap: 12px; align-items: center; margin-bottom: 10px; }
+        .post-head b { display: block; font-size: 15px; }
+        .post-text { white-space: pre-wrap; word-wrap: break-word; margin-bottom: 12px; }
+        .post-foot { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+
+        .person-row { display: flex; align-items: center; gap: 10px; padding: 8px 0; }
+        .person-row + .person-row { border-top: 1px solid var(--line); }
+        .person-row .grow { flex: 1; min-width: 0; }
+        .person-row b { display: block; font-size: 14px; }
+        .person-row .actions { display: flex; gap: 6px; }
 
 
-    /* ---------- 12. SCHEDULE SCREEN (Angelina) ---------- */
-    .schedule { }
-    .steps { }
-    .calendar-head { }
-    .days { }
-    .day { }
-    .day.selected { }
-    .times { }
-    .time { }
-    .time.selected { }
-    .sched-bottom { }
-    .sched-note { }
+        /* People page */
+        .people-bar { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-bottom: 12px; }
+        .people-bar input { flex: 1; min-width: 220px; }
+        .filter { display: flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: #fff; }
+        .filter button { border: 0; background: none; padding: 9px 14px; font: inherit; font-size: 14px; color: var(--muted); cursor: pointer; }
+        .filter button + button { border-left: 1px solid var(--line); }
+        .filter button.on { background: var(--blue-tint); color: var(--blue-dark); font-weight: 600; }
+        .people-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+        .person-card { padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+        .person-card .top { display: flex; gap: 12px; align-items: center; }
+        .person-card .grow { flex: 1; min-width: 0; }
+        .person-card b { display: block; }
+        .person-card .bio { flex: 1; margin: 0; }
+        .post-head .badge { margin-left: 6px; vertical-align: 1px; }
 
 
-    /* ---------- 13. ROOM SCREEN (Angelina) ---------- */
-    .room { }
-    .roomtop { }
-    .roomgrid { }
-    .videoarea { }
-    .tile { }
-    .tile.mentor { }
-    .tile .person { }
-    .tile .who { }
-    .tile .mic { }
-    .controls { }
-    .control { }
-    .control.end { }
-    .roomside { }
-    .task { }
-    .formula { }
-    .roomchat { }
+        /* ==========================================================
+           8. MESSAGES
+           ========================================================== */
+        .chat {
+            display: grid; grid-template-columns: 260px minmax(0, 1fr);
+            grid-template-rows: minmax(0, 1fr);            /* the chat can't grow taller than its box */
+            height: calc(100vh - 190px); min-height: 420px; max-height: 720px;
+            overflow: hidden;
+        }
+        .chat-list { border-right: 1px solid var(--line); overflow-y: auto; padding: 8px; }
+        .contact {
+            display: flex; gap: 10px; align-items: center; width: 100%; text-align: left;
+            border: 0; background: none; border-radius: 8px; padding: 10px;
+            font: inherit; color: var(--text); cursor: pointer;
+        }
+        .contact:hover { background: var(--bg); }
+        .contact.on { background: var(--blue-tint); }
+        .contact b { display: block; font-size: 14px; }
+        .contact .preview { display: block; font-size: 13px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .contact .grow { min-width: 0; }
+
+        .chat-main { display: flex; flex-direction: column; min-width: 0; min-height: 0; }
+        .chat-head { display: flex; gap: 10px; align-items: center; padding: 12px 18px; border-bottom: 1px solid var(--line); min-height: 64px; }
+        .chat-head b { display: block; }
+        .chat-body { flex: 1; min-height: 0; overflow-y: auto; padding: 18px; display: flex; flex-direction: column; gap: 6px; }   /* scrolls */
+        .msg { max-width: 72%; }
+        .msg .bubble { padding: 9px 13px; border-radius: 16px; background: #eff1f4; white-space: pre-wrap; word-wrap: break-word; }
+        .msg.mine { align-self: flex-end; }
+        .msg.mine .bubble { background: var(--blue); color: #fff; }
+        .msg .time { font-size: 11px; color: var(--faint); margin: 2px 6px 6px; }
+        .msg.mine .time { text-align: right; }
+        .msg.typing .bubble { color: var(--muted); font-style: italic; }
+
+        .chips { display: flex; gap: 8px; padding: 0 18px 10px; overflow-x: auto; }
+        .chips button {
+            flex: none; border: 1px solid var(--line); background: var(--surface); border-radius: 99px;
+            padding: 6px 12px; font: inherit; font-size: 13px; color: var(--text); cursor: pointer;
+        }
+        .chips button:hover { border-color: var(--blue); color: var(--blue-dark); }
+        .chat-compose { display: flex; gap: 8px; padding: 12px 18px 16px; border-top: 1px solid var(--line); }
 
 
-    /* ---------- 14. TAKEAWAY SCREEN (Angelina) ---------- */
-    .takeaway-layout { }
-    .takeaway { }
-    .saved { }
-    .prompt { }
-    .field { }
-    .pillset { }
-    .mentor-end { }
-    .success { }
+        /* ==========================================================
+           9. SESSIONS: calendar
+           ========================================================== */
+        .cal { padding: 20px; }
+        .cal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+        .icon-btn {
+            width: 34px; height: 34px; border-radius: 8px; border: 1px solid var(--line);
+            background: var(--surface); font-size: 18px; cursor: pointer; color: var(--text);
+        }
+        .icon-btn:hover { background: var(--bg); }
+        .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+        .cal-dow { text-align: center; font-size: 12px; font-weight: 600; color: var(--faint); padding-bottom: 6px; }
+        .day {
+            position: relative; aspect-ratio: 1 / 1; max-height: 52px;
+            border: 0; background: none; border-radius: 8px;
+            font: inherit; font-size: 14px; color: var(--text); cursor: pointer;
+        }
+        .day:hover:not(:disabled) { background: var(--bg); }
+        .day:disabled { color: #c4c8cf; cursor: default; }
+        .day.today { font-weight: 700; color: var(--blue); }
+        .day.picked { background: var(--blue); color: #fff; }
+        .day .dot { position: absolute; left: 50%; bottom: 6px; width: 5px; height: 5px; margin-left: -2.5px; border-radius: 50%; background: var(--blue); }
+        .day.picked .dot { background: #fff; }
+
+        .book { border-top: 1px solid var(--line); margin-top: 16px; padding-top: 16px; }
+        .times { display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 8px; margin: 10px 0 16px; }
+        .time-btn {
+            height: 36px; border: 1px solid var(--line); background: var(--surface); border-radius: 8px;
+            font: inherit; font-size: 13px; font-weight: 600; color: var(--text); cursor: pointer;
+        }
+        .time-btn:hover:not(:disabled) { border-color: var(--blue); }
+        .time-btn.picked { background: var(--blue); border-color: var(--blue); color: #fff; }
+        .time-btn:disabled { color: #c4c8cf; text-decoration: line-through; cursor: default; }
+
+        .meeting { padding: 12px 0; border-top: 1px solid var(--line); }
+        .meeting .when { font-weight: 600; font-size: 14px; }
+        .meeting .row { display: flex; gap: 6px; margin-top: 8px; align-items: center; }
 
 
-    /* ---------- 15. POPUPS (match modal + toast) ---------- */
-    .match-modal { }
-    .match-modal.show { }
-    .modal-card { }
-    .spark { }
-    .duo { }
-    .modal-actions { }
-    .toast { }
-    .toast.show { }
+        /* ==========================================================
+           10. ROOM: real camera + mic
+           ========================================================== */
+        .room-grid { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 20px; align-items: start; }
+        .tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .tile {
+            position: relative; aspect-ratio: 4 / 3; border-radius: 12px; overflow: hidden;
+            background: #1f232b; display: grid; place-items: center;
+        }
+        .tile video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); }
+        .tile-name {
+            position: absolute; left: 10px; bottom: 10px;
+            background: rgba(0,0,0,0.55); color: #fff; font-size: 12px; font-weight: 600;
+            padding: 3px 8px; border-radius: 6px;
+        }
+        .tile-status {
+            position: absolute; right: 10px; top: 10px;
+            background: rgba(0,0,0,0.55); color: #fff; font-size: 11px; padding: 3px 8px; border-radius: 6px;
+        }
+        .tile-wait { position: absolute; left: 0; right: 0; bottom: 40px; text-align: center; color: #b9bfca; font-size: 13px; padding: 0 12px; }
+
+        .meter-row { display: flex; align-items: center; gap: 10px; margin: 14px 0; }
+        .meter { flex: 1; height: 6px; background: var(--line); border-radius: 99px; overflow: hidden; }
+        .meter div { height: 100%; width: 0; background: var(--ok); transition: width 0.08s; }
+        .controls { display: flex; gap: 8px; flex-wrap: wrap; }
+        .room-note { margin-top: 12px; }
 
 
-    /* ---------- 16. TABLET (under 920px wide) ---------- */
-    @media (max-width: 920px) { }
+        /* ==========================================================
+           11. NOTES
+           ========================================================== */
+        .note-card { padding: 18px; margin-bottom: 14px; }
+        .note-card .goal { background: var(--blue-tint); border-radius: 8px; padding: 10px 12px; margin: 10px 0; font-weight: 600; }
+        .note-card .text { white-space: pre-wrap; color: var(--text); }
 
 
-    /* ---------- 17. PHONE (under 620px wide) ---------- */
-    @media (max-width: 620px) { }
-  </style>
+        /* ==========================================================
+           11b. PROFILE + SETTINGS
+           ========================================================== */
+        .file-row {
+            display: flex; align-items: center; gap: 12px;
+            border: 1px solid var(--line); border-radius: 10px; padding: 12px; margin: 12px 0;
+        }
+        .file-icon {
+            width: 40px; height: 48px; flex: none; border-radius: 6px;
+            background: #fdecec; color: var(--danger);
+            display: grid; place-items: center; font-size: 11px; font-weight: 800;
+        }
+        .file-row .grow { flex: 1; min-width: 0; }
+        .file-row b { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .bio { font-size: 13px; color: var(--muted); margin-top: 2px; }
+        .stack { display: flex; flex-direction: column; gap: 16px; }
+
+
+        /* Member ID */
+        .id-chip {
+            display: inline-flex; align-items: center; gap: 6px;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; font-size: 13px; font-weight: 600;
+            background: var(--bg); border: 1px solid var(--line); border-radius: 6px; padding: 2px 8px; color: var(--text);
+        }
+        .find-box { padding: 18px; margin-bottom: 20px; }
+        .find-row { display: flex; gap: 8px; margin: 10px 0 4px; }
+        .find-row input { max-width: 280px; text-transform: uppercase; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+        .find-result { margin-top: 14px; }
+        .find-result .person-card { max-width: 420px; }
+        .id-field { margin-bottom: 14px; }
+        .id-field > b { display: block; font-size: 13px; margin-bottom: 6px; }
+        .browse-title { font-size: 15px; margin: 4px 0 12px; }
+
+        /* Resume review */
+        .review { border-top: 1px solid var(--line); margin-top: 16px; padding-top: 16px; }
+        .score-row { display: flex; align-items: baseline; gap: 10px; margin-bottom: 8px; }
+        .score { font-size: 28px; font-weight: 700; letter-spacing: -0.5px; }
+        .score-bar { height: 6px; background: var(--line); border-radius: 99px; overflow: hidden; margin-bottom: 14px; }
+        .score-bar div { height: 100%; background: var(--blue); }
+        .review h4 { font-size: 13px; margin: 14px 0 6px; }
+        .review ul { margin: 0; padding-left: 18px; }
+        .review li { font-size: 14px; margin-bottom: 6px; }
+        .review li .quote { display: block; font-size: 12px; color: var(--muted); font-style: italic; }
+        .review .good li::marker { color: var(--ok); }
+        .review .fix li::marker { color: var(--danger); }
+
+
+        /* ==========================================================
+           12. ABOUT PAGE (what AYXchange does)
+           ========================================================== */
+        .landing { min-height: 100vh; background: var(--surface); }
+        .landing .header-inner { justify-content: space-between; }
+        .landing-actions { display: flex; gap: 8px; }
+        .landing-main { max-width: 1040px; margin: 0 auto; padding: 56px 20px 40px; }
+        .hero { max-width: 640px; margin-bottom: 56px; }
+        .hero h1 { font-size: 38px; line-height: 1.15; letter-spacing: -0.8px; margin-bottom: 14px; }
+        .hero p { font-size: 17px; color: var(--muted); margin-bottom: 24px; }
+        .hero .row { display: flex; gap: 10px; flex-wrap: wrap; }
+        .landing h2 { font-size: 20px; margin-bottom: 16px; }
+        .landing-section { margin-bottom: 52px; }
+        .feature-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+        .feature { padding: 18px; background: var(--bg); border-radius: 10px; }
+        .feature h3 { margin-bottom: 4px; }
+        .feature p { font-size: 14px; color: var(--muted); }
+        .steps { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px; }
+        .steps li { border-top: 2px solid var(--blue); padding-top: 12px; font-size: 14px; color: var(--muted); }
+        .steps b { display: block; color: var(--text); font-size: 15px; margin-bottom: 4px; }
+        .who { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+        .who .panel { padding: 20px; }
+        .who ul { margin: 8px 0 0; padding-left: 18px; color: var(--muted); font-size: 14px; }
+        .who li { margin-bottom: 4px; }
+        .landing-foot { border-top: 1px solid var(--line); padding: 20px; text-align: center; font-size: 13px; color: var(--faint); }
+
+
+        /* ==========================================================
+           13. SMALLER SCREENS
+           ========================================================== */
+        @media (max-width: 860px) {
+            .two-col, .room-grid { grid-template-columns: 1fr; }
+            .chat { grid-template-columns: 1fr; grid-template-rows: auto minmax(0, 1fr); height: auto; max-height: none; }
+            .chat-list { border-right: 0; border-bottom: 1px solid var(--line); display: flex; overflow-x: auto; }
+            .contact { width: auto; flex: none; }
+            .contact .preview { display: none; }
+            .chat-body { height: 380px; flex: none; }
+            .feature-grid, .steps { grid-template-columns: 1fr 1fr; }
+            .who { grid-template-columns: 1fr; }
+        }
+        @media (max-width: 560px) {
+            .header-inner { gap: 12px; padding: 0 12px; }
+            .logo-text { display: none; }
+            .page { padding: 20px 14px 48px; }
+            .tiles { grid-template-columns: 1fr; }
+            .hero h1 { font-size: 30px; }
+            .feature-grid, .steps { grid-template-columns: 1fr; }
+        }
+
+
+        /* ==========================================================
+           14. NEW PIECES: avatars, chips, reactions, pop-ups, demo
+           ========================================================== */
+        input[type="checkbox"] { width: auto; }
+        .avatar svg { width: 100%; height: 100%; display: block; }
+        .avatar.xl { width: 128px; height: 128px; font-size: 40px; }
+
+        /* Demo banner */
+        .demo-bar { background: #fff6d6; color: #7a5200; text-align: center; font-size: 13px; padding: 6px 12px; }
+        .demo-bar button { border: 0; background: none; color: #7a5200; font: inherit; font-weight: 700; text-decoration: underline; cursor: pointer; }
+
+        /* Tap-on/off chips (interests, skills, free times) */
+        .chip-list { display: flex; flex-wrap: wrap; gap: 6px; }
+        .chip {
+            border: 1px solid var(--line); background: var(--surface); border-radius: 99px;
+            padding: 5px 11px; font: inherit; font-size: 13px; color: var(--text); cursor: pointer;
+        }
+        .chip:hover { border-color: var(--blue); }
+        .chip.on { background: var(--blue-tint); border-color: var(--blue); color: var(--blue-dark); font-weight: 600; }
+        .chip.static { cursor: default; }
+        .chip.static:hover { border-color: var(--line); }
+        .chip.shared { background: var(--ok-tint); border-color: #a9dcc0; color: var(--ok); font-weight: 600; }
+        .tag-add { display: flex; gap: 6px; margin-top: 8px; }
+        .tag-add input { max-width: 220px; height: 32px; padding: 4px 10px; font-size: 13px; }
+        .field-label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+        .field-block { margin-bottom: 16px; }
+
+        /* Moments reactions */
+        .reactions { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+        .react {
+            border: 1px solid var(--line); background: var(--surface); border-radius: 99px;
+            padding: 2px 10px; font: inherit; font-size: 15px; cursor: pointer; line-height: 1.6;
+        }
+        .react:hover { border-color: var(--blue); }
+        .react.on { background: var(--blue-tint); border-color: var(--blue); }
+        .react span { font-size: 12px; color: var(--muted); margin-left: 3px; font-weight: 600; }
+        .counter { font-size: 12px; color: var(--faint); }
+        .counter.over { color: var(--danger); }
+
+        /* Avatar maker */
+        .av-maker { display: grid; grid-template-columns: 150px minmax(0, 1fr); gap: 18px; align-items: start; }
+        .av-preview { background: var(--bg); border-radius: 12px; padding: 14px 10px; text-align: center; }
+        .av-preview .avatar { margin: 0 auto 10px; }
+        .av-row { margin-bottom: 10px; }
+        .av-row .lab { font-size: 12px; font-weight: 600; color: var(--muted); margin-bottom: 5px; }
+        .av-opts { display: flex; flex-wrap: wrap; gap: 6px; }
+        .sw { width: 26px; height: 26px; border-radius: 50%; border: 1px solid rgba(0, 0, 0, 0.12); cursor: pointer; padding: 0; }
+        .sw.on { box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--blue); }
+        .av-wiggle { animation: wiggle 0.35s ease; }
+        @keyframes wiggle { 0% { transform: scale(1); } 40% { transform: scale(1.08) rotate(-3deg); } 100% { transform: scale(1); } }
+
+        /* Pop-up window */
+        .modal-back {
+            position: fixed; inset: 0; z-index: 60; padding: 16px;
+            background: rgba(20, 24, 33, 0.45); display: grid; place-items: center;
+        }
+        .modal {
+            background: var(--surface); border-radius: 14px; width: 100%; max-width: 440px;
+            padding: 24px; max-height: 90vh; overflow-y: auto;
+            box-shadow: 0 20px 50px rgba(20, 24, 33, 0.25);
+        }
+        .modal h2 { margin-bottom: 6px; font-size: 19px; }
+        .modal .muted { margin-bottom: 16px; }
+        .modal-actions { display: flex; gap: 8px; justify-content: flex-end; flex-wrap: wrap; margin-top: 8px; }
+
+        /* "It's a match!" */
+        .match { text-align: center; }
+        .match .pair { display: flex; justify-content: center; margin: 6px 0 14px; }
+        .match .pair .avatar { border: 4px solid var(--surface); }
+        .match .pair .avatar + .avatar { margin-left: -18px; }
+        .match .pair .avatar:first-child { animation: slideL 0.5s ease; }
+        .match .pair .avatar:last-child { animation: slideR 0.5s ease; }
+        .match h2 { font-size: 24px; animation: pop 0.5s ease; }
+        .match .modal-actions { justify-content: center; }
+        @keyframes slideL { from { transform: translateX(-40px); opacity: 0; } to { transform: none; opacity: 1; } }
+        @keyframes slideR { from { transform: translateX(40px); opacity: 0; } to { transform: none; opacity: 1; } }
+        @keyframes pop { 0% { transform: scale(0.6); opacity: 0; } 70% { transform: scale(1.08); } 100% { transform: scale(1); opacity: 1; } }
+
+        /* People filters */
+        .filters { display: flex; gap: 8px; flex-wrap: wrap; margin-bottom: 16px; }
+        .filters select { width: auto; min-width: 160px; padding: 7px 10px; font-size: 14px; }
+        .free { font-size: 12px; color: var(--muted); }
+        .badge.warn { background: #fff3d6; color: #8a5a00; }
+
+        /* Sessions */
+        .section-label { font-size: 12px; font-weight: 700; color: var(--faint); text-transform: uppercase; letter-spacing: 0.4px; margin: 16px 0 4px; }
+        .meeting .plan { font-size: 13px; color: var(--muted); white-space: pre-wrap; margin-top: 4px; }
+        .mode-row { margin: 4px 0 14px; }
+
+        /* Room plan checklist */
+        .plan-list label { display: flex; gap: 8px; align-items: flex-start; margin-bottom: 6px; font-size: 14px; }
+        .plan-list input { margin-top: 4px; }
+        .plan-list .done { text-decoration: line-through; color: var(--muted); }
+
+        /* Sign-in setup steps */
+        .step-dots { display: flex; gap: 6px; margin-bottom: 14px; }
+        .step-dots span { width: 28px; height: 4px; border-radius: 99px; background: var(--line); }
+        .step-dots span.on { background: var(--blue); }
+
+        @media (max-width: 560px) {
+            .av-maker { grid-template-columns: 1fr; }
+            .filters select { flex: 1; min-width: 0; }
+        }
+    </style>
 </head>
-<!-- =========================================================
-     BODY: everything you see
-     ========================================================= -->
 <body>
-<div class="app">
 
-  <!-- ===================== SIDEBAR (Yujing) ===================== -->
-  <aside class="sidebar">
-    <!-- Brand: logo + "AYXchange" -->
+    <div class="toast" id="toast"></div>
 
-    <!-- Profile mini-card: avatar, name, verified -->
-
-    <!-- Navigation: label "Workspace" + 5 buttons
-         (Discover, Messages, Sessions, Project room, My takeaways)
-         each button has data-screen="..." -->
-
-    <!-- Bottom: "Fictional demo" badge + tagline -->
-  </aside>
-
-
-  <main class="main">
-
-    <!-- ===================== TOP BAR (Yujing) ===================== -->
-    <div class="topbar">
-      <!-- Breadcrumb: "Workspace / [current screen]" -->
-
-      <!-- Right side: date chip, notifications button, avatar -->
+    <!-- Pop-up window (match, report, block, password). Filled in by openModal() -->
+    <div class="modal-back hidden" id="modalBack" onclick="if (event.target === this) closeModal()">
+        <div class="modal" id="modal" role="dialog" aria-modal="true"></div>
     </div>
 
 
-    <!-- ===================== YUJING: SCREENS 1-2 ===================== -->
+    <!-- ==============================================================
+         ABOUT PAGE: what AYXchange does (first thing visitors see)
+         ============================================================== -->
+    <div class="landing" id="landing">
+        <header class="header">
+            <div class="header-inner">
+                <div class="logo-row" onclick="window.scrollTo(0, 0)">
+                    <span class="logo-mark">A</span>
+                    <span class="logo-text">AYXchange</span>
+                </div>
+                <div class="landing-actions" id="landingActions"></div>
+            </div>
+        </header>
 
-    <!-- ========== SCREEN 1: DISCOVER ========== -->
-    <section class="screen active" id="discover">
-      <!-- 1a. Heading row: eyebrow, title, subtitle, Edit profile button -->
+        <main class="landing-main">
+            <section class="hero">
+                <h1>Find a mentor, a study partner, or someone to build with.</h1>
+                <p>AYXchange connects students with mentors and with each other. Make your own avatar, share moments, connect, chat, and book a time to meet.</p>
+                <div class="row" id="heroActions"></div>
+            </section>
 
-      <div class="discovery-layout">
-        <!-- LEFT COLUMN -->
-        <div>
-          <!-- 1b. Mentor card:
-                   - background photo
-                   - top tags: "Open to mentor", "% shared interests"
-                   - Pass (x) and Like (heart) buttons
-                   - info: name, role, interest pills, bio -->
+            <section class="landing-section">
+                <h2>What you can do</h2>
+                <div class="feature-grid">
+                    <div class="feature">
+                        <h3>Make your avatar</h3>
+                        <p>Build a cute avatar that's all you: hair, eyes, smile, a hard hat or grad cap, and more.</p>
+                    </div>
+                    <div class="feature">
+                        <h3>Share moments</h3>
+                        <p>Ask a question, look for teammates, or share a win. React with 💚 👏 💡 ✨.</p>
+                    </div>
+                    <div class="feature">
+                        <h3>Connect with anyone</h3>
+                        <p>Browse by interest, skill, and free time, or type someone's member ID. When they accept, it's a match!</p>
+                    </div>
+                    <div class="feature">
+                        <h3>Propose sessions</h3>
+                        <p>Pick a day and time, video or in person, with a short plan. They accept or decline.</p>
+                    </div>
+                    <div class="feature">
+                        <h3>Meet and take notes</h3>
+                        <p>Use the room with your camera and mic, check off your plan, and save shared notes.</p>
+                    </div>
+                    <div class="feature">
+                        <h3>Resume review + AI buddy</h3>
+                        <p>Get an instant resume score, and quick answers about internships, interviews, and studying.</p>
+                    </div>
+                </div>
+            </section>
 
-          <!-- 1c. 3 stats: shared interests, overlapping hours, verified -->
+            <section class="landing-section">
+                <h2>How it works</h2>
+                <ol class="steps">
+                    <li><b>1. Join</b>Create an account, pick student or mentor, and make your avatar.</li>
+                    <li><b>2. Connect</b>Find people who share your interests and free time, then send a request.</li>
+                    <li><b>3. Talk</b>When they accept, message each other and propose a session.</li>
+                    <li><b>4. Grow</b>Meet, save notes and goals, and share what you learned.</li>
+                </ol>
+            </section>
+
+            <section class="landing-section">
+                <h2>Who it's for</h2>
+                <div class="who">
+                    <div class="panel">
+                        <h3>Students</h3>
+                        <ul>
+                            <li>Get advice from people already working in your field</li>
+                            <li>Find classmates for projects, hackathons, and study groups</li>
+                            <li>Get your resume reviewed before you apply</li>
+                        </ul>
+                    </div>
+                    <div class="panel">
+                        <h3>Mentors</h3>
+                        <ul>
+                            <li>Share what you know with students who want to learn</li>
+                            <li>See a student's interests and resume before you meet</li>
+                            <li>Accept only the sessions that fit your week</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="landing-foot">AYXchange · Built at HackOHI/O 2026 for the Bridge Builder Challenge · Team A.Y.</footer>
+    </div>
+
+
+    <!-- ==============================================================
+         SIGN IN / CREATE ACCOUNT
+         ============================================================== -->
+    <div class="auth hidden" id="auth">
+        <div class="auth-box" id="authBox">
+            <button class="back" onclick="showLanding()">← What is AYXchange?</button>
+            <div class="logo-row">
+                <span class="logo-mark">A</span>
+                <span class="logo-text">AYXchange</span>
+            </div>
+
+            <div class="panel auth-panel">
+
+                <!-- Shows if the Supabase keys are missing -->
+                <div class="setup-warning hidden" id="setupWarning"></div>
+
+                <!-- ===== SIGN IN or CREATE ACCOUNT ===== -->
+                <div id="viewLogin">
+                    <div class="segmented">
+                        <button id="tabSignIn" class="on" onclick="setLoginTab('in')">Sign in</button>
+                        <button id="tabSignUp" onclick="setLoginTab('up')">Create account</button>
+                    </div>
+                    <form onsubmit="submitLogin(event)">
+                        <label class="field">
+                            <span>Email</span>
+                            <input id="emailInput" type="email" placeholder="you@example.com" autocomplete="email">
+                        </label>
+                        <label class="field">
+                            <span>Password</span>
+                            <input id="passwordInput" type="password" autocomplete="current-password" placeholder="At least 8 characters">
+                        </label>
+                        <p class="error" id="loginError"></p>
+                        <button class="btn btn-primary btn-block" id="loginBtn">Sign in</button>
+                    </form>
+                    <button class="link-btn" id="forgotLink" onclick="authMode('forgot')">Forgot password?</button>
+                </div>
+
+                <!-- ===== CONFIRM YOUR EMAIL ===== -->
+                <div id="viewCheck" class="hidden">
+                    <h1>Check your email</h1>
+                    <p class="muted">We sent a confirmation link to <b id="checkEmail"></b>. Open it, then come back and sign in.</p>
+                    <button class="btn btn-secondary btn-block" onclick="authMode('login')">Back to sign in</button>
+                </div>
+
+                <!-- ===== FORGOT PASSWORD ===== -->
+                <div id="viewForgot" class="hidden">
+                    <h1>Reset your password</h1>
+                    <p class="muted">We'll email you a link to choose a new password.</p>
+                    <form onsubmit="sendReset(event)">
+                        <label class="field">
+                            <span>Email</span>
+                            <input id="resetEmail" type="email" autocomplete="email">
+                        </label>
+                        <p class="error" id="resetError"></p>
+                        <button class="btn btn-primary btn-block" id="resetBtn">Send reset link</button>
+                    </form>
+                    <button class="link-btn" onclick="authMode('login')">Back to sign in</button>
+                </div>
+
+                <!-- ===== CHOOSE A NEW PASSWORD (after the reset link) ===== -->
+                <div id="viewNewPass" class="hidden">
+                    <h1>Choose a new password</h1>
+                    <form onsubmit="saveNewPassword(event)">
+                        <label class="field">
+                            <span>New password</span>
+                            <input id="newPassInput" type="password" autocomplete="new-password" placeholder="At least 8 characters">
+                        </label>
+                        <p class="error" id="newPassError"></p>
+                        <button class="btn btn-primary btn-block" id="newPassBtn">Save password</button>
+                    </form>
+                </div>
+
+                <!-- ===== FIRST TIME, STEP 1: ABOUT YOU ===== -->
+                <div id="viewSetup" class="hidden">
+                    <div class="step-dots"><span class="on"></span><span></span></div>
+                    <h1>Tell us about you</h1>
+                    <p class="muted">for <b id="setupEmail"></b></p>
+
+                    <div class="segmented">
+                        <button id="roleStudent" class="on" onclick="setRole('student')">Student</button>
+                        <button id="roleMentor" onclick="setRole('mentor')">Mentor</button>
+                    </div>
+
+                    <label class="field">
+                        <span>Full name</span>
+                        <input id="nameInput" placeholder="Your name" autocomplete="name" maxlength="80">
+                    </label>
+
+                    <!-- Students: major -->
+                    <div id="studentFields">
+                        <label class="field">
+                            <span>Major</span>
+                            <select id="majorSelect" onchange="checkOtherMajor()"></select>
+                        </label>
+                        <label class="field hidden" id="otherMajorField">
+                            <span>Your major</span>
+                            <input id="otherMajorInput" placeholder="Type your major" maxlength="100">
+                        </label>
+                    </div>
+
+                    <!-- Mentors: job -->
+                    <div id="mentorFields" class="hidden">
+                        <label class="field">
+                            <span>Job title</span>
+                            <input id="titleInput" placeholder="Software Engineer" maxlength="100">
+                        </label>
+                        <label class="field">
+                            <span>Company or organization</span>
+                            <input id="companyInput" placeholder="Your company or organization" maxlength="100">
+                        </label>
+                    </div>
+
+                    <div class="field-block">
+                        <span class="field-label">Topics you care about</span>
+                        <div id="setupInterests"></div>
+                    </div>
+                    <div class="field-block">
+                        <span class="field-label">You can help with</span>
+                        <div id="setupSkills"></div>
+                    </div>
+                    <div class="field-block">
+                        <span class="field-label">When you're free</span>
+                        <div id="setupFree"></div>
+                    </div>
+
+                    <p class="error" id="setupError"></p>
+                    <button class="btn btn-primary btn-block" onclick="setupNext()">Next: make your avatar →</button>
+                </div>
+
+                <!-- ===== FIRST TIME, STEP 2: MAKE YOUR AVATAR ===== -->
+                <div id="viewAvatar" class="hidden">
+                    <div class="step-dots"><span class="on"></span><span class="on"></span></div>
+                    <h1>Make your avatar</h1>
+                    <p class="muted">This is how people see you. You can change it any time.</p>
+                    <div id="setupAvatar"></div>
+                    <p class="error" id="avatarError"></p>
+                    <div style="display:flex; gap:8px">
+                        <button class="btn btn-secondary" onclick="authMode('setup')">← Back</button>
+                        <button class="btn btn-primary" style="flex:1" id="createBtn" onclick="createAccount(this)">Start using AYXchange</button>
+                    </div>
+                </div>
+
+            </div>
+            <p class="fine">Accounts are stored securely with Supabase.</p>
+        </div>
+    </div>
+
+
+    <!-- ==============================================================
+         THE APP (shows after sign in)
+         ============================================================== -->
+    <div id="app" class="hidden">
+
+        <div class="demo-bar hidden" id="demoBar">
+            Demo mode · sample people · nothing is saved ·
+            <button onclick="exitDemo()">Exit demo</button>
         </div>
 
-        <!-- RIGHT COLUMN -->
-        <div class="details">
-          <!-- 1d. Mentor Moment box (the tip) -->
+        <!-- HEADER -->
+        <header class="header">
+            <div class="header-inner">
+                <div class="logo-row" onclick="go('home')">
+                    <span class="logo-mark">A</span>
+                    <span class="logo-text">AYXchange</span>
+                </div>
 
-          <!-- 1e. "Why this connection?" box (match line + reason) -->
+                <nav class="tabs">
+                    <button data-screen="home" class="on">Home</button>
+                    <button data-screen="people">People</button>
+                    <button data-screen="messages">Messages</button>
+                    <button data-screen="sessions">Sessions</button>
+                    <button data-screen="room">Room</button>
+                    <button data-screen="notes">Notes</button>
+                </nav>
 
-          <!-- 1f. Mentor availability box (time slots) -->
-        </div>
-      </div>
-    </section>
-
-
-    <!-- ========== SCREEN 2: CHAT ========== -->
-    <section class="screen" id="chat">
-      <!-- 2a. Heading row: eyebrow, title, subtitle, "Mutual match" tag -->
-
-      <div class="columns">
-        <!-- LEFT: chat box -->
-        <div class="chatbox">
-          <!-- 2b. Chat header: mentor avatar, name, role, Plan a session button -->
-
-          <!-- 2c. Messages (id="messages"):
-                   - day label
-                   - Warm Start suggestion
-                   - 3 starter messages -->
-
-          <!-- 2d. Composer: message input + Send button -->
-        </div>
-
-        <!-- RIGHT: side panel -->
-        <aside class="panel">
-          <!-- 2e. Warm Start: progress bar + 3 steps (Ask, Try, Make it yours)
-                   + "Choose a time" button -->
-        </aside>
-      </div>
-    </section>
+                <div class="me-spot">
+                    <button class="avatar-btn" id="headerAvatar" onclick="toggleMenu()" aria-label="Your account"></button>
+                    <div class="menu hidden" id="menu">
+                        <div class="menu-head">
+                            <div id="menuAvatar"></div>
+                            <div><b id="menuName"></b><span class="small muted" id="menuInfo"></span></div>
+                        </div>
+                        <button class="menu-item" onclick="go('profile')">Profile &amp; settings</button>
+                        <button class="menu-item" onclick="showLanding()">About AYXchange</button>
+                        <button class="menu-item danger" onclick="signOut()">Sign out</button>
+                    </div>
+                </div>
+            </div>
+        </header>
 
 
-    <!-- ===================== ANGELINA: SCREENS 3-5 ===================== -->
+        <main class="page">
 
-    <!-- ========== SCREEN 3: SCHEDULE ========== -->
-    <section class="screen" id="schedule">
-      <!-- 3a. Heading row: eyebrow, title, subtitle -->
+            <!-- ==========================================================
+                 HOME: moments feed, requests, connections
+                 ========================================================== -->
+            <section class="screen on" id="home">
+                <div class="page-head">
+                    <h1 id="homeTitle"></h1>
+                    <p class="muted" id="homeSub"></p>
+                </div>
 
-      <div class="schedule">
-        <!-- 3b. Steps: 01 Match - 02 Plan - 03 Meet -->
+                <div class="two-col">
+                    <div class="col-main">
+                        <!-- Share a moment -->
+                        <div class="panel composer">
+                            <div class="composer-row">
+                                <div id="composerAvatar"></div>
+                                <textarea id="postInput" rows="3" maxlength="500" oninput="updateCounter()"
+                                          placeholder="Ask a question, share a win, or look for teammates…"></textarea>
+                            </div>
+                            <div class="composer-foot">
+                                <span class="counter" id="postCounter">0/500 · Everyone on AYXchange can see this.</span>
+                                <button class="btn btn-primary" onclick="createMoment(this)">Share</button>
+                            </div>
+                        </div>
 
-        <!-- 3c. Calendar header: month + arrows -->
+                        <!-- Moments -->
+                        <div class="panel" id="feed"></div>
+                    </div>
 
-        <!-- 3d. 7 day boxes (Friday selected) -->
-
-        <!-- 3e. Selected day label + 3 time buttons -->
-
-        <!-- 3f. Bottom: session note + Confirm session button -->
-      </div>
-    </section>
-
-
-    <!-- ========== SCREEN 4: PROJECT ROOM ========== -->
-    <section class="screen" id="room">
-      <!-- 4a. Heading row: eyebrow, title, subtitle, "Session in progress" tag -->
-
-      <div class="room">
-        <!-- 4b. Room top bar: session name, time, "Private room" tag -->
-
-        <div class="roomgrid">
-          <!-- LEFT: video area -->
-          <div class="videoarea">
-            <!-- 4c. Student video tile (mic, avatar, name) -->
-
-            <!-- 4d. Mentor video tile (mic, avatar, name) -->
-
-            <!-- 4e. Controls: Mute, Camera, React, Share, End session -->
-          </div>
-
-          <!-- RIGHT: side panel -->
-          <div class="roomside">
-            <!-- 4f. Mini activity: C-rate question + formula -->
-
-            <!-- 4g. Answer box + Check button -->
-
-            <!-- 4h. Session chat -->
-          </div>
-        </div>
-      </div>
-    </section>
+                    <aside class="col-side">
+                        <div class="panel side-card" id="requestsCard"></div>
+                        <div class="panel side-card" id="connectionsCard"></div>
+                        <div class="panel side-card">
+                            <h3>AI study buddy</h3>
+                            <p class="small muted" style="margin-bottom: 12px">Quick help with resumes, interviews, internships, studying, and more.</p>
+                            <button class="btn btn-secondary btn-sm" onclick="openChat('ai')">Open chat</button>
+                        </div>
+                    </aside>
+                </div>
+            </section>
 
 
-    <!-- ========== SCREEN 5: TAKEAWAY ========== -->
-    <section class="screen" id="takeaway">
-      <!-- 5a. Heading row: eyebrow, title, subtitle -->
+            <!-- ==========================================================
+                 PEOPLE (find students and mentors)
+                 ========================================================== -->
+            <section class="screen" id="people">
+                <div class="page-head">
+                    <h1>People</h1>
+                    <p class="muted">Find students and mentors who share your interests, then connect.</p>
+                </div>
 
-      <div class="takeaway-layout">
-        <!-- LEFT card -->
-        <div class="takeaway">
-          <!-- 5b. "What we learned" saved box -->
+                <!-- Find someone by their member ID -->
+                <div class="panel find-box">
+                    <h3>Find someone by member ID</h3>
+                    <p class="small muted">Ask them for their ID. Yours is <span class="id-chip" id="myIdPeople"></span>
+                        <button class="btn btn-ghost btn-sm" onclick="copyMyId()">Copy</button></p>
+                    <form class="find-row" onsubmit="findById(event)">
+                        <input id="findIdInput" placeholder="AYX-000000" autocomplete="off">
+                        <button class="btn btn-primary">Find</button>
+                    </form>
+                    <div class="find-result" id="findResult"></div>
+                </div>
 
-          <!-- 5c. Note for future you (textarea) -->
+                <h2 class="browse-title">Browse everyone</h2>
+                <div class="people-bar">
+                    <input id="peopleSearch" type="search" placeholder="Search by name, ID, major, company, or interest" oninput="renderPeople()">
+                    <div class="filter" id="peopleFilter">
+                        <button data-f="all" class="on" onclick="setPeopleFilter('all')">Everyone</button>
+                        <button data-f="student" onclick="setPeopleFilter('student')">Students</button>
+                        <button data-f="mentor" onclick="setPeopleFilter('mentor')">Mentors</button>
+                    </div>
+                </div>
+                <div class="filters">
+                    <select id="interestFilter" onchange="renderPeople()" aria-label="Filter by topic"></select>
+                    <select id="skillFilter" onchange="renderPeople()" aria-label="Filter by skill"></select>
+                    <select id="freeFilter" onchange="renderPeople()" aria-label="Filter by free time"></select>
+                    <button class="btn btn-ghost btn-sm" onclick="clearPeopleFilters()">Clear filters</button>
+                </div>
 
-          <!-- 5d. Your next step (input) -->
-
-          <!-- 5e. Success message (hidden) + Save takeaway button -->
-        </div>
-
-        <!-- RIGHT card -->
-        <div class="takeaway">
-          <!-- 5f. Mentor mini-card -->
-
-          <!-- 5g. Summary text + "Notes saved / Room shared" pills -->
-
-          <!-- 5h. Meet again button + Back to discovery button -->
-        </div>
-      </div>
-    </section>
-
-  </main>
-</div>
-
-
-<!-- ===================== POPUPS ===================== -->
-
-<!-- Match popup (Yujing) -->
-<div class="match-modal" id="matchModal">
-  <div class="modal-card">
-    <!-- spark, eyebrow, "It's a match!", both avatars, reason text,
-         buttons: Keep exploring + Say hello -->
-  </div>
-</div>
-
-<!-- Toast message (shared) -->
-<div class="toast" id="toast"></div>
-Part 3: Script
-The script holds what happens when you click things. Paste this last, at the end of the file.
-<!-- =========================================================
-     SCRIPT: what happens when you click things
-     ========================================================= -->
-<script>
-  // ---------- SHARED ----------
-  // names: screen id -> name shown in the breadcrumb
-  // go(id): show one screen, highlight its nav button, update breadcrumb
-  // connect each nav button to go()
-  // toast(msg): show a quick message at the bottom
+                <div class="people-grid" id="peopleGrid"></div>
+            </section>
 
 
-  // ---------- SCREEN 1: DISCOVER (Yujing) ----------
-  // likeMentor(): open the match popup
-  // closeMatch(): close the match popup
+            <!-- ==========================================================
+                 MESSAGES
+                 ========================================================== -->
+            <section class="screen" id="messages">
+                <div class="page-head">
+                    <h1>Messages</h1>
+                    <p class="muted">You can message someone once you're connected. The AI study buddy is always here.</p>
+                </div>
+
+                <div class="panel chat">
+                    <div class="chat-list" id="chatList"></div>
+                    <div class="chat-main">
+                        <div class="chat-head" id="chatHead"></div>
+                        <div class="chat-body" id="chatBody"></div>
+                        <div class="chips" id="chips"></div>
+                        <form class="chat-compose" id="chatForm" onsubmit="sendMessage(event)">
+                            <input id="chatInput" placeholder="Write a message" autocomplete="off" maxlength="2000">
+                            <button class="btn btn-primary">Send</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
 
 
-  // ---------- SCREEN 2: CHAT (Yujing) ----------
-  // sendMessage(): add your typed message as a bubble
+            <!-- ==========================================================
+                 SESSIONS (calendar + proposals)
+                 ========================================================== -->
+            <section class="screen" id="sessions">
+                <div class="page-head">
+                    <h1>Sessions</h1>
+                    <p class="muted">Propose a time to someone you're connected with. They accept or decline.</p>
+                </div>
+
+                <div class="two-col">
+                    <div class="panel cal">
+                        <div class="cal-head">
+                            <button class="icon-btn" onclick="moveMonth(-1)" aria-label="Previous month">‹</button>
+                            <h2 id="calTitle"></h2>
+                            <button class="icon-btn" onclick="moveMonth(1)" aria-label="Next month">›</button>
+                        </div>
+                        <div class="cal-grid" id="calGrid"></div>
+                        <div class="book" id="bookArea"></div>
+                    </div>
+
+                    <aside class="panel side-card" id="upcoming"></aside>
+                </div>
+            </section>
 
 
-  // ---------- SCREEN 3: SCHEDULE (Angelina) ----------
-  // chosen: the picked time
-  // selectTime(el): highlight a time button
-  // bookSession(): confirm, show toast, go to the room
+            <!-- ==========================================================
+                 ROOM (real camera + mic)
+                 ========================================================== -->
+            <section class="screen" id="room">
+                <div class="page-head">
+                    <h1>Room</h1>
+                    <p class="muted" id="roomSub"></p>
+                </div>
+
+                <!-- Shown when no session is open -->
+                <div class="panel" id="roomEmpty"></div>
+
+                <!-- Shown during a session -->
+                <div class="room-grid hidden" id="roomLive">
+                    <div>
+                        <div class="tiles">
+                            <div class="tile">
+                                <video id="myVideo" autoplay playsinline muted class="hidden"></video>
+                                <div id="myTileAvatar"></div>
+                                <span class="tile-status" id="myStatus">Mic off</span>
+                                <span class="tile-name">You</span>
+                            </div>
+                            <div class="tile">
+                                <div id="otherTileAvatar"></div>
+                                <span class="tile-wait" id="otherWait"></span>
+                                <span class="tile-name" id="otherName"></span>
+                            </div>
+                        </div>
+
+                        <div class="meter-row">
+                            <span class="small muted">Mic</span>
+                            <div class="meter"><div id="micLevel"></div></div>
+                        </div>
+
+                        <div class="controls">
+                            <button class="btn btn-secondary" id="camBtn" onclick="toggleCamera()">Turn on camera</button>
+                            <button class="btn btn-secondary" id="micBtn" onclick="toggleMic()">Turn on mic</button>
+                            <button class="btn btn-danger" onclick="leaveRoom()">Leave and save</button>
+                        </div>
+                        <p class="small muted room-note">Your camera and mic really turn on. Seeing the other person needs a video server, which this demo doesn't have yet.</p>
+
+                        <div class="panel side-card" style="margin-top:16px" id="planCard"></div>
+                    </div>
+
+                    <div class="panel side-card">
+                        <h3>Shared notes</h3>
+                        <p class="small muted" style="margin-bottom: 12px">Both of you can see these.</p>
+                        <label class="field">
+                            <span>Goal</span>
+                            <input id="goalInput" maxlength="200" placeholder="Apply to 3 internships by Friday">
+                        </label>
+                        <label class="field">
+                            <span>Notes</span>
+                            <textarea id="notesInput" rows="8" maxlength="5000" placeholder="What did you talk about? What's next?"></textarea>
+                        </label>
+                        <button class="btn btn-primary" onclick="saveRoomNotes(true)">Save notes</button>
+                    </div>
+                </div>
+            </section>
 
 
-  // ---------- SCREEN 4: ROOM (Angelina) ----------
-  // (buttons use toast() and go('takeaway') directly)
+            <!-- ==========================================================
+                 NOTES
+                 ========================================================== -->
+            <section class="screen" id="notes">
+                <div class="page-head">
+                    <h1>Notes</h1>
+                    <p class="muted">Goals and notes from your sessions.</p>
+                </div>
+                <div id="notesList"></div>
+            </section>
 
 
-  // ---------- SCREEN 5: TAKEAWAY (Angelina) ----------
-  // saveTakeaway(): show the success message + toast
-</script>
+            <!-- ==========================================================
+                 PROFILE & SETTINGS
+                 ========================================================== -->
+            <section class="screen" id="profile">
+                <div class="page-head">
+                    <h1>Profile &amp; settings</h1>
+                    <p class="muted">Other people see this on your moments and on the People page.</p>
+                </div>
+
+                <div class="two-col">
+                    <div class="stack">
+
+                        <!-- Avatar -->
+                        <div class="panel side-card">
+                            <h3>Your avatar</h3>
+                            <div id="profAvatarMaker"></div>
+                            <div style="display:flex; gap:8px; flex-wrap:wrap; margin-top:6px">
+                                <button class="btn btn-primary" onclick="saveAvatar(this)">Save avatar</button>
+                                <label class="btn btn-secondary">Use a photo instead
+                                    <input type="file" accept="image/*" onchange="uploadPhoto(this)" hidden>
+                                </label>
+                                <button class="btn btn-ghost hidden" id="removePhotoBtn" onclick="removePhoto()">Remove photo</button>
+                            </div>
+                            <p class="small muted" id="photoNote" style="margin-top:8px"></p>
+                        </div>
+
+                        <!-- Your info -->
+                        <div class="panel side-card">
+                            <h3>Your info</h3>
+
+                            <label class="field">
+                                <span>Full name</span>
+                                <input id="profName" autocomplete="name" maxlength="80">
+                            </label>
+
+                            <!-- Students -->
+                            <div id="profStudentFields">
+                                <label class="field">
+                                    <span>Major</span>
+                                    <select id="profMajor" onchange="$('profOtherField').classList.toggle('hidden', this.value !== 'Other (type it in)')"></select>
+                                </label>
+                                <label class="field hidden" id="profOtherField">
+                                    <span>Your major</span>
+                                    <input id="profOther" placeholder="Type your major" maxlength="100">
+                                </label>
+                            </div>
+
+                            <!-- Mentors -->
+                            <div id="profMentorFields">
+                                <label class="field">
+                                    <span>Job title</span>
+                                    <input id="profTitle" maxlength="100">
+                                </label>
+                                <label class="field">
+                                    <span>Company or organization</span>
+                                    <input id="profCompany" maxlength="100">
+                                </label>
+                            </div>
+
+                            <label class="field">
+                                <span>About you</span>
+                                <textarea id="profBio" rows="4" maxlength="500"></textarea>
+                            </label>
+
+                            <div class="field-block">
+                                <span class="field-label">Topics you care about</span>
+                                <div id="profInterests"></div>
+                            </div>
+                            <div class="field-block">
+                                <span class="field-label">You can help with</span>
+                                <div id="profSkills"></div>
+                            </div>
+                            <div class="field-block">
+                                <span class="field-label">When you're free</span>
+                                <div id="profFree"></div>
+                            </div>
+
+                            <p class="error" id="profError"></p>
+                            <button class="btn btn-primary" onclick="saveProfile(this)">Save changes</button>
+                        </div>
+
+                        <!-- Resume + review -->
+                        <div class="panel side-card">
+                            <h3>Resume</h3>
+                            <p class="small muted">Upload a PDF (up to 5 MB) and get an instant review. Only people you're connected with can open your resume.</p>
+                            <div id="resumeStatus"></div>
+                            <div style="display:flex; gap:8px; flex-wrap:wrap">
+                                <label class="btn btn-primary" id="resumeBtn">
+                                    <span id="resumeBtnText">Upload resume</span>
+                                    <input type="file" accept="application/pdf" onchange="uploadResume(this)" hidden>
+                                </label>
+                                <button class="btn btn-secondary hidden" id="reviewBtn" onclick="reviewMyResume(this)">Review my resume</button>
+                            </div>
+                            <div id="resumeReview"></div>
+                        </div>
+                    </div>
+
+                    <!-- Account -->
+                    <aside class="stack">
+                        <div class="panel side-card">
+                            <h3>Account</h3>
+                            <div class="id-field">
+                                <b>Member ID</b>
+                                <span class="id-chip" id="profId" style="font-size:15px; padding:6px 10px"></span>
+                                <button class="btn btn-ghost btn-sm" onclick="copyMyId()">Copy</button>
+                                <p class="small muted" style="margin-top:6px">Share this so people can find you on the People page.</p>
+                            </div>
+                            <label class="field">
+                                <span>Email</span>
+                                <input id="profEmail" disabled>
+                            </label>
+                            <p class="small" id="verifiedNote" style="margin-bottom:12px"></p>
+                            <button class="btn btn-secondary btn-sm" onclick="openPasswordModal()">Change password</button>
+                        </div>
+                        <div class="panel side-card" id="blockedCard"></div>
+                        <div class="panel side-card">
+                            <button class="btn btn-danger btn-block" onclick="signOut()">Sign out</button>
+                        </div>
+                    </aside>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <!-- Supabase library (talks to your online database) -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4"></script>
+
+    <!-- PDF reader (lets the resume review read your PDF) -->
+    <script src="https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.min.js"></script>
+    <script>
+        /* ==============================================================
+           SUPABASE SETTINGS
+           Paste your Project URL and Publishable key here.
+           (Project Settings → API Keys). Never paste the secret key.
+           Run schema.sql in the Supabase SQL Editor first.
+           ============================================================== */
+        const SUPABASE_URL = 'https://krfhcqnmumwrffreitmh.supabase.co';
+        const SUPABASE_KEY = 'sb_publishable_doE5yUPu6oQKr2KFQeP2Eg_MDhoJOKB';
+
+        const configured = SUPABASE_URL.startsWith('https://') && !SUPABASE_KEY.startsWith('PASTE');
+        const sb = configured && window.supabase ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
+
+        // Demo mode: sample people, nothing saved. Open the page with ?demo at the end,
+        // or tap "Try the demo" on the About page.
+        let DEMO = false;
+
+
+        /* ==============================================================
+           LISTS (majors, suggestions, free times, reactions)
+           ============================================================== */
+        const MAJORS = {
+            'Engineering & Architecture': ['Aerospace Engineering', 'Architecture', 'Biomedical Engineering', 'Chemical Engineering', 'City and Regional Planning', 'Civil Engineering', 'Computer Science and Engineering', 'Electrical and Computer Engineering', 'Engineering Physics', 'Environmental Engineering', 'Food, Agricultural and Biological Engineering', 'Industrial and Systems Engineering', 'Landscape Architecture', 'Materials Science and Engineering', 'Mechanical Engineering', 'Welding Engineering'],
+            'Business': ['Accounting', 'Business Administration', 'Economics', 'Finance', 'Hospitality Management', 'Human Resources', 'Information Systems', 'Logistics Management', 'Marketing', 'Operations Management', 'Real Estate'],
+            'Science & Math': ['Actuarial Science', 'Astronomy and Astrophysics', 'Biochemistry', 'Biology', 'Chemistry', 'Data Analytics', 'Earth Sciences', 'Evolution and Ecology', 'Mathematics', 'Microbiology', 'Molecular Genetics', 'Neuroscience', 'Physics', 'Statistics', 'Zoology'],
+            'Health': ['Athletic Training', 'Dental Hygiene', 'Exercise Science', 'Health Sciences', 'Medical Laboratory Science', 'Nursing', 'Nutrition', 'Pharmaceutical Sciences', 'Public Health', 'Radiologic Sciences', 'Respiratory Therapy', 'Speech and Hearing Science'],
+            'Social Sciences': ['Anthropology', 'Communication', 'Criminology', 'Geography', 'International Studies', 'Journalism', 'Political Science', 'Psychology', 'Social Work', 'Sociology'],
+            'Arts & Humanities': ['Art', 'Art History', 'Chinese', 'Classics', 'Dance', 'Design', 'English', 'Film Studies', 'French', 'German', 'History', 'Japanese', 'Korean', 'Linguistics', 'Music', 'Philosophy', 'Religious Studies', 'Spanish', 'Theatre', 'World Literatures'],
+            'Education & Human Sciences': ['Early Childhood Education', 'Fashion and Retail Studies', 'Human Development and Family Science', 'Middle Childhood Education', 'Special Education', 'Sport Industry'],
+            'Food, Agriculture & Environment': ['Agribusiness', 'Animal Sciences', 'Construction Systems Management', 'Environmental Science', 'Forestry', 'Natural Resource Management', 'Plant Health'],
+            'Other': ['Aviation', 'Undecided / Exploring', 'Other (type it in)']
+        };
+
+        const INTEREST_IDEAS = ['EV batteries', 'Embedded systems', 'Circuits', 'Robotics', 'Machine learning', 'Web development',
+            'Data science', 'UX design', 'Research', 'Internships', 'Hackathons', 'Startups'];
+        const SKILL_IDEAS = ['Python', 'C/C++', 'JavaScript', 'MATLAB', 'Arduino', 'Soldering', 'CAD', 'Figma',
+            'Excel', 'Public speaking', 'Resume review', 'Interview prep'];
+        const FREE_TIMES = ['Weekday mornings', 'Weekday afternoons', 'Weekday evenings',
+            'Weekend mornings', 'Weekend afternoons', 'Weekend evenings'];
+        const REACTIONS = ['💚', '👏', '💡', '✨'];
+
+
+        /* ==============================================================
+           SMALL HELPERS
+           ============================================================== */
+        const $ = id => document.getElementById(id);
+
+        // Make user-typed text safe to put inside HTML
+        function esc(text) {
+            return String(text ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+        }
+        // Safe text inside onclick="...('here')"
+        function js(text) { return esc(String(text).replace(/\\/g, '\\\\').replace(/'/g, "\\'")); }
+
+        function toast(text) {
+            const t = $('toast');
+            t.textContent = text;
+            t.classList.add('show');
+            clearTimeout(window.toastTimer);
+            window.toastTimer = setTimeout(() => t.classList.remove('show'), 2600);
+        }
+
+        function timeAgo(ts) {
+            const s = Math.floor((Date.now() - ts) / 1000);
+            if (s < 60) return 'just now';
+            if (s < 3600) return Math.floor(s / 60) + 'm ago';
+            if (s < 86400) return Math.floor(s / 3600) + 'h ago';
+            return new Date(ts).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        }
+        function clock(ts) {
+            return new Date(ts).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+        }
+        function niceDate(dateStr) {
+            const [y, m, d] = dateStr.split('-').map(Number);
+            return new Date(y, m - 1, d).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+        }
+        function niceWhen(iso) {
+            const d = new Date(iso);
+            return d.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' }) + ' · ' + clock(d);
+        }
+        function dateKey(d) {
+            return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+        }
+
+        // Disable a button while waiting, so people don't double-click
+        async function busy(button, label, work) {
+            const old = button.textContent;
+            button.disabled = true;
+            button.textContent = label;
+            try { await work(); } finally { button.disabled = false; button.textContent = old; }
+        }
+
+        // Turn Supabase error messages into plain English
+        function friendly(error) {
+            const msg = (error && error.message) || String(error);
+            if (/invalid login credentials/i.test(msg)) return 'Wrong email or password.';
+            if (/email not confirmed/i.test(msg)) return 'Confirm your email first. Check your inbox for the link.';
+            if (/already registered|already been registered/i.test(msg)) return 'This email already has an account. Sign in instead.';
+            if (/password should be|password is too short/i.test(msg)) return 'Use a password with at least 8 characters.';
+            if (/rate limit|too many/i.test(msg)) return 'Too many tries. Wait a minute and try again.';
+            if (/connections_pair_idx|duplicate key/i.test(msg)) return 'You already have a request with this person.';
+            if (/row-level security|violates/i.test(msg)) return 'That isn\'t allowed. You may need to be connected first.';
+            if (/failed to fetch|network/i.test(msg)) return 'Can\'t reach the server. Check your internet connection.';
+            if (/relation .* does not exist|could not find the table/i.test(msg)) return 'The database isn\'t set up yet. Run schema.sql in Supabase.';
+            return msg;
+        }
+
+        // Pop-up window
+        function openModal(html) {
+            $('modal').innerHTML = html;
+            $('modalBack').classList.remove('hidden');
+            const first = $('modal').querySelector('input, textarea, select');
+            if (first) setTimeout(() => first.focus(), 50);
+        }
+        function closeModal() { $('modalBack').classList.add('hidden'); $('modal').innerHTML = ''; }
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+
+        /* ==============================================================
+           AVATARS
+           Everyone builds a cute avatar. It's saved as a few small
+           choices, like { hair: 'buns', eyes: 'sparkle', ... }.
+           Picture order: uploaded photo → built avatar → initials.
+           ============================================================== */
+        const AV = {
+            skin:      ['#FFE0C7', '#F6C9A5', '#E2A47C', '#C27F55', '#8D5A3B', '#5E3B26'],
+            hairColor: ['#2B2220', '#6B4226', '#C98A4B', '#F2D27A', '#E58FB0', '#7FA7E8'],
+            bg:        ['#DBE6FF', '#FFE1D6', '#DFF3E4', '#F0E1FF', '#FFF0C2', '#D8F1F5'],
+            hair:      ['short', 'bob', 'buns', 'curly', 'long', 'none'],
+            eyes:      ['dots', 'happy', 'sparkle', 'sleepy'],
+            mouth:     ['smile', 'cat', 'open', 'tiny'],
+            extra:     ['none', 'glasses', 'bow', 'hard hat', 'grad cap', 'headphones']
+        };
+        const AV_LABELS = { skin: 'Skin', hair: 'Hair', hairColor: 'Hair color', eyes: 'Eyes', mouth: 'Mouth', extra: 'Extra', bg: 'Background' };
+
+        const pick = list => list[Math.floor(Math.random() * list.length)];
+        const pickIndex = list => Math.floor(Math.random() * list.length);
+
+        function randomAvatar() {
+            return {
+                skin: pickIndex(AV.skin), hairColor: pickIndex(AV.hairColor), bg: pickIndex(AV.bg),
+                hair: pick(AV.hair.slice(0, 5)), eyes: pick(AV.eyes), mouth: pick(AV.mouth),
+                extra: Math.random() < 0.5 ? 'none' : pick(AV.extra), blush: Math.random() > 0.25
+            };
+        }
+
+        // Fix anything missing or strange in a saved avatar
+        function cleanAvatar(a) {
+            a = a || {};
+            const num = (v, list) => Number.isInteger(v) && v >= 0 && v < list.length ? v : 0;
+            const one = (v, list) => list.includes(v) ? v : list[0];
+            return {
+                skin: num(a.skin, AV.skin), hairColor: num(a.hairColor, AV.hairColor), bg: num(a.bg, AV.bg),
+                hair: one(a.hair, AV.hair), eyes: one(a.eyes, AV.eyes), mouth: one(a.mouth, AV.mouth),
+                extra: one(a.extra, AV.extra), blush: a.blush !== false
+            };
+        }
+
+        let avCount = 0;
+        function avatarSvg(input) {
+            const a = cleanAvatar(input);
+            const hc = AV.hairColor[a.hairColor], sk = AV.skin[a.skin], id = 'avc' + (++avCount);
+            const dark = '#2B2220', lip = '#7A3B2E';
+
+            let back = '';
+            if (a.hair === 'long') back = `<path d="M36 78 Q34 40 80 34 Q126 40 124 78 L128 132 Q80 142 32 132 Z" fill="${hc}"/>`;
+            if (a.hair === 'bob') back = `<path d="M34 80 Q32 38 80 34 Q128 38 126 80 L126 108 Q122 116 112 112 L48 112 Q38 116 34 108 Z" fill="${hc}"/>`;
+
+            const top = `<path d="M38 74 Q38 34 80 32 Q122 34 122 74 Q112 54 92 52 Q86 60 72 56 Q52 54 38 74Z" fill="${hc}"/>`;
+            let front = top;
+            if (a.hair === 'none') front = '';
+            if (a.hair === 'buns') front = `<circle cx="50" cy="38" r="15" fill="${hc}"/><circle cx="110" cy="38" r="15" fill="${hc}"/>` + top;
+            if (a.hair === 'curly') front = [[44, 62], [50, 46], [64, 36], [80, 32], [96, 36], [110, 46], [116, 62]]
+                .map(p => `<circle cx="${p[0]}" cy="${p[1]}" r="13" fill="${hc}"/>`).join('');
+
+            let eyes = `<circle cx="64" cy="82" r="4.5" fill="${dark}"/><circle cx="96" cy="82" r="4.5" fill="${dark}"/>`;
+            if (a.eyes === 'happy') eyes = `<path d="M58 84 Q64 76 70 84 M90 84 Q96 76 102 84" stroke="${dark}" stroke-width="3.5" fill="none" stroke-linecap="round"/>`;
+            if (a.eyes === 'sleepy') eyes = `<path d="M58 82 Q64 88 70 82 M90 82 Q96 88 102 82" stroke="${dark}" stroke-width="3.5" fill="none" stroke-linecap="round"/>`;
+            if (a.eyes === 'sparkle') eyes = `<circle cx="64" cy="82" r="7" fill="${dark}"/><circle cx="96" cy="82" r="7" fill="${dark}"/>` +
+                `<circle cx="66.5" cy="79" r="2.6" fill="#fff"/><circle cx="98.5" cy="79" r="2.6" fill="#fff"/>` +
+                `<circle cx="62" cy="85" r="1.2" fill="#fff"/><circle cx="94" cy="85" r="1.2" fill="#fff"/>`;
+
+            let mouth = `<path d="M70 97 Q80 108 90 97" stroke="${lip}" stroke-width="3" fill="none" stroke-linecap="round"/>`;
+            if (a.mouth === 'cat') mouth = `<path d="M72 98 Q76 104 80 98 Q84 104 88 98" stroke="${lip}" stroke-width="3" fill="none" stroke-linecap="round"/>`;
+            if (a.mouth === 'open') mouth = `<path d="M72 97 Q80 99 88 97 Q86 110 80 110 Q74 110 72 97Z" fill="${lip}"/><ellipse cx="80" cy="106" rx="4" ry="2.5" fill="#F08A8A"/>`;
+            if (a.mouth === 'tiny') mouth = `<ellipse cx="80" cy="100" rx="3" ry="2.4" fill="${lip}"/>`;
+
+            const blush = a.blush ? '<ellipse cx="54" cy="96" rx="8" ry="5" fill="#FF8FA3" opacity="0.55"/><ellipse cx="106" cy="96" rx="8" ry="5" fill="#FF8FA3" opacity="0.55"/>' : '';
+
+            const extras = {
+                'none': '',
+                'glasses': '<g stroke="#3A2E2A" stroke-width="3" fill="none"><circle cx="64" cy="82" r="11"/><circle cx="96" cy="82" r="11"/><path d="M75 82 Q80 78 85 82"/></g>',
+                'bow': '<g fill="#F27BA0"><path d="M100 40 L118 30 L116 52 Z"/><path d="M100 40 L84 30 L86 52 Z"/><circle cx="100" cy="41" r="5" fill="#E05A86"/></g>',
+                'hard hat': '<path d="M36 62 Q38 28 80 26 Q122 28 124 62 Z" fill="#FFC93C"/><rect x="30" y="58" width="100" height="9" rx="4.5" fill="#F2B21B"/><rect x="76" y="27" width="8" height="32" rx="3" fill="#F2B21B"/>',
+                'grad cap': '<path d="M80 18 L128 34 L80 50 L32 34 Z" fill="#2B2220"/><path d="M56 42 L56 54 Q80 64 104 54 L104 42 L80 50 Z" fill="#3A2E2A"/><path d="M118 31 L118 52" stroke="#FFC93C" stroke-width="2.5"/><circle cx="118" cy="54" r="3.5" fill="#FFC93C"/>',
+                'headphones': '<path d="M36 82 Q36 30 80 30 Q124 30 124 82" stroke="#7B6CF0" stroke-width="7" fill="none" stroke-linecap="round"/><rect x="28" y="74" width="14" height="24" rx="7" fill="#7B6CF0"/><rect x="118" y="74" width="14" height="24" rx="7" fill="#7B6CF0"/>'
+            };
+
+            return `<svg viewBox="0 0 160 160" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">` +
+                `<clipPath id="${id}"><circle cx="80" cy="80" r="80"/></clipPath><g clip-path="url(#${id})">` +
+                `<rect width="160" height="160" fill="${AV.bg[a.bg]}"/>${back}` +
+                `<path d="M34 160 Q36 122 80 120 Q124 122 126 160Z" fill="#FFFFFF" opacity="0.9"/>` +
+                `<rect x="72" y="108" width="16" height="16" rx="6" fill="${sk}"/>` +
+                `<circle cx="38" cy="86" r="7" fill="${sk}"/><circle cx="122" cy="86" r="7" fill="${sk}"/>` +
+                `<ellipse cx="80" cy="80" rx="43" ry="41" fill="${sk}"/>${front}${eyes}${blush}${mouth}${extras[a.extra]}` +
+                `</g></svg>`;
+        }
+
+        // Round picture for a person
+        const PASTELS = ['#dbe6ff', '#ffe1d6', '#dff3e4', '#f0e1ff', '#fff0c2', '#d8f1f5'];
+        function avatar(u, size) {
+            const cls = 'avatar' + (size ? ' ' + size : '');
+            if (!u) return '<div class="' + cls + '" style="background:#eee">?</div>';
+            if (u.photo) return '<div class="' + cls + '"><img src="' + esc(u.photo) + '" alt=""></div>';
+            if (u.avatar) return '<div class="' + cls + '">' + avatarSvg(u.avatar) + '</div>';
+            const initials = (u.name || '?').split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+            let n = 0;
+            for (const ch of String(u.id)) n += ch.charCodeAt(0);
+            return '<div class="' + cls + '" style="background:' + PASTELS[n % PASTELS.length] + '">' + esc(initials) + '</div>';
+        }
+
+
+        /* ---------- AVATAR MAKER ---------- */
+        const avatarMakers = {};      // box id → the avatar being built there
+
+        function mountAvatarMaker(boxId, start) {
+            avatarMakers[boxId] = cleanAvatar(start || randomAvatar());
+            drawAvatarMaker(boxId);
+        }
+
+        function drawAvatarMaker(boxId, wiggle) {
+            const a = avatarMakers[boxId];
+            const swatches = key => AV[key].map((color, i) =>
+                '<button type="button" class="sw' + (a[key] === i ? ' on' : '') + '" style="background:' + color + '"' +
+                ' aria-label="' + AV_LABELS[key] + ' ' + (i + 1) + '" onclick="avSet(\'' + boxId + '\', \'' + key + '\', ' + i + ')"></button>').join('');
+            const chips = key => AV[key].map(v =>
+                '<button type="button" class="chip' + (a[key] === v ? ' on' : '') + '"' +
+                ' onclick="avSet(\'' + boxId + '\', \'' + key + '\', \'' + v + '\')">' + v[0].toUpperCase() + v.slice(1) + '</button>').join('');
+            const row = (key, html) => '<div class="av-row"><div class="lab">' + AV_LABELS[key] + '</div><div class="av-opts">' + html + '</div></div>';
+
+            $(boxId).innerHTML =
+                '<div class="av-maker">' +
+                    '<div class="av-preview">' +
+                        '<div class="avatar xl' + (wiggle ? ' av-wiggle' : '') + '">' + avatarSvg(a) + '</div>' +
+                        '<button type="button" class="btn btn-secondary btn-sm" onclick="avRandom(\'' + boxId + '\')">🎲 Surprise me</button>' +
+                    '</div>' +
+                    '<div>' +
+                        row('skin', swatches('skin')) + row('hair', chips('hair')) + row('hairColor', swatches('hairColor')) +
+                        row('eyes', chips('eyes')) + row('mouth', chips('mouth')) + row('extra', chips('extra')) + row('bg', swatches('bg')) +
+                        '<label class="small muted" style="display:flex; gap:8px; align-items:center">' +
+                        '<input type="checkbox"' + (a.blush ? ' checked' : '') + ' onchange="avSet(\'' + boxId + '\', \'blush\', this.checked)"> Rosy cheeks</label>' +
+                    '</div>' +
+                '</div>';
+        }
+
+        function avSet(boxId, key, value) { avatarMakers[boxId][key] = value; drawAvatarMaker(boxId, true); }
+        function avRandom(boxId) { avatarMakers[boxId] = randomAvatar(); drawAvatarMaker(boxId, true); }
+
+
+        /* ==============================================================
+           TAG PICKERS (topics, skills, free times)
+           Tap a chip to turn it on or off, or type your own.
+           ============================================================== */
+        const pickers = {};       // box id → { list: [...], on: Set, custom: true/false }
+
+        function mountPicker(boxId, ideas, selected, custom) {
+            const on = new Set(selected || []);
+            const list = [...ideas];
+            on.forEach(v => { if (!list.includes(v)) list.push(v); });
+            pickers[boxId] = { list, on, custom: custom !== false };
+            drawPicker(boxId);
+        }
+
+        function drawPicker(boxId) {
+            const p = pickers[boxId];
+            let html = '<div class="chip-list">' + p.list.map((v, i) =>
+                '<button type="button" class="chip' + (p.on.has(v) ? ' on' : '') + '" onclick="pickToggle(\'' + boxId + '\', ' + i + ')">' + esc(v) + '</button>').join('') + '</div>';
+            if (p.custom) {
+                html += '<div class="tag-add"><input id="' + boxId + 'Add" maxlength="40" placeholder="Add your own"' +
+                    ' onkeydown="if (event.key === \'Enter\') { event.preventDefault(); pickAdd(\'' + boxId + '\'); }">' +
+                    '<button type="button" class="btn btn-secondary btn-sm" onclick="pickAdd(\'' + boxId + '\')">Add</button></div>';
+            }
+            $(boxId).innerHTML = html;
+        }
+
+        function pickToggle(boxId, i) {
+            const p = pickers[boxId], v = p.list[i];
+            if (p.on.has(v)) p.on.delete(v);
+            else if (p.on.size >= 12) { toast('You can pick up to 12'); return; }
+            else p.on.add(v);
+            drawPicker(boxId);
+        }
+
+        function pickAdd(boxId) {
+            const p = pickers[boxId], box = $(boxId + 'Add');
+            const v = box.value.trim().replace(/\s+/g, ' ');
+            if (!v) return;
+            if (p.on.size >= 12) { toast('You can pick up to 12'); return; }
+            const existing = p.list.find(x => x.toLowerCase() === v.toLowerCase());
+            if (existing) p.on.add(existing);
+            else { p.list.push(v); p.on.add(v); }
+            drawPicker(boxId);
+            $(boxId + 'Add').focus();
+        }
+
+        const pickerValues = boxId => [...pickers[boxId].on];
+
+
+        /* ==============================================================
+           DATA
+           "state" is a copy of the database in the page, refreshed
+           whenever something changes.
+           ============================================================== */
+        const state = {
+            me: null, profiles: {}, connections: [], messages: [], moments: [], reactions: [],
+            meetings: [], notes: {}, blocks: []
+        };
+
+        const users = () => state.profiles;
+        const me    = () => state.me;
+        const myId  = () => state.me && state.me.id;
+
+        // People I blocked are hidden everywhere
+        const hidden = id => state.blocks.includes(id);
+
+        function subtitle(u) {
+            if (!u) return '';
+            if (u.role === 'mentor') return [u.title, u.company].filter(Boolean).join(' · ') || 'Mentor';
+            return u.major || 'Student';
+        }
+
+        function roleBadge(u) {
+            return u.role === 'mentor' ? '<span class="badge ok">Mentor</span>' : '<span class="badge">Student</span>';
+        }
+        function verifiedMark(u) {
+            return u && u.verified ? ' <span class="badge ok">✓ Verified</span>' : '';
+        }
+
+        // What two people have in common
+        function shared(a, b, key) {
+            if (!a || !b) return [];
+            const theirs = new Set((b[key] || []).map(x => x.toLowerCase()));
+            return (a[key] || []).filter(x => theirs.has(x.toLowerCase()));
+        }
+
+
+        /* ---------- TALKING TO THE DATABASE ----------
+           Every change goes through "db". In demo mode the same
+           functions change the sample data instead. */
+        const realDb = {
+            async load() {
+                const [p, c, m, mo, r, mt, n, b] = await Promise.all([
+                    sb.from('profiles').select('*'),
+                    sb.from('connections').select('*'),
+                    sb.from('messages').select('*').order('created_at', { ascending: true }),
+                    sb.from('moments').select('*').order('created_at', { ascending: false }).limit(200),
+                    sb.from('moment_reactions').select('*'),
+                    sb.from('meetings').select('*').order('starts_at', { ascending: true }),
+                    sb.from('session_notes').select('*'),
+                    sb.from('blocks').select('*')
+                ]);
+                const failed = [p, c, m, mo, r, mt, n, b].find(x => x.error);
+                if (failed) return failed.error;
+                state.profiles = Object.fromEntries(p.data.map(u => [u.id, u]));
+                state.connections = c.data;
+                state.messages = m.data;
+                state.moments = mo.data;
+                state.reactions = r.data;
+                state.meetings = mt.data;
+                state.notes = Object.fromEntries(n.data.map(x => [x.meeting_id, x]));
+                state.blocks = b.data.map(x => x.blocked);
+                if (state.me) state.me = state.profiles[state.me.id] || state.me;
+                return null;
+            },
+            createProfile: p => sb.from('profiles').insert(p),
+            updateProfile: changes => sb.from('profiles').update(changes).eq('id', myId()),
+            connect: other => sb.from('connections').insert({ requester: myId(), addressee: other }),
+            answer: (id, status) => sb.from('connections').update({ status }).eq('id', id),
+            removeConnection: id => sb.from('connections').delete().eq('id', id),
+            sendMessage: (to, text) => sb.from('messages').insert({ sender: myId(), receiver: to, text }),
+            postMoment: body => sb.from('moments').insert({ user_id: myId(), body }),
+            deleteMoment: id => sb.from('moments').delete().eq('id', id),
+            react: (momentId, reaction) => reaction
+                ? sb.from('moment_reactions').upsert({ moment_id: momentId, user_id: myId(), reaction })
+                : sb.from('moment_reactions').delete().eq('moment_id', momentId).eq('user_id', myId()),
+            propose: m => sb.from('meetings').insert({ ...m, proposed_by: myId() }),
+            setMeetingStatus: (id, status) => sb.from('meetings').update({ status }).eq('id', id),
+            saveNotes: (meetingId, goal, notes) => sb.from('session_notes').upsert({
+                meeting_id: meetingId, goal, notes, updated_by: myId(), updated_at: new Date().toISOString()
+            }),
+            block: id => sb.from('blocks').insert({ blocker: myId(), blocked: id }),
+            unblock: id => sb.from('blocks').delete().eq('blocker', myId()).eq('blocked', id),
+            report: (id, reason, details) => sb.from('reports').insert({ reporter: myId(), reported: id, reason, details: details || null }),
+            async uploadResume(file) {
+                const path = myId() + '/resume.pdf';
+                const up = await sb.storage.from('resumes').upload(path, file, { upsert: true, contentType: 'application/pdf' });
+                if (up.error) return up;
+                return sb.from('profiles').update({ resume_path: path, resume_name: file.name, resume_updated: new Date().toISOString() }).eq('id', myId());
+            },
+            async removeResume() {
+                const path = me().resume_path;
+                if (path) await sb.storage.from('resumes').remove([path]);
+                return sb.from('profiles').update({ resume_path: null, resume_name: null, resume_updated: null }).eq('id', myId());
+            },
+            async resumeUrl(userId) {
+                const { data, error } = await sb.storage.from('resumes').createSignedUrl(users()[userId].resume_path, 600);
+                return error ? { error } : { url: data.signedUrl };
+            },
+            async myResumeBytes() {
+                const { data, error } = await sb.storage.from('resumes').download(me().resume_path);
+                return error ? { error } : { bytes: await data.arrayBuffer() };
+            },
+            async changePassword(password) { return sb.auth.updateUser({ password }); }
+        };
+
+        let db = realDb;
+
+        async function loadAll() {
+            const error = await db.load();
+            if (error) toast('Could not load data: ' + friendly(error));
+        }
+
+        async function refresh() { await loadAll(); renderAll(); checkNewMatches(); }
+
+        // When anything changes in the database, reload and redraw
+        let reloadTimer = null;
+        function listenForChanges() {
+            sb.channel('everything')
+                .on('postgres_changes', { event: '*', schema: 'public' }, () => {
+                    clearTimeout(reloadTimer);
+                    reloadTimer = setTimeout(refresh, 250);
+                })
+                .subscribe();
+        }
+
+        // Backup: if the live connection drops, still check every 10 seconds,
+        // and right away when you come back to this tab
+        function startBackupRefresh() {
+            setInterval(() => { if (!document.hidden) refresh(); }, 10000);
+            document.addEventListener('visibilitychange', () => { if (!document.hidden) refresh(); });
+        }
+
+
+        /* ==============================================================
+           DEMO MODE
+           Sample people for the judges' demo. Nothing is saved, and the
+           sample people answer you on their own. All people are fictional.
+           ============================================================== */
+        let demoCount = 0;
+        const demoId = () => 'demo-' + (++demoCount);
+        const demoFiles = {};
+
+        function demoSeed() {
+            const now = Date.now(), H = 3600e3, D = 24 * H;
+            const at = (days, hour, min) => { const d = new Date(); d.setDate(d.getDate() + days); d.setHours(hour, min || 0, 0, 0); return d.toISOString(); };
+            const person = (id, name, role, extra) => ({ id, name, role, email: id + '@example.com', member_id: extra.member_id,
+                interests: [], skills: [], availability: [], verified: false, created_at: new Date(now - 30 * D).toISOString(), ...extra });
+
+            const people = [
+                person('me', 'Maya Chen', 'student', { member_id: 'AYX-104233', verified: true, major: 'Electrical and Computer Engineering',
+                    bio: '1st-year ECE student. On the EcoCAR battery team and curious about EV batteries.',
+                    interests: ['EV batteries', 'Circuits', 'Internships'], skills: ['Arduino', 'Python'], availability: ['Weekday afternoons', 'Weekend mornings'],
+                    avatar: { skin: 1, hairColor: 0, bg: 0, hair: 'buns', eyes: 'sparkle', mouth: 'cat', extra: 'none', blush: true } }),
+                person('jordan', 'Jordan Ellis', 'mentor', { member_id: 'AYX-582913', title: 'EV Battery Test Engineer', company: 'Volt Labs', verified: true,
+                    bio: 'I test battery packs for a living. Happy to show students how engineers think about C-rate and cell performance.',
+                    interests: ['EV batteries', 'Research', 'Internships'], skills: ['MATLAB', 'Interview prep', 'Resume review'], availability: ['Weekday afternoons'],
+                    avatar: { skin: 3, hairColor: 0, bg: 1, hair: 'short', eyes: 'happy', mouth: 'smile', extra: 'hard hat', blush: true } }),
+                person('sam', 'Sam Okafor', 'mentor', { member_id: 'AYX-330871', title: 'Embedded Software Engineer', company: 'Brightwire', verified: true,
+                    bio: 'Firmware, state machines, and getting your first embedded internship.',
+                    interests: ['Embedded systems', 'Circuits', 'Hackathons'], skills: ['C/C++', 'Arduino', 'Resume review'], availability: ['Weekday evenings', 'Weekday afternoons'],
+                    avatar: { skin: 5, hairColor: 0, bg: 2, hair: 'curly', eyes: 'dots', mouth: 'smile', extra: 'headphones', blush: false } }),
+                person('dana', 'Dana Lee', 'mentor', { member_id: 'AYX-771204', title: 'UX Designer', company: 'Pixel Studio',
+                    bio: 'Redesign one screen of an app you use and I\'ll give you feedback.',
+                    interests: ['UX design', 'Startups'], skills: ['Figma', 'Public speaking'], availability: ['Weekend afternoons'],
+                    avatar: { skin: 0, hairColor: 4, bg: 3, hair: 'bob', eyes: 'sparkle', mouth: 'tiny', extra: 'glasses', blush: true } }),
+                person('priya', 'Priya Patel', 'student', { member_id: 'AYX-209455', major: 'Computer Science and Engineering', verified: true,
+                    bio: '2nd-year CSE. Looking for teammates for HackOHI/O and a study group for 2421.',
+                    interests: ['Hackathons', 'Web development', 'Machine learning'], skills: ['JavaScript', 'Python'], availability: ['Weekday evenings', 'Weekend afternoons'],
+                    avatar: { skin: 2, hairColor: 1, bg: 4, hair: 'long', eyes: 'happy', mouth: 'open', extra: 'bow', blush: true } }),
+                person('leo', 'Leo Martinez', 'student', { member_id: 'AYX-648120', major: 'Mechanical Engineering',
+                    bio: 'ME student into robotics and CAD. Want to learn more about batteries for my robot.',
+                    interests: ['Robotics', 'EV batteries'], skills: ['CAD', 'Soldering'], availability: ['Weekday afternoons', 'Weekend mornings'],
+                    avatar: { skin: 1, hairColor: 2, bg: 5, hair: 'short', eyes: 'dots', mouth: 'cat', extra: 'grad cap', blush: true } })
+            ];
+            state.profiles = Object.fromEntries(people.map(p => [p.id, p]));
+            state.me = state.profiles.me;
+            state.blocks = [];
+
+            state.connections = [
+                { id: 'c-sam', requester: 'me', addressee: 'sam', status: 'accepted', created_at: new Date(now - 6 * D).toISOString() },
+                { id: 'c-leo', requester: 'leo', addressee: 'me', status: 'pending', created_at: new Date(now - 3 * H).toISOString() }
+            ];
+            state.messages = [
+                { id: 'm1', sender: 'me', receiver: 'sam', text: 'Hi Sam! Thanks for connecting. Could you look over my resume sometime?', created_at: new Date(now - 5 * D).toISOString() },
+                { id: 'm2', sender: 'sam', receiver: 'me', text: 'Of course! Upload it in your profile and I\'ll take a look before our session.', created_at: new Date(now - 5 * D + 20 * 60e3).toISOString() }
+            ];
+            state.moments = [
+                { id: 'mo1', user_id: 'jordan', body: 'Open session this week: I\'ll show how engineers use C-rate to understand battery performance. Connect with me if you\'re curious!', created_at: new Date(now - 2 * H).toISOString() },
+                { id: 'mo2', user_id: 'priya', body: 'Looking for 2 more people for HackOHI/O. We\'re building a study-group finder. Any major welcome!', created_at: new Date(now - 7 * H).toISOString() },
+                { id: 'mo3', user_id: 'sam', body: 'Tip: sketch your state machine on paper before you write any firmware. It saves hours of debugging.', created_at: new Date(now - 1.5 * D).toISOString() }
+            ];
+            state.reactions = [
+                { moment_id: 'mo1', user_id: 'priya', reaction: '💡' }, { moment_id: 'mo1', user_id: 'leo', reaction: '💚' },
+                { moment_id: 'mo2', user_id: 'leo', reaction: '👏' }, { moment_id: 'mo3', user_id: 'priya', reaction: '💡' },
+                { moment_id: 'mo3', user_id: 'me', reaction: '✨' }
+            ];
+            state.meetings = [
+                { id: 'mt-past', connection_id: 'c-sam', proposed_by: 'me', starts_at: at(-3, 16), mode: 'video', location: null,
+                  note: '1. Quick intros\n2. Talk about embedded internships\n3. Pick one thing to try this week', status: 'accepted', accepted_by: 'sam' },
+                { id: 'mt-next', connection_id: 'c-sam', proposed_by: 'sam', starts_at: at(1, 16), mode: 'video', location: null,
+                  note: '1. Resume review\n2. Solve one C-rate problem together\n3. One thing to try this week', status: 'accepted', accepted_by: 'me' },
+                { id: 'mt-ask', connection_id: 'c-sam', proposed_by: 'sam', starts_at: at(6, 14, 30), mode: 'in_person', location: 'Thompson Library, 2nd floor',
+                  note: 'Bring your Arduino. We\'ll wire up a battery voltage monitor.', status: 'proposed', accepted_by: null }
+            ];
+            state.notes = {
+                'mt-past': { meeting_id: 'mt-past', goal: 'Apply to 3 embedded internships by Friday',
+                    notes: 'C-rate = current ÷ capacity. 60 A ÷ 120 Ah = 0.5C, so the battery empties in about 2 hours.\nNext: try 2C and think about why heat goes up.', updated_by: 'sam' }
+            };
+        }
+
+        // The sample person answers after a short pause
+        function demoLater(ms, work) { setTimeout(() => { work(); refresh(); }, ms); }
+
+        const demoDb = {
+            async load() { return null; },
+            async createProfile() { return {}; },
+            async updateProfile(changes) { Object.assign(state.me, changes); return {}; },
+            async connect(other) {
+                const c = { id: demoId(), requester: myId(), addressee: other, status: 'pending', created_at: new Date().toISOString() };
+                state.connections.push(c);
+                demoLater(1500, () => { c.status = 'accepted'; });
+                return {};
+            },
+            async answer(id, status) { state.connections.find(c => c.id === id).status = status; return {}; },
+            async removeConnection(id) { state.connections = state.connections.filter(c => c.id !== id); return {}; },
+            async sendMessage(to, text) {
+                state.messages.push({ id: demoId(), sender: myId(), receiver: to, text, created_at: new Date().toISOString() });
+                const t = text.toLowerCase();
+                const reply = /c-?rate/.test(t) ? 'Great question! C-rate is how fast you charge or discharge compared to capacity. Let\'s work an example when we meet.'
+                    : /resume/.test(t) ? 'Sure! Upload it in Profile & settings and I\'ll look before we meet.'
+                    : /time|meet|session|schedule/.test(t) ? 'Yes! Send me a proposal in Sessions and I\'ll accept.'
+                    : t.includes('?') ? 'Good question. Let\'s dig into it when we meet. Want to propose a time in Sessions?'
+                    : 'Sounds great! 😊';
+                demoLater(1200, () => state.messages.push({ id: demoId(), sender: to, receiver: myId(), text: reply, created_at: new Date().toISOString() }));
+                return {};
+            },
+            async postMoment(body) { state.moments.unshift({ id: demoId(), user_id: myId(), body, created_at: new Date().toISOString() }); return {}; },
+            async deleteMoment(id) { state.moments = state.moments.filter(m => m.id !== id); return {}; },
+            async react(momentId, reaction) {
+                state.reactions = state.reactions.filter(r => !(r.moment_id === momentId && r.user_id === myId()));
+                if (reaction) state.reactions.push({ moment_id: momentId, user_id: myId(), reaction });
+                return {};
+            },
+            async propose(m) {
+                const meeting = { id: demoId(), ...m, proposed_by: myId(), status: 'proposed', accepted_by: null, created_at: new Date().toISOString() };
+                state.meetings.push(meeting);
+                const other = otherPerson(meeting);
+                demoLater(2000, () => {
+                    if (meeting.status !== 'proposed') return;
+                    meeting.status = 'accepted';
+                    meeting.accepted_by = other.id;
+                    toast(other.name.split(' ')[0] + ' accepted your session 🎉');
+                });
+                return {};
+            },
+            async setMeetingStatus(id, status) {
+                const m = state.meetings.find(x => x.id === id);
+                m.status = status;
+                m.accepted_by = status === 'accepted' ? myId() : m.accepted_by;
+                return {};
+            },
+            async saveNotes(meetingId, goal, notes) { state.notes[meetingId] = { meeting_id: meetingId, goal, notes, updated_by: myId() }; return {}; },
+            async block(id) { state.blocks.push(id); return {}; },
+            async unblock(id) { state.blocks = state.blocks.filter(x => x !== id); return {}; },
+            async report() { return {}; },
+            async uploadResume(file) {
+                demoFiles[myId()] = file;
+                Object.assign(state.me, { resume_path: 'demo', resume_name: file.name, resume_updated: new Date().toISOString() });
+                return {};
+            },
+            async removeResume() {
+                delete demoFiles[myId()];
+                Object.assign(state.me, { resume_path: null, resume_name: null, resume_updated: null });
+                return {};
+            },
+            async resumeUrl(userId) {
+                return demoFiles[userId] ? { url: URL.createObjectURL(demoFiles[userId]) } : { error: { message: 'Sample people don\'t have resumes in the demo.' } };
+            },
+            async myResumeBytes() { return { bytes: await demoFiles[myId()].arrayBuffer() }; },
+            async changePassword() { return { error: { message: 'Passwords aren\'t used in the demo.' } }; }
+        };
+
+        function startDemo() {
+            DEMO = true;
+            db = demoDb;
+            demoSeed();
+            startApp();
+        }
+
+        function exitDemo() { location.href = location.origin + location.pathname; }
+
+
+        /* ==============================================================
+           SIGN IN (email + password)
+             1. Sign in, or create an account
+             2. First time only: tell us about you, then make your avatar
+           ============================================================== */
+        let loginTab = 'in';
+        let newRole = 'student';
+        let signedInAs = null;      // stops us loading twice
+        let recovering = false;     // true while choosing a new password
+
+        const validEmail = e => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+        const hereUrl = () => location.origin + location.pathname;
+
+        function authMode(mode) {
+            const views = { login: 'viewLogin', check: 'viewCheck', forgot: 'viewForgot', newpass: 'viewNewPass', setup: 'viewSetup', avatar: 'viewAvatar' };
+            Object.values(views).forEach(v => $(v).classList.add('hidden'));
+            $(views[mode]).classList.remove('hidden');
+            $('authBox').style.maxWidth = (mode === 'setup' || mode === 'avatar') ? '560px' : '';
+            document.querySelectorAll('#auth .error').forEach(e => e.textContent = '');
+        }
+
+        function showAuth(mode) {
+            $('app').classList.add('hidden');
+            $('landing').classList.add('hidden');
+            $('auth').classList.remove('hidden');
+            if (!sb) {
+                $('setupWarning').innerHTML = 'Accounts aren\'t connected yet. Check the Supabase keys at the top of the script and your internet connection. ' +
+                    'Until then, <a href="#" onclick="startDemo(); return false;">try the demo</a>.';
+                $('setupWarning').classList.remove('hidden');
+            }
+            if (mode) authMode(mode);
+            window.scrollTo(0, 0);
+        }
+
+        // The About page. Signed-in people see "Back to app" instead of "Get started".
+        function showLanding() {
+            const signedIn = !!me();
+            const actions = signedIn
+                ? '<button class="btn btn-primary" onclick="backToApp()">Back to app</button>'
+                : '<button class="btn btn-secondary" onclick="startDemo()">Try the demo</button>' +
+                  '<button class="btn btn-primary" onclick="showAuth(\'login\')">Sign in</button>';
+            $('landingActions').innerHTML = actions;
+            $('heroActions').innerHTML = signedIn ? actions
+                : '<button class="btn btn-primary" onclick="setLoginTab(\'up\'); showAuth(\'login\')">Get started</button>' +
+                  '<button class="btn btn-secondary" onclick="startDemo()">Try the demo</button>';
+            $('menu').classList.add('hidden');
+            $('auth').classList.add('hidden');
+            $('app').classList.add('hidden');
+            $('landing').classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+
+        function backToApp() {
+            $('landing').classList.add('hidden');
+            $('app').classList.remove('hidden');
+            window.scrollTo(0, 0);
+        }
+
+        function setLoginTab(tab) {
+            loginTab = tab;
+            $('tabSignIn').classList.toggle('on', tab === 'in');
+            $('tabSignUp').classList.toggle('on', tab === 'up');
+            $('loginBtn').textContent = tab === 'in' ? 'Sign in' : 'Create account';
+            $('passwordInput').autocomplete = tab === 'in' ? 'current-password' : 'new-password';
+            $('forgotLink').style.display = tab === 'in' ? '' : 'none';
+            $('loginError').textContent = '';
+        }
+
+        async function submitLogin(event) {
+            event.preventDefault();
+            const email = $('emailInput').value.trim().toLowerCase();
+            const password = $('passwordInput').value;
+            const err = $('loginError');
+            if (!sb) { err.textContent = 'Accounts aren\'t connected yet. Try the demo instead.'; return; }
+            if (!validEmail(email)) { err.textContent = 'Enter a valid email address.'; return; }
+            if (password.length < 8) { err.textContent = 'Passwords are at least 8 characters.'; return; }
+
+            await busy($('loginBtn'), loginTab === 'in' ? 'Signing in…' : 'Creating…', async () => {
+                if (loginTab === 'in') {
+                    const { data, error } = await sb.auth.signInWithPassword({ email, password });
+                    if (error) { err.textContent = friendly(error); return; }
+                    await openApp(data.user);
+                } else {
+                    const { data, error } = await sb.auth.signUp({ email, password, options: { emailRedirectTo: hereUrl() } });
+                    if (error) { err.textContent = friendly(error); return; }
+                    // Supabase hides whether an email is taken: no identities means it already exists
+                    if (data.user && data.user.identities && data.user.identities.length === 0) {
+                        err.textContent = 'This email already has an account. Sign in instead.';
+                        return;
+                    }
+                    if (data.session) { await openApp(data.user); return; }
+                    $('checkEmail').textContent = email;
+                    authMode('check');
+                }
+            });
+        }
+
+        async function sendReset(event) {
+            event.preventDefault();
+            const email = $('resetEmail').value.trim().toLowerCase();
+            if (!validEmail(email)) { $('resetError').textContent = 'Enter a valid email address.'; return; }
+            await busy($('resetBtn'), 'Sending…', async () => {
+                const { error } = await sb.auth.resetPasswordForEmail(email, { redirectTo: hereUrl() });
+                if (error) { $('resetError').textContent = friendly(error); return; }
+                toast('Reset link sent. Check your email.');
+                authMode('login');
+            });
+        }
+
+        async function saveNewPassword(event) {
+            event.preventDefault();
+            const password = $('newPassInput').value;
+            if (password.length < 8) { $('newPassError').textContent = 'Use at least 8 characters.'; return; }
+            await busy($('newPassBtn'), 'Saving…', async () => {
+                const { data, error } = await sb.auth.updateUser({ password });
+                if (error) { $('newPassError').textContent = friendly(error); return; }
+                recovering = false;
+                toast('Password saved');
+                await openApp(data.user);
+            });
+        }
+
+
+        // ---------- FIRST TIME, STEP 1: ABOUT YOU ----------
+        function setRole(role) {
+            newRole = role;
+            $('roleStudent').classList.toggle('on', role === 'student');
+            $('roleMentor').classList.toggle('on', role === 'mentor');
+            $('studentFields').classList.toggle('hidden', role !== 'student');
+            $('mentorFields').classList.toggle('hidden', role !== 'mentor');
+        }
+
+        function fillMajors() {
+            let html = '<option value="">Choose your major</option>';
+            for (const group in MAJORS) {
+                html += '<optgroup label="' + group + '">';
+                MAJORS[group].forEach(m => html += '<option>' + m + '</option>');
+                html += '</optgroup>';
+            }
+            $('majorSelect').innerHTML = html;      // sign-up page
+            $('profMajor').innerHTML = html;        // profile page
+        }
+
+        function checkOtherMajor() {
+            $('otherMajorField').classList.toggle('hidden', $('majorSelect').value !== 'Other (type it in)');
+        }
+
+        let setupDraft = null;
+
+        function showSetup(user) {
+            showAuth();
+            $('setupEmail').textContent = user.email;
+            if (!pickers.setupInterests) {
+                mountPicker('setupInterests', INTEREST_IDEAS, []);
+                mountPicker('setupSkills', SKILL_IDEAS, []);
+                mountPicker('setupFree', FREE_TIMES, [], false);
+            }
+            authMode('setup');
+        }
+
+        function setupNext() {
+            const err = $('setupError');
+            const name = $('nameInput').value.trim();
+            if (!name) { err.textContent = 'Enter your name.'; return; }
+
+            const profile = { name, role: newRole, interests: pickerValues('setupInterests'),
+                skills: pickerValues('setupSkills'), availability: pickerValues('setupFree') };
+            if (newRole === 'student') {
+                let major = $('majorSelect').value;
+                if (major === 'Other (type it in)') major = $('otherMajorInput').value.trim();
+                if (!major) { err.textContent = 'Choose your major.'; return; }
+                profile.major = major;
+            } else {
+                profile.title = $('titleInput').value.trim();
+                profile.company = $('companyInput').value.trim();
+                if (!profile.title) { err.textContent = 'Enter your job title.'; return; }
+            }
+            if (profile.interests.length === 0) { err.textContent = 'Pick at least one topic so we can find good matches.'; return; }
+
+            setupDraft = profile;
+            if (!avatarMakers.setupAvatar) mountAvatarMaker('setupAvatar');
+            authMode('avatar');
+            window.scrollTo(0, 0);
+        }
+
+        // ---------- FIRST TIME, STEP 2: SAVE ----------
+        async function createAccount(button) {
+            const { data: { user } } = await sb.auth.getUser();
+            if (!user) { showAuth('login'); toast('Please sign in again.'); return; }
+            const profile = { id: user.id, ...setupDraft, avatar: avatarMakers.setupAvatar };
+            await busy(button, 'Saving…', async () => {
+                const { error } = await db.createProfile(profile);
+                if (error) { $('avatarError').textContent = friendly(error); return; }
+                signedInAs = null;
+                await openApp(user);
+            });
+        }
+
+
+        // ---------- AFTER SIGNING IN ----------
+        async function openApp(user) {
+            if (!user || recovering || signedInAs === user.id) return;
+            signedInAs = user.id;
+
+            const { data: profile, error } = await sb.from('profiles').select('*').eq('id', user.id).maybeSingle();
+            if (error) { toast(friendly(error)); signedInAs = null; return; }
+
+            if (!profile) {
+                // First time here: finish the profile first
+                showSetup(user);
+                signedInAs = null;
+                return;
+            }
+
+            state.me = profile;
+            await loadAll();
+            startApp();
+            listenForChanges();
+            startBackupRefresh();
+        }
+
+        async function signOut() {
+            stopMedia();
+            if (DEMO) { exitDemo(); return; }
+            await sb.auth.signOut();
+            location.reload();
+        }
+
+        // Supabase tells us when someone signs in, signs out, or opens a reset link
+        function watchAuth() {
+            sb.auth.onAuthStateChange((event, session) => {
+                // (Supabase asks us not to wait inside this, so we use setTimeout)
+                setTimeout(() => {
+                    if (event === 'PASSWORD_RECOVERY') {
+                        recovering = true;
+                        showAuth('newpass');
+                    } else if ((event === 'SIGNED_IN' || event === 'INITIAL_SESSION') && session) {
+                        openApp(session.user);
+                    } else if (event === 'INITIAL_SESSION' && !session && $('auth').classList.contains('hidden') && !DEMO) {
+                        showLanding();
+                    }
+                    // Clean up the address bar after an email link
+                    if (location.hash.includes('access_token') || location.search.includes('code=')) {
+                        history.replaceState(null, '', hereUrl());
+                    }
+                }, 0);
+            });
+        }
+
+
+        /* ==============================================================
+           START THE APP
+           ============================================================== */
+        function startApp() {
+            $('auth').classList.add('hidden');
+            $('landing').classList.add('hidden');
+            $('app').classList.remove('hidden');
+            $('demoBar').classList.toggle('hidden', !DEMO);
+            renderAll();
+            checkNewMatches();
+        }
+
+        function renderAll() {
+            if (!me()) return;
+            renderHeader();
+            renderHome();
+            renderPeople();
+            renderMessages();
+            renderSessions();
+            renderRoom();
+            renderNotes();
+            renderProfile();
+        }
+
+
+        /* ==============================================================
+           SWITCHING SCREENS
+           ============================================================== */
+        function go(id) {
+            if (id !== 'room') stopMedia();
+            document.querySelectorAll('.screen').forEach(s => s.classList.toggle('on', s.id === id));
+            document.querySelectorAll('.tabs button').forEach(b => b.classList.toggle('on', b.dataset.screen === id));
+            $('menu').classList.add('hidden');
+            if (id === 'profile') fillProfileForm();
+            if (id === 'sessions') renderSessions();
+            window.scrollTo(0, 0);
+        }
+        document.querySelectorAll('.tabs button').forEach(b => b.onclick = () => go(b.dataset.screen));
+
+
+        /* ==============================================================
+           HEADER + PROFILE MENU
+           ============================================================== */
+        function renderHeader() {
+            const u = me();
+            $('headerAvatar').innerHTML = avatar(u, 'sm');
+            $('menuAvatar').innerHTML = avatar(u);
+            $('menuName').textContent = u.name;
+            $('menuInfo').textContent = (u.member_id ? u.member_id + ' · ' : '') + (u.email || '');
+        }
+
+        function toggleMenu() { $('menu').classList.toggle('hidden'); }
+
+
+        /* ==============================================================
+           CONNECTIONS (anyone ↔ anyone)
+           ============================================================== */
+        // The connection between me and someone else (or undefined)
+        function connectionWith(otherId) {
+            const id = myId();
+            return state.connections.find(c =>
+                (c.requester === id && c.addressee === otherId) || (c.requester === otherId && c.addressee === id));
+        }
+
+        const otherSide = c => c.requester === myId() ? c.addressee : c.requester;
+
+        function myConnections() {
+            return state.connections
+                .filter(c => c.status === 'accepted' && (c.requester === myId() || c.addressee === myId()))
+                .map(c => users()[otherSide(c)])
+                .filter(p => p && !hidden(p.id));
+        }
+
+        // The right button(s) for someone, depending on how we're connected
+        function connectButton(other) {
+            if (!other || other.id === myId()) return '';
+            const c = connectionWith(other.id);
+            if (!c) {
+                return '<button class="btn btn-primary btn-sm" onclick="askToConnect(\'' + other.id + '\', this)">Connect</button>';
+            }
+            if (c.status === 'pending' && c.requester === myId()) {
+                return '<span class="badge">Request sent</span>';
+            }
+            if (c.status === 'pending') {
+                return '<button class="btn btn-primary btn-sm" onclick="answerRequest(\'' + c.id + '\', \'accepted\')">Accept</button>' +
+                       '<button class="btn btn-ghost btn-sm" onclick="answerRequest(\'' + c.id + '\', \'declined\')">Decline</button>';
+            }
+            if (c.status === 'accepted') {
+                return '<span class="badge ok">Connected</span>' +
+                       '<button class="btn btn-secondary btn-sm" onclick="openChat(\'' + other.id + '\')">Message</button>';
+            }
+            return '<span class="small muted">Not connected</span>';
+        }
+
+        async function askToConnect(otherId, button) {
+            if (button) button.disabled = true;
+            const { error } = await db.connect(otherId);
+            if (error) { toast(friendly(error)); if (button) button.disabled = false; return; }
+            toast('Request sent to ' + users()[otherId].name.split(' ')[0]);
+            refresh();
+        }
+
+        async function answerRequest(id, status) {
+            const { error } = await db.answer(id, status);
+            if (error) { toast(friendly(error)); return; }
+            if (status === 'declined') toast('Request declined');
+            refresh();
+        }
+
+
+        /* ---------- "IT'S A MATCH!" ----------
+           Shows once for each new connection. */
+        let seenMatches = null;
+        const seenKey = () => 'ayx-seen-matches-' + myId();
+
+        function checkNewMatches() {
+            if (!me()) return;
+            const accepted = state.connections.filter(c => c.status === 'accepted' && (c.requester === myId() || c.addressee === myId()));
+            if (!seenMatches) {
+                // First load: everything you already have counts as seen
+                let saved = [];
+                if (!DEMO) { try { saved = JSON.parse(localStorage.getItem(seenKey()) || '[]'); } catch (e) { saved = []; } }
+                seenMatches = new Set([...saved, ...accepted.map(c => c.id)]);
+                saveSeen();
+                return;
+            }
+            const fresh = accepted.find(c => !seenMatches.has(c.id));
+            if (!fresh) return;
+            seenMatches.add(fresh.id);
+            saveSeen();
+            const other = users()[otherSide(fresh)];
+            if (other && !hidden(other.id) && $('modalBack').classList.contains('hidden')) showMatch(other);
+        }
+
+        function saveSeen() {
+            if (DEMO) return;
+            try { localStorage.setItem(seenKey(), JSON.stringify([...seenMatches])); } catch (e) { /* private window */ }
+        }
+
+        function matchReason(other) {
+            const topics = shared(me(), other, 'interests');
+            const times = shared(me(), other, 'availability');
+            const parts = [];
+            if (topics.length) parts.push('You both care about ' + topics.slice(0, 2).join(' and '));
+            if (times.length) parts.push((parts.length ? 'you\'re' : 'You\'re') + ' both free on ' + times[0].toLowerCase());
+            return parts.length ? parts.join(', and ') + '.' : 'Say hi and plan your first chat.';
+        }
+
+        function showMatch(other) {
+            openModal(
+                '<div class="match">' +
+                    '<div class="pair">' + avatar(me(), 'lg') + avatar(other, 'lg') + '</div>' +
+                    '<h2>🎉 It\'s a match!</h2>' +
+                    '<p class="muted">You and <b>' + esc(other.name) + '</b> are connected. ' + esc(matchReason(other)) + '</p>' +
+                    '<div class="modal-actions">' +
+                        '<button class="btn btn-secondary" onclick="closeModal()">Later</button>' +
+                        '<button class="btn btn-primary" onclick="closeModal(); openChat(\'' + other.id + '\')">Say hi →</button>' +
+                    '</div>' +
+                '</div>');
+        }
+
+
+        /* ---------- BLOCK, REPORT, REMOVE ---------- */
+        function openPersonMenu(id) {
+            const p = users()[id];
+            if (!p) return;
+            const c = connectionWith(id);
+            const connected = c && c.status === 'accepted';
+            openModal(
+                '<div class="post-head">' + avatar(p) + '<div><b>' + esc(p.name) + '</b><span class="small muted">' + esc(subtitle(p)) + '</span></div></div>' +
+                '<div class="stack" style="gap:8px; margin-top:8px">' +
+                    (connected && p.resume_path ? '<button class="btn btn-secondary btn-block" onclick="closeModal(); viewResume(\'' + id + '\')">View resume</button>' : '') +
+                    (c ? '<button class="btn btn-secondary btn-block" onclick="removeConnection(\'' + c.id + '\')">' + (connected ? 'Remove connection' : 'Cancel request') + '</button>' : '') +
+                    '<button class="btn btn-secondary btn-block" onclick="openReport(\'' + id + '\')">Report</button>' +
+                    '<button class="btn btn-danger btn-block" onclick="confirmBlock(\'' + id + '\')">Block</button>' +
+                    '<button class="btn btn-ghost btn-block" onclick="closeModal()">Cancel</button>' +
+                '</div>');
+        }
+
+        async function removeConnection(connId) {
+            closeModal();
+            const { error } = await db.removeConnection(connId);
+            if (error) { toast(friendly(error)); return; }
+            toast('Removed');
+            refresh();
+        }
+
+        function confirmBlock(id) {
+            const p = users()[id];
+            openModal(
+                '<h2>Block ' + esc(p.name) + '?</h2>' +
+                '<p class="muted">They won\'t show up for you anymore, you won\'t be connected, and they can\'t message you. You can unblock them in Profile &amp; settings.</p>' +
+                '<div class="modal-actions">' +
+                    '<button class="btn btn-secondary" onclick="closeModal()">Cancel</button>' +
+                    '<button class="btn btn-danger" onclick="blockPerson(\'' + id + '\', this)">Block</button>' +
+                '</div>');
+        }
+
+        async function blockPerson(id, button) {
+            await busy(button, 'Blocking…', async () => {
+                const { error } = await db.block(id);
+                if (error) { toast(friendly(error)); return; }
+                const c = connectionWith(id);
+                if (c) await db.removeConnection(c.id);
+                if (openWith === id) openWith = null;
+                closeModal();
+                toast('Blocked');
+                await refresh();
+            });
+        }
+
+        async function unblockPerson(id) {
+            const { error } = await db.unblock(id);
+            if (error) { toast(friendly(error)); return; }
+            toast('Unblocked');
+            refresh();
+        }
+
+        function openReport(id) {
+            const p = users()[id];
+            openModal(
+                '<h2>Report ' + esc(p.name) + '</h2>' +
+                '<p class="muted">Reports go to the AYXchange team. ' + esc(p.name.split(' ')[0]) + ' won\'t know you reported them.</p>' +
+                '<label class="field"><span>What\'s wrong?</span><select id="reportReason">' +
+                    '<option value="spam">Spam</option><option value="harassment">Harassment or bullying</option>' +
+                    '<option value="inappropriate">Inappropriate content</option><option value="fake profile">Fake profile</option>' +
+                    '<option value="other">Something else</option></select></label>' +
+                '<label class="field"><span>More details (optional)</span><textarea id="reportDetails" rows="3" maxlength="500"></textarea></label>' +
+                '<div class="modal-actions">' +
+                    '<button class="btn btn-secondary" onclick="closeModal()">Cancel</button>' +
+                    '<button class="btn btn-danger" onclick="sendReport(\'' + id + '\', this)">Send report</button>' +
+                '</div>');
+        }
+
+        async function sendReport(id, button) {
+            await busy(button, 'Sending…', async () => {
+                const { error } = await db.report(id, $('reportReason').value, $('reportDetails').value.trim());
+                if (error) { toast(friendly(error)); return; }
+                closeModal();
+                toast('Thanks. Our team will look at this.');
+            });
+        }
+
+        /* ==============================================================
+           SESSIONS (calendar + proposals)
+             You propose a time → they accept or decline.
+             The person who proposed can cancel before it's answered.
+             Either person can cancel an accepted session.
+           ============================================================== */
+        const today = new Date();
+        let viewYear = today.getFullYear();
+        let viewMonth = today.getMonth();
+        let pickedDate = null;      // 'YYYY-MM-DD'
+        let pickedTime = null;      // '3:00 PM'
+        let bookWith = null;        // person id
+        let bookMode = 'video';
+        let bookLocation = '';
+        let bookPlan = null;        // null = use the Warm Start plan
+
+        const TIMES = [];
+        for (let h = 9; h <= 20; h++) {
+            ['00', '30'].forEach(min => {
+                if (h === 20 && min === '30') return;
+                const hour = h > 12 ? h - 12 : h;
+                TIMES.push(hour + ':' + min + (h >= 12 ? ' PM' : ' AM'));
+            });
+        }
+
+        // '2026-10-25' + '3:30 PM' → a real date
+        function toDate(day, time) {
+            const [y, m, d] = day.split('-').map(Number);
+            const [hm, ap] = time.split(' ');
+            let [h, min] = hm.split(':').map(Number);
+            if (ap === 'PM' && h !== 12) h += 12;
+            if (ap === 'AM' && h === 12) h = 0;
+            return new Date(y, m - 1, d, h, min);
+        }
+
+        function moveMonth(step) {
+            viewMonth += step;
+            if (viewMonth < 0) { viewMonth = 11; viewYear--; }
+            if (viewMonth > 11) { viewMonth = 0; viewYear++; }
+            renderSessions();
+        }
+
+        function meetingConnection(m) { return state.connections.find(c => c.id === m.connection_id); }
+        function otherPerson(m) {
+            const c = meetingConnection(m);
+            return c ? users()[otherSide(c)] : null;
+        }
+        function myMeetings() {
+            return state.meetings.filter(m => { const o = otherPerson(m); return o && !hidden(o.id); });
+        }
+        const isOpen = m => m.status === 'proposed' || m.status === 'accepted';
+
+        // "Warm Start" plan, based on what you have in common
+        function warmStart(other) {
+            const common = shared(me(), other, 'interests');
+            const topic = common[0] || (other && other.interests && other.interests[0]) || 'your goals';
+            return '1. Quick intros: what you\'re working on\n2. Talk about ' + topic + '\n3. Pick one thing to try this week';
+        }
+
+        function scheduleWith(personId) {
+            bookWith = personId;
+            bookPlan = null;
+            go('sessions');
+        }
+
+        function pickDate(key) { pickedDate = key; pickedTime = null; renderSessions(); }
+        function pickTime(t) { pickedTime = t; renderSessions(); }
+        function pickWith(id) { bookWith = id; renderSessions(); }
+        function pickMode(mode) { bookMode = mode; renderSessions(); }
+
+        function renderSessions() {
+            const mine = myMeetings();
+            const open = mine.filter(isOpen);
+            const busyDays = new Set(open.map(m => dateKey(new Date(m.starts_at))));
+
+            $('calTitle').textContent = new Date(viewYear, viewMonth, 1).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+
+            let grid = ['S', 'M', 'T', 'W', 'T', 'F', 'S'].map(d => '<div class="cal-dow">' + d + '</div>').join('');
+            const firstDay = new Date(viewYear, viewMonth, 1).getDay();
+            const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+            const todayKey = dateKey(new Date());
+
+            for (let i = 0; i < firstDay; i++) grid += '<div></div>';
+            for (let d = 1; d <= daysInMonth; d++) {
+                const key = dateKey(new Date(viewYear, viewMonth, d));
+                let cls = 'day';
+                if (key === todayKey) cls += ' today';
+                if (key === pickedDate) cls += ' picked';
+                grid += '<button class="' + cls + '"' + (key < todayKey ? ' disabled' : '') + ' onclick="pickDate(\'' + key + '\')">' + d +
+                    (busyDays.has(key) ? '<span class="dot"></span>' : '') + '</button>';
+            }
+            $('calGrid').innerHTML = grid;
+
+            // ----- Booking area -----
+            const people = myConnections();
+            if (!bookWith || !people.find(p => p.id === bookWith)) bookWith = people.length ? people[0].id : null;
+            const other = users()[bookWith];
+            let book = '';
+            if (!pickedDate) {
+                book = '<p class="muted small">Choose a day to see open times.</p>';
+            } else if (people.length === 0) {
+                book = '<h3>' + niceDate(pickedDate) + '</h3><p class="muted small">You need a connection before you can propose a session. ' +
+                    'Find someone on the <a href="#" onclick="go(\'people\'); return false;">People</a> page.</p>';
+            } else {
+                const soon = Date.now() + 5 * 60e3;
+                const taken = new Set(open.map(m => new Date(m.starts_at).getTime()));
+                book = '<h3>' + niceDate(pickedDate) + '</h3><div class="times">' +
+                    TIMES.map(t => {
+                        const when = toDate(pickedDate, t).getTime();
+                        const off = when < soon || taken.has(when);
+                        return '<button class="time-btn' + (t === pickedTime ? ' picked' : '') + '"' + (off ? ' disabled' : '') +
+                            ' onclick="pickTime(\'' + t + '\')">' + t + '</button>';
+                    }).join('') + '</div>' +
+                    '<label class="field"><span>Meet with</span><select onchange="pickWith(this.value)">' +
+                    people.map(p => '<option value="' + p.id + '"' + (p.id === bookWith ? ' selected' : '') + '>' + esc(p.name) + '</option>').join('') +
+                    '</select></label>' +
+                    '<span class="field-label">How</span><div class="segmented mode-row">' +
+                    '<button class="' + (bookMode === 'video' ? 'on' : '') + '" onclick="pickMode(\'video\')">Video</button>' +
+                    '<button class="' + (bookMode === 'in_person' ? 'on' : '') + '" onclick="pickMode(\'in_person\')">In person</button></div>' +
+                    (bookMode === 'in_person'
+                        ? '<label class="field"><span>Where</span><input maxlength="160" placeholder="Thompson Library, 2nd floor" value="' + esc(bookLocation) + '" oninput="bookLocation = this.value"></label>'
+                        : '') +
+                    '<label class="field"><span>Plan (they\'ll see this)</span><textarea rows="3" maxlength="300" oninput="bookPlan = this.value">' +
+                    esc(bookPlan ?? warmStart(other)) + '</textarea></label>' +
+                    '<button class="btn btn-primary" onclick="sendProposal(this)">Send proposal' + (pickedTime ? ' for ' + pickedTime : '') + '</button>';
+            }
+            $('bookArea').innerHTML = book;
+
+            // ----- Lists -----
+            const now = Date.now();
+            const byTime = (a, b) => new Date(a.starts_at) - new Date(b.starts_at);
+            const future = m => new Date(m.starts_at).getTime() > now;
+            const needs = mine.filter(m => m.status === 'proposed' && m.proposed_by !== myId() && future(m)).sort(byTime);
+            const waiting = mine.filter(m => m.status === 'proposed' && m.proposed_by === myId() && future(m)).sort(byTime);
+            const coming = mine.filter(m => m.status === 'accepted' && new Date(m.starts_at).getTime() > now - 2 * 3600e3).sort(byTime);
+
+            const row = (m, buttons) => {
+                const o = otherPerson(m);
+                return '<div class="meeting"><div class="when">' + niceWhen(m.starts_at) + '</div>' +
+                    '<div class="small muted">with ' + esc(o ? o.name : 'someone') + ' · ' +
+                    (m.mode === 'video' ? 'Video' : 'In person at ' + esc(m.location)) + '</div>' +
+                    (m.note ? '<div class="plan">' + esc(m.note) + '</div>' : '') +
+                    '<div class="row">' + buttons + '</div></div>';
+            };
+
+            let up = '<h3>Your sessions</h3>';
+            if (!needs.length && !waiting.length && !coming.length) up += '<p class="small muted">Nothing planned yet. Pick a day to propose one.</p>';
+            if (needs.length) {
+                up += '<div class="section-label">Needs your answer</div>' + needs.map(m => row(m,
+                    '<button class="btn btn-primary btn-sm" onclick="setMeeting(\'' + m.id + '\', \'accepted\')">Accept</button>' +
+                    '<button class="btn btn-ghost btn-sm" onclick="setMeeting(\'' + m.id + '\', \'declined\')">Decline</button>')).join('');
+            }
+            if (coming.length) {
+                up += '<div class="section-label">Coming up</div>' + coming.map(m => row(m,
+                    '<button class="btn btn-primary btn-sm" onclick="joinRoom(\'' + m.id + '\')">Join room</button>' +
+                    '<button class="btn btn-ghost btn-sm" onclick="setMeeting(\'' + m.id + '\', \'cancelled\')">Cancel</button>')).join('');
+            }
+            if (waiting.length) {
+                up += '<div class="section-label">Waiting for them</div>' + waiting.map(m => row(m,
+                    '<span class="badge warn">Proposed</span>' +
+                    '<button class="btn btn-ghost btn-sm" onclick="setMeeting(\'' + m.id + '\', \'cancelled\')">Cancel</button>')).join('');
+            }
+            $('upcoming').innerHTML = up;
+        }
+
+        async function sendProposal(button) {
+            if (!pickedTime) { toast('Pick a time first'); return; }
+            if (!bookWith) { toast('Pick who to meet with'); return; }
+            const where = bookLocation.trim();
+            if (bookMode === 'in_person' && !where) { toast('Add where you\'ll meet'); return; }
+            const when = toDate(pickedDate, pickedTime);
+            if (when.getTime() <= Date.now()) { toast('That time already passed. Pick a later one.'); return; }
+            const conn = connectionWith(bookWith);
+            const plan = (bookPlan ?? warmStart(users()[bookWith])).trim();
+
+            await busy(button, 'Sending…', async () => {
+                const { error } = await db.propose({
+                    connection_id: conn.id,
+                    starts_at: when.toISOString(),
+                    mode: bookMode,
+                    location: bookMode === 'in_person' ? where : null,
+                    note: plan || null
+                });
+                if (error) { toast(friendly(error)); return; }
+                toast('Proposal sent to ' + users()[bookWith].name.split(' ')[0]);
+                pickedTime = null;
+                bookPlan = null;
+                await refresh();
+            });
+        }
+
+        async function setMeeting(id, status) {
+            const { error } = await db.setMeetingStatus(id, status);
+            if (error) { toast(friendly(error)); return; }
+            toast({ accepted: 'Session accepted 🎉', declined: 'Session declined', cancelled: 'Session cancelled' }[status]);
+            if (status === 'cancelled' && roomMeeting === id) roomMeeting = null;
+            refresh();
+        }
+
+
+        /* ==============================================================
+           ROOM (real camera + mic)
+           ============================================================== */
+        let roomMeeting = null;
+        let camStream = null;
+        let micStream = null;
+        let audioCtx = null;
+        let meterLoop = null;
+        const planChecks = {};      // meeting id → which plan steps are checked
+
+        function joinRoom(id) {
+            roomMeeting = id;
+            go('room');
+            renderRoom();
+            const n = state.notes[id] || {};
+            $('goalInput').value = n.goal || '';
+            $('notesInput').value = n.notes || '';
+        }
+
+        function renderRoom() {
+            const m = state.meetings.find(x => x.id === roomMeeting && x.status === 'accepted');
+            if (!m) {
+                $('roomLive').classList.add('hidden');
+                $('roomEmpty').classList.remove('hidden');
+                $('roomSub').textContent = 'Join a session from the Sessions page.';
+                $('roomEmpty').innerHTML = '<div class="empty-state"><h3>No session open</h3><p>When someone accepts your session, tap "Join room".</p>' +
+                    '<p style="margin-top:14px"><button class="btn btn-secondary" onclick="go(\'sessions\')">Go to Sessions</button></p></div>';
+                return;
+            }
+            $('roomEmpty').classList.add('hidden');
+            $('roomLive').classList.remove('hidden');
+            const other = otherPerson(m);
+            $('roomSub').textContent = niceWhen(m.starts_at) + ' with ' + (other ? other.name : 'someone') +
+                (m.mode === 'in_person' ? ' · In person at ' + m.location : '');
+            $('myTileAvatar').innerHTML = camStream ? '' : avatar(me(), 'lg');
+            $('otherTileAvatar').innerHTML = avatar(other, 'lg');
+            $('otherName').textContent = other ? other.name : '';
+            $('otherWait').textContent = 'Waiting for ' + (other ? other.name.split(' ')[0] : 'them') + ' to join';
+
+            // Plan checklist
+            const steps = (m.note || '').split('\n').map(s => s.replace(/^\s*\d+[.)]\s*/, '').trim()).filter(Boolean);
+            const checked = planChecks[m.id] || (planChecks[m.id] = new Set());
+            $('planCard').innerHTML = '<h3>Plan</h3>' + (steps.length
+                ? '<div class="plan-list">' + steps.map((s, i) =>
+                    '<label><input type="checkbox"' + (checked.has(i) ? ' checked' : '') + ' onchange="togglePlan(\'' + m.id + '\', ' + i + ')">' +
+                    '<span class="' + (checked.has(i) ? 'done' : '') + '">' + esc(s) + '</span></label>').join('') + '</div>'
+                : '<p class="small muted">No plan for this session.</p>');
+        }
+
+        function togglePlan(id, i) {
+            const s = planChecks[id];
+            if (s.has(i)) s.delete(i); else s.add(i);
+            if (s.size && $('planCard').querySelectorAll('input').length === s.size) toast('Plan complete! 🎉');
+            renderRoom();
+        }
+
+        function mediaProblem(e) {
+            if (!navigator.mediaDevices) return 'Open this page with Live Server (or https) to use your camera and mic.';
+            if (e && e.name === 'NotAllowedError') return 'Access was blocked. Click the camera icon in your address bar to allow it.';
+            if (e && e.name === 'NotFoundError') return 'No camera or mic was found on this device.';
+            return 'Could not start it. Is another app using it?';
+        }
+
+        async function toggleCamera() {
+            if (camStream) {
+                camStream.getTracks().forEach(t => t.stop());
+                camStream = null;
+            } else {
+                if (!navigator.mediaDevices) { toast(mediaProblem()); return; }
+                try {
+                    camStream = await navigator.mediaDevices.getUserMedia({ video: true });
+                    $('myVideo').srcObject = camStream;
+                } catch (e) { toast(mediaProblem(e)); camStream = null; }
+            }
+            $('myVideo').classList.toggle('hidden', !camStream);
+            $('camBtn').textContent = camStream ? 'Turn off camera' : 'Turn on camera';
+            $('camBtn').classList.toggle('on', !!camStream);
+            renderRoom();
+        }
+
+        async function toggleMic() {
+            if (micStream) {
+                stopMic();
+            } else {
+                if (!navigator.mediaDevices) { toast(mediaProblem()); return; }
+                try {
+                    micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                    const analyser = audioCtx.createAnalyser();
+                    analyser.fftSize = 256;
+                    audioCtx.createMediaStreamSource(micStream).connect(analyser);
+                    const data = new Uint8Array(analyser.frequencyBinCount);
+                    const tick = () => {
+                        analyser.getByteFrequencyData(data);
+                        let sum = 0;
+                        for (const v of data) sum += v;
+                        $('micLevel').style.width = Math.min(100, (sum / data.length) * 2) + '%';
+                        meterLoop = requestAnimationFrame(tick);
+                    };
+                    tick();
+                } catch (e) { toast(mediaProblem(e)); micStream = null; }
+            }
+            $('micBtn').textContent = micStream ? 'Turn off mic' : 'Turn on mic';
+            $('micBtn').classList.toggle('on', !!micStream);
+            $('myStatus').textContent = micStream ? 'Mic on' : 'Mic off';
+        }
+
+        function stopMic() {
+            if (micStream) micStream.getTracks().forEach(t => t.stop());
+            micStream = null;
+            if (meterLoop) cancelAnimationFrame(meterLoop);
+            if (audioCtx) audioCtx.close();
+            audioCtx = null;
+            $('micLevel').style.width = '0';
+        }
+
+        function stopMedia() {
+            if (camStream) {
+                camStream.getTracks().forEach(t => t.stop());
+                camStream = null;
+                $('myVideo').classList.add('hidden');
+                $('camBtn').textContent = 'Turn on camera';
+                $('camBtn').classList.remove('on');
+            }
+            if (micStream) {
+                stopMic();
+                $('micBtn').textContent = 'Turn on mic';
+                $('micBtn').classList.remove('on');
+                $('myStatus').textContent = 'Mic off';
+            }
+        }
+
+        async function saveRoomNotes(showToast) {
+            if (!roomMeeting) return;
+            const goal = $('goalInput').value.trim(), notes = $('notesInput').value.trim();
+            if (!goal && !notes && !state.notes[roomMeeting]) return;
+            const { error } = await db.saveNotes(roomMeeting, goal || null, notes || null);
+            if (error) { toast(friendly(error)); return; }
+            if (showToast) toast('Notes saved');
+            refresh();
+        }
+
+        async function leaveRoom() {
+            stopMedia();
+            await saveRoomNotes(false);
+            roomMeeting = null;
+            renderRoom();
+            go('notes');
+        }
+
+
+        /* ==============================================================
+           NOTES
+           ============================================================== */
+        function renderNotes() {
+            const list = myMeetings().filter(m => state.notes[m.id] && (state.notes[m.id].goal || state.notes[m.id].notes))
+                .sort((a, b) => new Date(b.starts_at) - new Date(a.starts_at));
+            if (list.length === 0) {
+                $('notesList').innerHTML = '<div class="panel empty-state"><h3>Your notes show up here</h3><p>Save a goal and notes in the Room during a session.</p></div>';
+                return;
+            }
+            $('notesList').innerHTML = list.map(m => {
+                const other = otherPerson(m), n = state.notes[m.id];
+                return '<div class="panel note-card">' +
+                    '<div class="post-head">' + avatar(other, 'sm') + '<div><b>' + esc(other ? other.name : 'Someone') + '</b>' +
+                    '<span class="small muted">' + niceWhen(m.starts_at) + '</span></div></div>' +
+                    (n.goal ? '<div class="goal">Goal: ' + esc(n.goal) + '</div>' : '') +
+                    (n.notes ? '<p class="text">' + esc(n.notes) + '</p>' : '') +
+                    '<div class="post-foot" style="margin-top:12px">' +
+                        '<button class="btn btn-secondary btn-sm" onclick="shareNote(\'' + m.id + '\')">Share to moments</button>' +
+                        '<button class="btn btn-ghost btn-sm" onclick="scheduleWith(\'' + (other ? other.id : '') + '\')">Meet again</button>' +
+                        '<button class="btn btn-ghost btn-sm" onclick="joinRoom(\'' + m.id + '\')">Edit notes</button>' +
+                    '</div></div>';
+            }).join('');
+        }
+
+        function shareNote(id) {
+            const m = state.meetings.find(x => x.id === id), n = state.notes[id], other = otherPerson(m);
+            const what = n.goal || (n.notes || '').split('\n')[0];
+            go('home');
+            $('postInput').value = ('Session takeaway with ' + (other ? other.name.split(' ')[0] : 'my mentor') + ': ' + what).slice(0, 500);
+            updateCounter();
+            $('postInput').focus();
+        }
+
+
+        /* ==============================================================
+           PROFILE & SETTINGS
+           ============================================================== */
+        const allMajors = () => Object.values(MAJORS).flat();
+
+        // Put your saved info into the form (only when the page opens,
+        // so it doesn't erase what you're typing)
+        function fillProfileForm() {
+            const u = me();
+            const isStudent = u.role === 'student';
+
+            mountAvatarMaker('profAvatarMaker', u.avatar || randomAvatar());
+            $('profName').value = u.name || '';
+            $('profEmail').value = u.email || '';
+            $('profId').textContent = u.member_id || 'Not assigned yet';
+            $('profBio').value = u.bio || '';
+            $('profBio').placeholder = isStudent
+                ? '2nd-year ECE student interested in EV batteries and embedded systems.'
+                : 'I help students with internships, resumes, and getting started in engineering.';
+
+            $('profStudentFields').classList.toggle('hidden', !isStudent);
+            $('profMentorFields').classList.toggle('hidden', isStudent);
+
+            if (isStudent) {
+                const known = allMajors().includes(u.major);
+                $('profMajor').value = known ? u.major : 'Other (type it in)';
+                $('profOther').value = known ? '' : (u.major || '');
+                $('profOtherField').classList.toggle('hidden', known);
+            } else {
+                $('profTitle').value = u.title || '';
+                $('profCompany').value = u.company || '';
+            }
+
+            mountPicker('profInterests', INTEREST_IDEAS, u.interests);
+            mountPicker('profSkills', SKILL_IDEAS, u.skills);
+            mountPicker('profFree', FREE_TIMES, u.availability, false);
+            $('profError').textContent = '';
+        }
+
+        // Parts that can update any time (photo, resume, blocked list)
+        function renderProfile() {
+            const u = me();
+            $('removePhotoBtn').classList.toggle('hidden', !u.photo);
+            $('photoNote').textContent = u.photo ? 'People see your photo right now. Remove it to show your avatar.' : '';
+            $('verifiedNote').innerHTML = u.verified ? '<span class="badge ok">✓ Verified</span>' : '';
+
+            $('reviewBtn').classList.toggle('hidden', !u.resume_path);
+            if (u.resume_path) {
+                const when = u.resume_updated ? new Date(u.resume_updated).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : '';
+                $('resumeStatus').innerHTML =
+                    '<div class="file-row"><div class="file-icon">PDF</div>' +
+                    '<div class="grow"><b>' + esc(u.resume_name || 'resume.pdf') + '</b><span class="small muted">Uploaded ' + when + '</span></div>' +
+                    '<button class="btn btn-secondary btn-sm" onclick="viewResume(\'' + u.id + '\')">View</button>' +
+                    '<button class="btn btn-ghost btn-sm" onclick="removeResume()">Remove</button></div>';
+                $('resumeBtnText').textContent = 'Replace resume';
+            } else {
+                $('resumeStatus').innerHTML = '<p class="small muted" style="margin:12px 0">No resume uploaded yet.</p>';
+                $('resumeBtnText').textContent = 'Upload resume';
+            }
+
+            const blocked = state.blocks.map(id => users()[id]).filter(Boolean);
+            $('blockedCard').innerHTML = '<h3>Blocked people</h3>' + (blocked.length
+                ? blocked.map(p => '<div class="person-row">' + avatar(p, 'sm') + '<div class="grow"><b>' + esc(p.name) + '</b></div>' +
+                    '<button class="btn btn-ghost btn-sm" onclick="unblockPerson(\'' + p.id + '\')">Unblock</button></div>').join('')
+                : '<p class="small muted">You haven\'t blocked anyone.</p>');
+        }
+
+        async function saveAvatar(button) {
+            await busy(button, 'Saving…', async () => {
+                const { error } = await db.updateProfile({ avatar: avatarMakers.profAvatarMaker });
+                if (error) { toast(friendly(error)); return; }
+                toast(me().photo ? 'Avatar saved. Remove your photo to show it.' : 'Avatar saved ✨');
+                await refresh();
+            });
+        }
+
+        // Shrink the photo, then save it to your profile
+        function uploadPhoto(input) {
+            const file = input.files[0];
+            input.value = '';
+            if (!file) return;
+            const img = new Image();
+            img.onload = async () => {
+                const size = 200;
+                const canvas = document.createElement('canvas');
+                canvas.width = canvas.height = size;
+                const side = Math.min(img.width, img.height);
+                canvas.getContext('2d').drawImage(img, (img.width - side) / 2, (img.height - side) / 2, side, side, 0, 0, size, size);
+                URL.revokeObjectURL(img.src);
+                const { error } = await db.updateProfile({ photo: canvas.toDataURL('image/jpeg', 0.85) });
+                if (error) { toast(friendly(error)); return; }
+                toast('Photo updated');
+                refresh();
+            };
+            img.src = URL.createObjectURL(file);
+        }
+
+        async function removePhoto() {
+            const { error } = await db.updateProfile({ photo: null });
+            if (error) { toast(friendly(error)); return; }
+            toast('Photo removed. Your avatar is back!');
+            refresh();
+        }
+
+        async function saveProfile(button) {
+            const u = me();
+            const err = $('profError');
+            const changes = {
+                name: $('profName').value.trim(), bio: $('profBio').value.trim(),
+                interests: pickerValues('profInterests'), skills: pickerValues('profSkills'), availability: pickerValues('profFree')
+            };
+            if (!changes.name) { err.textContent = 'Enter your name.'; return; }
+
+            if (u.role === 'student') {
+                let major = $('profMajor').value;
+                if (major === 'Other (type it in)') major = $('profOther').value.trim();
+                if (!major) { err.textContent = 'Choose your major.'; return; }
+                changes.major = major;
+            } else {
+                changes.title = $('profTitle').value.trim();
+                changes.company = $('profCompany').value.trim();
+                if (!changes.title) { err.textContent = 'Enter your job title.'; return; }
+            }
+
+            err.textContent = '';
+            await busy(button, 'Saving…', async () => {
+                const { error } = await db.updateProfile(changes);
+                if (error) { err.textContent = friendly(error); return; }
+                toast('Profile saved');
+                await refresh();
+            });
+        }
+
+        function openPasswordModal() {
+            openModal(
+                '<h2>Change password</h2>' +
+                '<p class="muted">Use at least 8 characters.</p>' +
+                '<label class="field"><span>New password</span><input type="password" id="changePassInput" autocomplete="new-password"></label>' +
+                '<p class="error" id="changePassError"></p>' +
+                '<div class="modal-actions">' +
+                    '<button class="btn btn-secondary" onclick="closeModal()">Cancel</button>' +
+                    '<button class="btn btn-primary" onclick="changePassword(this)">Save</button>' +
+                '</div>');
+        }
+
+        async function changePassword(button) {
+            const password = $('changePassInput').value;
+            if (password.length < 8) { $('changePassError').textContent = 'Use at least 8 characters.'; return; }
+            await busy(button, 'Saving…', async () => {
+                const { error } = await db.changePassword(password);
+                if (error) { $('changePassError').textContent = friendly(error); return; }
+                closeModal();
+                toast('Password changed');
+            });
+        }
+
+
+        /* ---------- RESUME ---------- */
+        async function uploadResume(input) {
+            const file = input.files[0];
+            input.value = '';
+            if (!file) return;
+            if (file.type !== 'application/pdf') { toast('Choose a PDF file.'); return; }
+            if (file.size > 5 * 1024 * 1024) { toast('That file is over 5 MB. Try a smaller PDF.'); return; }
+
+            toast('Uploading…');
+            const { error } = await db.uploadResume(file);
+            if (error) { toast('Upload failed: ' + friendly(error)); return; }
+            toast('Resume uploaded. Reviewing it now…');
+            await refresh();
+            showReview(await reviewPdf(await file.arrayBuffer()));
+        }
+
+        async function removeResume() {
+            const { error } = await db.removeResume();
+            if (error) { toast(friendly(error)); return; }
+            toast('Resume removed');
+            $('resumeReview').innerHTML = '';
+            refresh();
+        }
+
+        // Open a resume in a new tab (real links only work for 10 minutes)
+        async function viewResume(userId) {
+            const u = users()[userId];
+            if (!u || !u.resume_path) { toast('No resume uploaded yet.'); return; }
+            const tab = window.open('', '_blank');      // open now so pop-up blockers allow it
+            const { url, error } = await db.resumeUrl(userId);
+            if (error) {
+                if (tab) tab.close();
+                toast('Could not open the resume: ' + friendly(error));
+                return;
+            }
+            if (tab) tab.location = url;
+            else window.location = url;
+        }
+
+        async function myResumeReview() {
+            if (!me().resume_path) return null;
+            const { bytes, error } = await db.myResumeBytes();
+            if (error) return { error: friendly(error) };
+            return reviewPdf(bytes);
+        }
+
+
+        /* ==============================================================
+           RESUME REVIEW
+           Reads the text in your PDF, then checks it the way a recruiter
+           would: length, contact info, sections, strong bullet points,
+           numbers, and weak phrases. Gives a score out of 100 + fixes.
+           ============================================================== */
+        const ACTION_VERBS = ['achieved', 'analyzed', 'assembled', 'automated', 'built', 'calculated', 'collaborated', 'conducted',
+            'configured', 'coordinated', 'created', 'debugged', 'decreased', 'delivered', 'designed', 'developed', 'documented',
+            'drafted', 'engineered', 'established', 'evaluated', 'expanded', 'explained', 'fabricated', 'facilitated', 'founded',
+            'generated', 'graded', 'guided', 'identified', 'implemented', 'improved', 'increased', 'initiated', 'installed',
+            'integrated', 'investigated', 'launched', 'led', 'maintained', 'managed', 'measured', 'mentored', 'modeled',
+            'optimized', 'organized', 'planned', 'presented', 'programmed', 'prototyped', 'published', 'raised', 'redesigned',
+            'reduced', 'refactored', 'repaired', 'researched', 'resolved', 'reviewed', 'simulated', 'soldered', 'solved',
+            'streamlined', 'supervised', 'taught', 'tested', 'trained', 'tutored', 'validated', 'wrote', 'compared', 'served',
+            'processed', 'scheduled', 'monitored', 'assisted', 'prepared', 'handled', 'operated', 'performed', 'deployed', 'ran'];
+
+        const WEAK_PHRASES = ['responsible for', 'duties included', 'helped with', 'helped to', 'worked on', 'in charge of',
+            'tasks included', 'various', 'etc', 'team player', 'hard worker', 'detail oriented', 'detail-oriented'];
+
+        const SECTIONS = {
+            Education:  ['education', 'academics'],
+            Experience: ['experience', 'work experience', 'employment', 'work history', 'professional experience', 'leadership', 'involvement'],
+            Projects:   ['projects', 'project experience', 'technical projects', 'personal projects', 'academic projects'],
+            Skills:     ['skills', 'technical skills', 'skills & interests', 'skills and interests', 'tools', 'languages']
+        };
+
+        // Get the lines of text out of a PDF
+        async function pdfLines(buffer) {
+            if (!window.pdfjsLib) throw new Error('The PDF reader did not load. Check your internet and refresh.');
+            pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdn.jsdelivr.net/npm/pdfjs-dist@3.11.174/build/pdf.worker.min.js';
+            const pdf = await pdfjsLib.getDocument({ data: buffer }).promise;
+            const lines = [];
+            for (let n = 1; n <= pdf.numPages; n++) {
+                const page = await pdf.getPage(n);
+                const content = await page.getTextContent();
+                let line = '', lastY = null, lastEnd = null;
+                content.items.forEach(item => {
+                    const x = item.transform[4], y = item.transform[5];
+                    if (lastY !== null && Math.abs(y - lastY) > 3) { lines.push(line); line = ''; lastEnd = null; }
+                    if (lastEnd !== null && x - lastEnd > 1.5 && !line.endsWith(' ')) line += ' ';
+                    line += item.str;
+                    lastY = y;
+                    lastEnd = x + item.width;
+                });
+                lines.push(line);
+            }
+            return { pages: pdf.numPages, lines: lines.map(l => l.replace(/\s+/g, ' ').trim()).filter(Boolean) };
+        }
+
+        function shorten(text, n) { return text.length > n ? text.slice(0, n - 1) + '…' : text; }
+
+        // Look at the resume text and build the review
+        function checkResume(pages, lines) {
+            const all = lines.join('\n');
+            const lower = all.toLowerCase();
+            const words = all.split(/\s+/).filter(Boolean).length;
+            const good = [], fix = [];
+            let score = 0;
+
+            if (words < 40) {
+                return { score: 0, pages, words, good, fix: [{ text: 'I couldn\'t read much text. If your resume is a scanned picture, export it again from Word or Google Docs as a PDF.' }] };
+            }
+
+            // 1. Length (10)
+            if (pages === 1) { score += 10; good.push({ text: 'It fits on one page.' }); }
+            else if (pages === 2) { score += 5; fix.push({ text: 'It\'s 2 pages. Most students should keep it to one page.' }); }
+            else fix.push({ text: 'It\'s ' + pages + ' pages. Cut it down to one page.' });
+            if (words < 200) fix.push({ text: 'It\'s short (' + words + ' words). Add more detail about your projects and experience.' });
+            if (words > 800) fix.push({ text: 'It\'s wordy (' + words + ' words). Shorten bullets so it\'s easy to skim.' });
+
+            // 2. Contact info (20)
+            if (/[\w.+-]+@[\w-]+\.[\w.]+/.test(all)) { score += 10; good.push({ text: 'Has an email address.' }); }
+            else fix.push({ text: 'Add your email address at the top.' });
+            if (/(\+?1[\s.-]?)?\(?\d{3}\)?[\s.-]?\d{3}[\s.-]?\d{4}/.test(all)) score += 5;
+            else fix.push({ text: 'Add a phone number.' });
+            if (/linkedin/i.test(all)) score += 5;
+            else fix.push({ text: 'Add your LinkedIn link so recruiters can find you.' });
+            if (/github|portfolio|\.dev\b|\.io\b/i.test(all)) good.push({ text: 'Links to GitHub or a portfolio.' });
+
+            // 3. Sections (40)
+            const isHeading = (line, names) => {
+                const l = line.toLowerCase().replace(/[^a-z& ]/g, '').trim();
+                return line.length <= 40 && names.some(n => l === n || l.startsWith(n + ' '));
+            };
+            const found = [];
+            for (const name in SECTIONS) {
+                if (lines.some(l => isHeading(l, SECTIONS[name]))) { score += 10; found.push(name); }
+                else fix.push({ text: 'Add a clear "' + name + '" section heading.' });
+            }
+            if (found.length) good.push({ text: 'Has these sections: ' + found.join(', ') + '.' });
+
+            // 4. Bullet points
+            const bulletChars = /^[•●▪◦‣∙·\-–*➢►■□o]\s+/;
+            let bullets = lines.filter(l => bulletChars.test(l)).map(l => l.replace(bulletChars, ''));
+            if (bullets.length < 3) {
+                bullets = lines.filter(l => l.split(' ').length >= 7 && !/@|linkedin|github/i.test(l));
+            }
+
+            if (bullets.length) {
+                const firstWord = b => b.toLowerCase().split(/\s+/)[0].replace(/[^a-z]/g, '');
+                const strong = bullets.filter(b => ACTION_VERBS.includes(firstWord(b)));
+                const share = strong.length / bullets.length;
+
+                // Action verbs (15)
+                if (share >= 0.6) { score += 15; good.push({ text: 'Most bullets start with a strong action verb.' }); }
+                else {
+                    score += Math.round(share * 15);
+                    const weak = bullets.find(b => !ACTION_VERBS.includes(firstWord(b)));
+                    fix.push({ text: 'Start each bullet with an action verb (Built, Designed, Led, Tested). Only ' + strong.length + ' of ' + bullets.length + ' do.', quote: weak });
+                }
+
+                // Numbers (10)
+                const withNumbers = bullets.filter(b => /\d|%|\$/.test(b));
+                if (withNumbers.length / bullets.length >= 0.3) { score += 10; good.push({ text: 'Uses numbers to show results.' }); }
+                else {
+                    score += Math.round((withNumbers.length / bullets.length) * 30);
+                    const noNum = bullets.find(b => !/\d|%|\$/.test(b));
+                    fix.push({ text: 'Add numbers to show impact (how many, how much, how fast). Example: "Tested 12 battery cells…"', quote: noNum });
+                }
+
+                // Long bullets
+                const long = bullets.find(b => b.split(' ').length > 30);
+                if (long) fix.push({ text: 'Some bullets are very long. Keep each one to 1–2 lines.', quote: long });
+
+                // First person
+                const iLine = bullets.find(b => /\b(i|my|me)\b/i.test(b));
+                if (iLine) fix.push({ text: 'Don\'t use "I", "me", or "my" in bullets. Start with the verb instead.', quote: iLine });
+            } else {
+                fix.push({ text: 'Use bullet points under each job or project so it\'s easy to skim.' });
+            }
+
+            // 5. Weak phrases (5)
+            const weakFound = WEAK_PHRASES.filter(p => new RegExp('\\b' + p.replace(/[-]/g, '\\-') + '\\b').test(lower));
+            if (weakFound.length === 0) { score += 5; good.push({ text: 'No weak filler phrases.' }); }
+            else {
+                const line = lines.find(l => weakFound.some(p => l.toLowerCase().includes(p)));
+                fix.push({ text: 'Replace weak phrases like "' + weakFound.slice(0, 3).join('", "') + '" with what you actually did.', quote: line && line.replace(bulletChars, '') });
+            }
+
+            // Extra tips (no points)
+            if (!/gpa/i.test(all)) fix.push({ text: 'Think about adding your GPA if it\'s 3.0 or higher.' });
+            if (!/(19|20)\d{2}/.test(all)) fix.push({ text: 'Add dates (month and year) for your school and experience.' });
+
+            return { score: Math.min(100, score), pages, words, good, fix };
+        }
+
+        async function reviewPdf(buffer) {
+            try {
+                const { pages, lines } = await pdfLines(buffer);
+                return checkResume(pages, lines);
+            } catch (e) {
+                return { error: e.message || 'Could not read that PDF.' };
+            }
+        }
+
+        function scoreLabel(score) {
+            return score >= 80 ? 'Strong' : score >= 60 ? 'Good start' : 'Needs work';
+        }
+
+        async function reviewMyResume(button) {
+            await busy(button, 'Reviewing…', async () => {
+                showReview(await myResumeReview());
+            });
+        }
+
+        function showReview(r) {
+            if (!r) { $('resumeReview').innerHTML = ''; return; }
+            if (r.error) {
+                $('resumeReview').innerHTML = '<div class="review"><p class="small" style="color:var(--danger)">' + esc(r.error) + '</p></div>';
+                return;
+            }
+            const item = x => '<li>' + esc(x.text) + (x.quote ? '<span class="quote">"' + esc(shorten(x.quote, 110)) + '"</span>' : '') + '</li>';
+            $('resumeReview').innerHTML =
+                '<div class="review">' +
+                    '<div class="score-row"><span class="score">' + r.score + '/100</span><b>' + scoreLabel(r.score) + '</b>' +
+                    '<span class="small muted">' + r.pages + ' page' + (r.pages > 1 ? 's' : '') + ' · ' + r.words + ' words</span></div>' +
+                    '<div class="score-bar"><div style="width:' + r.score + '%"></div></div>' +
+                    (r.good.length ? '<h4>What\'s working</h4><ul class="good">' + r.good.map(item).join('') + '</ul>' : '') +
+                    (r.fix.length ? '<h4>What to fix</h4><ul class="fix">' + r.fix.map(item).join('') + '</ul>' : '<p class="small muted" style="margin-top:10px">Nothing big to fix. Ask a mentor for a final look!</p>') +
+                '</div>';
+        }
+
+        // For the AI study buddy chat
+        function wantsResumeReview(text) {
+            const t = text.toLowerCase();
+            return /\b(resume|cv)\b/.test(t) && /\b(review|check|look at|look over|feedback|score|rate|grade|read|improve)\b/.test(t) && !/\bhow\b.*\bwrite\b/.test(t);
+        }
+
+        async function resumeReviewForChat() {
+            const r = await myResumeReview();
+            if (!r) return 'Upload your resume first (your picture in the top right → Profile & settings → Upload resume). Then ask me again and I\'ll review it.';
+            if (r.error) return 'I couldn\'t read your resume: ' + r.error;
+            let msg = 'I read your resume (' + r.pages + ' page' + (r.pages > 1 ? 's' : '') + ', ' + r.words + ' words).\nScore: ' + r.score + '/100 (' + scoreLabel(r.score) + ')';
+            if (r.good.length) msg += '\n\nWhat\'s working:\n' + r.good.map(x => '• ' + x.text).join('\n');
+            if (r.fix.length) msg += '\n\nWhat to fix:\n' + r.fix.slice(0, 6).map(x => '• ' + x.text + (x.quote ? '\n   "' + shorten(x.quote, 80) + '"' : '')).join('\n');
+            msg += '\n\nThe full review is in Profile & settings. A mentor can look at it too.';
+            return msg;
+        }
+
+
+        /* ==============================================================
+           GO!
+           ============================================================== */
+        fillMajors();
+        document.addEventListener('click', e => {
+            if (!e.target.closest('.me-spot')) $('menu').classList.add('hidden');
+        });
+
+        if (new URLSearchParams(location.search).has('demo')) {
+            startDemo();
+        } else {
+            showLanding();
+            if (sb) watchAuth();
+        }
+    </script>
+
 </body>
 </html>
-
-
-
-

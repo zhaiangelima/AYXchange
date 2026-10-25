@@ -1,20 +1,2327 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>AYXchange — Match. Message. Meet. Make something.</title>
-<style>
-@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap');
-:root{--ink:#192622;--muted:#75817b;--green:#baf36c;--lime:#d8ffad;--paper:#f7f8f3;--line:#e7eae2;--white:#fff;--dark:#18231f;--orange:#f5a875;--purple:#b2a0ff}*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font-family:'DM Sans',sans-serif}.app{min-height:100vh;display:grid;grid-template-columns:250px 1fr}.sidebar{background:#fff;border-right:1px solid var(--line);padding:28px 20px;display:flex;flex-direction:column;gap:32px}.brand{display:flex;align-items:center;gap:10px;font:800 22px Manrope,sans-serif;letter-spacing:-1px}.logo{height:34px;width:34px;border-radius:12px;background:var(--green);display:grid;place-items:center;font-size:18px}.brand span{color:#82ae4d}.profile{background:#f5f7f1;border-radius:18px;padding:14px;display:flex;gap:11px;align-items:center}.avatar{height:42px;width:42px;border-radius:50%;display:grid;place-items:center;background:linear-gradient(145deg,#f6cfaa,#e99e73);font-size:24px;flex:none}.pname{font-weight:700;font-size:14px}.verified{font-size:11px;color:#6c9d3c;margin-top:4px}.navlabel{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:1.3px;color:#9aa39b;margin:2px 10px 8px}.nav{display:grid;gap:5px}.nav button{border:0;background:transparent;text-align:left;padding:12px 13px;border-radius:12px;color:#66716a;font:600 14px 'DM Sans';cursor:pointer}.nav button.active,.nav button:hover{background:#eff8e6;color:#263b21}.nav .ico{display:inline-block;width:27px;color:inherit}.side-bottom{margin-top:auto;border-top:1px solid var(--line);padding-top:20px;font-size:12px;color:#8a948d;line-height:1.6}.demo{display:inline-flex;background:#fff4e9;color:#a96837;border-radius:99px;padding:5px 9px;font-size:10px;font-weight:700;letter-spacing:.3px;margin-bottom:10px}.main{min-width:0;padding:28px 42px 40px;max-width:1480px;width:100%;margin:0 auto}.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:34px}.crumb{font-size:13px;color:#8b948e}.top-right{display:flex;align-items:center;gap:12px}.datechip,.iconbtn{border:1px solid var(--line);background:#fff;border-radius:11px;padding:10px 13px;font-size:12px;color:#56645c}.iconbtn{height:38px;width:38px;padding:0;font-size:16px}.screen{display:none;animation:appear .25s ease}.screen.active{display:block}@keyframes appear{from{opacity:.4;transform:translateY(4px)}to{opacity:1;transform:none}}.heading-row{display:flex;justify-content:space-between;align-items:end;margin-bottom:24px}.eyebrow{font-size:11px;color:#729750;text-transform:uppercase;letter-spacing:1.6px;font-weight:700;margin-bottom:8px}.title{font:800 34px/1.12 Manrope,sans-serif;letter-spacing:-1.5px;margin:0}.subtitle{font-size:14px;color:var(--muted);margin:9px 0 0;line-height:1.55}.btn{border:0;border-radius:12px;padding:13px 17px;font:700 13px 'DM Sans';cursor:pointer;transition:.18s}.btn:hover{transform:translateY(-1px)}.primary{background:var(--green);color:#1d2a1a}.darkbtn{background:var(--dark);color:#fff}.outline{background:#fff;border:1px solid var(--line);color:#3e4b43}.discovery-layout{display:grid;grid-template-columns:minmax(340px,1fr) minmax(280px,.73fr);gap:24px}.mentor-card{min-height:460px;position:relative;border-radius:25px;overflow:hidden;background:#dadcc9;box-shadow:0 14px 35px #24382614}.card-photo{position:absolute;inset:0;background:radial-gradient(ellipse at 74% 27%,#f2bb85 0 10%,transparent 10.5%),radial-gradient(ellipse at 74% 39%,#3e4138 0 15%,transparent 15.5%),radial-gradient(ellipse at 75% 61%,#eab487 0 14%,transparent 14.5%),linear-gradient(125deg,#a5b7a5,#d5d4b9 48%,#82978a);filter:saturate(.8)}.card-photo:before{content:' ';position:absolute;inset:0;background:linear-gradient(0deg,#17221ee8 0%,#17221e65 36%,transparent 76%)}.card-photo:after{content:'EV';position:absolute;top:52px;right:25px;color:#ffffff35;font:800 108px Manrope;letter-spacing:-9px;transform:rotate(-9deg)}.card-top{position:absolute;top:20px;left:20px;right:20px;display:flex;justify-content:space-between}.tag{border-radius:99px;background:#fffffff0;padding:8px 11px;font-size:10px;font-weight:700;color:#354338}.tag.live:before{content:'';display:inline-block;background:#8cc655;width:7px;height:7px;border-radius:50%;margin-right:6px}.card-info{position:absolute;bottom:20px;left:23px;right:23px;color:white}.card-info h2{font:800 27px Manrope;margin:0 0 5px;letter-spacing:-.7px}.card-info .role{font-size:13px;color:#e1e8df}.pills{display:flex;gap:7px;flex-wrap:wrap;margin:13px 0}.pill{background:#ffffff20;border:1px solid #ffffff2c;padding:6px 9px;border-radius:99px;font-size:10px}.bio{font-size:12px;line-height:1.5;color:#edf1eb;max-width:470px}.card-actions{position:absolute;right:19px;top:50%;display:grid;gap:10px;transform:translateY(-50%)}.circlebtn{height:46px;width:46px;border:0;border-radius:50%;font-size:21px;cursor:pointer;box-shadow:0 3px 15px #0002}.pass{background:#fff;color:#7e8a81}.like{background:var(--green);color:#273522}.details{display:flex;flex-direction:column;gap:14px}.box{background:#fff;border:1px solid var(--line);border-radius:20px;padding:20px}.box h3{font:700 15px Manrope;margin:0 0 14px}.moment{background:#eef6e6;border:0;position:relative;overflow:hidden}.moment:after{content:'✦';position:absolute;right:18px;top:15px;font-size:35px;color:#c3e29f}.moment .label{font-size:10px;color:#729750;font-weight:700;text-transform:uppercase;letter-spacing:1px}.moment p{font:700 16px/1.5 Manrope;margin:10px 20px 0 0}.moment small{font-size:11px;color:#83917d;display:block;margin-top:12px}.matchline{display:flex;align-items:center;gap:12px;margin:9px 0 15px}.face{width:32px;height:32px;border-radius:50%;background:#ffddc4;display:grid;place-items:center}.line{flex:1;border-top:1px dashed #bfd3ad;position:relative}.line:after{content:'✦';position:absolute;left:50%;top:-11px;background:white;color:#84b24f;padding:0 5px}.matchline .face:last-child{background:#e2dafe}.matchtext{font-size:12px;line-height:1.5;color:#59655c}.avail{font-size:12px;color:#657166;line-height:1.8}.slot{display:inline-block;background:#f3f6ee;border-radius:8px;padding:5px 9px;margin:5px 4px 0 0;font-size:10px;font-weight:600;color:#627151}.gridstats{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-top:21px}.stat{padding:14px 16px;border:1px solid var(--line);border-radius:15px;background:#fff}.stat b{display:block;font:700 20px Manrope}.stat span{font-size:11px;color:#7b887f}.columns{display:grid;grid-template-columns:minmax(0,1fr) 290px;gap:20px}.chatbox,.panel,.schedule,.room,.takeaway{background:#fff;border:1px solid var(--line);border-radius:20px}.chatbox{min-height:500px;display:flex;flex-direction:column;overflow:hidden}.chathead{padding:17px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;gap:12px}.chathead .title-sm{font-weight:700;font-size:14px}.chathead small{display:block;color:#8a948d;font-size:11px;margin-top:3px}.chatmsgs{flex:1;padding:20px;display:flex;flex-direction:column;gap:14px}.daylabel{text-align:center;color:#a1aaa3;font-size:10px}.msg{max-width:77%;display:flex;align-items:flex-end;gap:8px}.msg.self{align-self:flex-end;flex-direction:row-reverse}.bubble{background:#f2f4ef;padding:11px 14px;border-radius:15px 15px 15px 4px;font-size:12px;line-height:1.55}.self .bubble{background:#e5f4d3;border-radius:15px 15px 4px 15px}.msg .avatar{width:27px;height:27px;font-size:15px}.suggestion{background:#fafbf8;border:1px dashed #cbd6c2;border-radius:13px;padding:11px 13px;font-size:11px;color:#677269}.suggestion b{display:block;color:#688e46;font-size:10px;text-transform:uppercase;letter-spacing:.6px;margin-bottom:4px}.composer{border-top:1px solid var(--line);padding:13px;display:flex;gap:9px}.composer input{flex:1;border:0;background:#f6f7f3;padding:12px 13px;border-radius:11px;font:12px 'DM Sans';outline:none}.composer button{border:0;background:var(--dark);color:white;border-radius:10px;padding:0 15px;cursor:pointer}.panel{padding:19px;height:max-content}.panel h3{font:700 14px Manrope;margin:0 0 14px}.safety{font-size:11px;line-height:1.6;color:#68746b}.safety strong{color:#4a6940}.progress{display:flex;gap:6px;margin:4px 0 18px}.progress i{height:4px;flex:1;border-radius:5px;background:#e9ede5}.progress i.on{background:#a8df69}.schedule{padding:23px;max-width:810px}.steps{display:flex;align-items:center;margin-bottom:24px;gap:9px;color:#9aa39c;font-size:11px}.steps b{color:#739650}.calendar-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:16px}.calendar-head b{font:700 16px Manrope}.days{display:grid;grid-template-columns:repeat(7,1fr);gap:7px}.day{border:1px solid var(--line);border-radius:12px;padding:11px 7px;text-align:center;cursor:pointer;color:#738078;font-size:10px}.day strong{display:block;font-size:14px;color:#27342d;margin:7px}.day.selected{border-color:#a7d878;background:#f1fae9;color:#5d8437}.times{display:flex;gap:9px;flex-wrap:wrap;margin-top:20px}.time{border:1px solid var(--line);background:#fff;padding:10px 14px;border-radius:10px;font-size:11px;cursor:pointer;color:#667168}.time.selected{background:#edf8e3;border-color:#9dcd6b;color:#45662c;font-weight:700}.sched-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:24px;padding-top:19px;border-top:1px solid var(--line)}.sched-note{font-size:11px;color:#77837a}.room{overflow:hidden;background:#f7f8f5}.roomtop{display:flex;justify-content:space-between;padding:17px 20px;background:#fff;border-bottom:1px solid var(--line);align-items:center}.roomtop b{font:700 14px Manrope}.roomgrid{display:grid;grid-template-columns:1.5fr .7fr;min-height:410px}.videoarea{padding:17px;background:#e8ece5;display:grid;grid-template-columns:1fr 1fr;gap:12px;align-content:center}.tile{height:230px;border-radius:17px;background:linear-gradient(145deg,#c9d9c6,#89988b);position:relative;overflow:hidden;display:grid;place-items:center}.tile.mentor{background:linear-gradient(140deg,#99a99b,#ded6ba)}.tile .person{font-size:95px;filter:drop-shadow(0 7px 3px #0002)}.tile .who{position:absolute;left:12px;bottom:11px;background:#17221ecc;color:white;border-radius:7px;padding:6px 9px;font-size:10px}.tile .mic{position:absolute;right:11px;top:11px;background:#ffffffdc;border-radius:50%;padding:6px;font-size:11px}.controls{grid-column:1/-1;display:flex;justify-content:center;gap:9px}.control{border:0;background:white;border-radius:11px;padding:10px 13px;font-size:11px;color:#536158}.control.end{background:#e96f62;color:#fff}.roomside{padding:18px;background:#fff;border-left:1px solid var(--line)}.roomside h3{font:700 13px Manrope;margin:0 0 14px}.task{background:#f3f8ed;border-radius:14px;padding:13px;margin:12px 0}.task small{color:#779456;text-transform:uppercase;font-size:9px;font-weight:700;letter-spacing:.7px}.task p{font-size:12px;line-height:1.5;margin:7px 0}.formula{font:700 14px Manrope;background:white;padding:10px;border-radius:9px;text-align:center}.roomchat{font-size:11px;line-height:1.5;color:#69746c;padding-top:9px;border-top:1px solid var(--line);margin-top:14px}.roomchat span{display:block;margin:8px 0}.roomchat b{color:#405242}.takeaway-layout{display:grid;grid-template-columns:1.2fr .8fr;gap:19px;max-width:900px}.takeaway{padding:23px}.takeaway h3{font:700 16px Manrope;margin:0 0 15px}.saved{background:#f2f8eb;border:1px solid #deebd1;border-radius:14px;padding:15px;margin:10px 0}.saved b{font-size:12px}.saved p{font-size:12px;line-height:1.6;margin:8px 0 0;color:#5b695d}.prompt{display:block;font-size:10px;text-transform:uppercase;color:#879289;font-weight:700;letter-spacing:.7px;margin:17px 0 7px}.field{border:1px solid var(--line);border-radius:11px;padding:12px;font:12px 'DM Sans';width:100%;color:#344137}.pillset{display:flex;gap:8px;margin:10px 0}.mentor-end{display:flex;align-items:center;gap:12px;margin:15px 0;padding:13px;background:#f8f8f4;border-radius:13px}.mentor-end .avatar{width:40px;height:40px}.success{background:#edfae4;color:#557735;padding:11px 13px;border-radius:11px;font-size:11px;display:none;margin:13px 0}.toast{position:fixed;bottom:22px;left:50%;transform:translate(-50%,20px);opacity:0;background:#1d2a23;color:#fff;padding:12px 18px;border-radius:12px;font-size:12px;transition:.25s;pointer-events:none;z-index:10}.toast.show{opacity:1;transform:translate(-50%,0)}.match-modal{position:fixed;inset:0;background:#15221dbd;display:none;place-items:center;z-index:5;padding:20px}.match-modal.show{display:grid}.modal-card{background:#fff;border-radius:25px;padding:33px;text-align:center;width:min(440px,100%);box-shadow:0 25px 60px #0003}.spark{font-size:36px}.modal-card h2{font:800 27px Manrope;margin:8px 0}.modal-card p{font-size:13px;color:#6c786f;line-height:1.6}.duo{display:flex;align-items:center;justify-content:center;margin:20px}.duo .avatar{height:62px;width:62px;font-size:34px;border:4px solid white;margin:0 -4px}.duo .avatar:last-child{background:#e1d9ff}.modal-actions{display:flex;gap:10px;justify-content:center;margin-top:20px}
-@media(max-width:920px){.app{grid-template-columns:76px 1fr}.sidebar{padding:22px 12px;align-items:center}.brand{font-size:0}.brand .logo{font-size:18px}.profile{padding:7px;background:transparent}.profile .ptext,.navlabel,.nav button span:not(.ico),.side-bottom{display:none}.nav{width:100%}.nav button{text-align:center;padding:13px 4px}.nav .ico{width:auto}.main{padding:23px}.discovery-layout{grid-template-columns:1fr}.details{display:grid;grid-template-columns:1fr 1fr}.moment{grid-column:1/-1}.columns{grid-template-columns:1fr}.panel{display:none}}
-@media(max-width:620px){.app{display:block}.sidebar{position:fixed;z-index:3;bottom:0;top:auto;width:100%;height:67px;border-right:0;border-top:1px solid var(--line);padding:6px 10px;flex-direction:row;justify-content:space-around;gap:0}.brand,.profile,.navlabel,.side-bottom{display:none}.nav{display:flex;justify-content:space-around}.nav button{font-size:0;padding:12px}.nav .ico{font-size:19px}.main{padding:20px 15px 90px}.topbar{margin-bottom:23px}.datechip{display:none}.title{font-size:29px}.heading-row{align-items:flex-start;gap:12px;flex-direction:column}.discovery-layout{display:block}.details{margin-top:14px;display:flex}.mentor-card{min-height:440px}.card-actions{right:12px}.gridstats{gap:7px}.stat{padding:11px}.columns{display:block}.panel{display:none}.chatbox{min-height:440px}.schedule{padding:17px}.days{gap:4px}.day{padding:9px 2px}.day strong{font-size:12px}.sched-bottom{align-items:flex-start;gap:12px;flex-direction:column}.roomgrid{grid-template-columns:1fr}.videoarea{grid-template-columns:1fr 1fr;padding:10px;gap:8px}.tile{height:155px}.tile .person{font-size:67px}.roomside{border:0;border-top:1px solid var(--line)}.takeaway-layout{grid-template-columns:1fr}.datechip{font-size:10px}.top-right{gap:6px}.crumb{font-size:11px}}
-</style></head>
-<body><div class="app"><aside class="sidebar"><div class="brand"><div class="logo">↗</div>AY<span>X</span>change</div><div class="profile"><div class="avatar">👩🏽‍🎓</div><div class="ptext"><div class="pname">Maya Chen</div><div class="verified">✓ Verified student</div></div></div><div style="width:100%"><div class="navlabel">Workspace</div><nav class="nav"><button class="active" data-screen="discover"><span class="ico">⌕</span><span>Discover</span></button><button data-screen="chat"><span class="ico">▤</span><span>Messages</span></button><button data-screen="schedule"><span class="ico">▦</span><span>Sessions</span></button><button data-screen="room"><span class="ico">◉</span><span>Project room</span></button><button data-screen="takeaway"><span class="ico">✧</span><span>My takeaways</span></button></nav></div><div class="side-bottom"><span class="demo">● FICTIONAL DEMO</span><br>Built for curious minds.<br>Learn together, make something.</div></aside><main class="main"><div class="topbar"><div class="crumb">Workspace&nbsp; / &nbsp;<b id="crumb">Discover</b></div><div class="top-right"><span class="datechip">✦ &nbsp;Your next big idea starts here</span><button class="iconbtn" title="Notifications">♧</button><div class="avatar" style="height:36px;width:36px;font-size:20px">👩🏽‍🎓</div></div></div>
-<section class="screen active" id="discover"><div class="heading-row"><div><div class="eyebrow">Make your next connection</div><h1 class="title">Find your kind of curious.</h1><p class="subtitle">People who make what you want to learn feel possible.</p></div><button class="btn outline" onclick="toast('Profile editor is ready for your next update')">✎ &nbsp;Edit profile</button></div><div class="discovery-layout"><div><article class="mentor-card"><div class="card-photo"></div><div class="card-top"><span class="tag live">OPEN TO MENTOR</span><span class="tag">✦ 94% shared interests</span></div><div class="card-actions"><button class="circlebtn pass" onclick="toast('Passed for now — more mentors are on the way')">×</button><button class="circlebtn like" onclick="likeMentor()">♥</button></div><div class="card-info"><div style="font-size:11px;margin-bottom:5px">✦ &nbsp;Mentor Moment · 2 min</div><h2>Jordan Rivera, 29</h2><div class="role">Battery Test Engineer · Northstar Mobility</div><div class="pills"><span class="pill">EV batteries</span><span class="pill">ECE</span><span class="pill">Prototyping</span></div><div class="bio">“I turn battery questions into hands-on experiments. Ask me anything about C-rate, cell testing, or getting your first project off the ground.”</div></div></article><div class="gridstats"><div class="stat"><b>3</b><span>shared interests</span></div><div class="stat"><b>2 hrs</b><span>overlapping this week</span></div><div class="stat"><b>Verified</b><span>mentor status</span></div></div></div><div class="details"><div class="box moment"><div class="label">✦ &nbsp;Mentor Moment</div><p>“How fast is too fast? C-rate makes battery performance easy to compare.”</p><small>JORDAN'S 30-SECOND TIP &nbsp;·&nbsp; 1.2K views</small></div><div class="box"><h3>Why this connection?</h3><div class="matchline"><div class="face">👩🏽‍🎓</div><div class="line"></div><div class="face">🧑🏻‍🔬</div></div><div class="matchtext">You both want to explore <b>EV batteries</b>. Jordan has experience in ECE and is open to beginner questions.</div></div><div class="box"><h3>Mentor availability</h3><div class="avail">Jordan offers times that work for them.<br><span class="slot">Fri · 3:00 PM</span><span class="slot">Fri · 4:00 PM</span><span class="slot">Mon · 11:00 AM</span></div></div></div></div></section>
-<section class="screen" id="chat"><div class="heading-row"><div><div class="eyebrow">A great start</div><h1 class="title">You found your people.</h1><p class="subtitle">Your private conversation is ready. Say hello and shape your session.</p></div><span class="tag live">MUTUAL MATCH</span></div><div class="columns"><div class="chatbox"><div class="chathead"><div class="avatar">🧑🏻‍🔬</div><div class="title-sm">Jordan Rivera <span style="color:#78a54b">✓</span><small>Battery Test Engineer · Usually replies in a day</small></div><button class="btn outline" style="margin-left:auto;padding:9px 11px" onclick="go('schedule')">▦ &nbsp;Plan a session</button></div><div class="chatmsgs" id="messages"><div class="daylabel">TODAY · YOUR MATCH IS MUTUAL</div><div class="suggestion"><b>Warm Start suggestion · Edit together</b>Ask Jordan: “What does C-rate tell us about how a battery behaves?” Then try a 2-minute calculation with a sample battery.</div><div class="msg"><div class="avatar">🧑🏻‍🔬</div><div class="bubble">Hi Maya! Glad we connected. I saw you're curious about EV batteries. What's one thing you'd love to understand better?</div></div><div class="msg self"><div class="avatar">👩🏽‍🎓</div><div class="bubble">Hi Jordan! What does C-rate tell us about a battery? I'm just starting out with this topic.</div></div><div class="msg"><div class="avatar">🧑🏻‍🔬</div><div class="bubble">Perfect question. It tells us how quickly a battery is charging or discharging relative to its capacity. Let's work through a real example together!</div></div></div><div class="composer"><input id="messageInput" placeholder="Write a message…" onkeydown="if(event.key==='Enter')sendMessage()"><button onclick="sendMessage()">Send ↗</button></div></div><aside class="panel"><h3>Your Warm Start</h3><div class="progress"><i class="on"></i><i class="on"></i><i></i></div><div class="safety"><strong>01 · Ask</strong><br>What does C-rate tell us?<br><br><strong>02 · Try</strong><br>Calculate the C-rate for a 120 Ah battery discharging at 60 A.<br><br><strong>03 · Make it yours</strong><br>Connect the idea to an EV battery you know.</div><button class="btn outline" style="width:100%;margin-top:17px" onclick="go('schedule')">Choose a time →</button></aside></div></section>
-<section class="screen" id="schedule"><div class="heading-row"><div><div class="eyebrow">Make a little time for a big idea</div><h1 class="title">Pick a time together.</h1><p class="subtitle">Choose from the times Jordan offered. You'll both get a reminder.</p></div></div><div class="schedule"><div class="steps"><b>01 &nbsp; MATCH</b> ─── <b>02 &nbsp; PLAN</b> ─── 03 &nbsp; MEET</div><div class="calendar-head"><b>October 2026</b><span style="font-size:11px;color:#93a098">← &nbsp; →</span></div><div class="days"><div class="day"><span>MON</span><strong>19</strong></div><div class="day"><span>TUE</span><strong>20</strong></div><div class="day"><span>WED</span><strong>21</strong></div><div class="day"><span>THU</span><strong>22</strong></div><div class="day selected"><span>FRI</span><strong>23</strong><span style="color:#78a64a">●</span></div><div class="day"><span>SAT</span><strong>24</strong></div><div class="day"><span>SUN</span><strong>25</strong></div></div><div style="margin-top:20px;font-size:12px;font-weight:700">Friday, October 23 <span style="color:#91a092;font-weight:400">· Times Jordan has offered</span></div><div class="times"><button class="time" onclick="selectTime(this)">3:00 – 3:30 PM</button><button class="time" onclick="selectTime(this)">3:30 – 4:00 PM</button><button class="time" onclick="selectTime(this)">4:00 – 4:30 PM</button></div><div class="sched-bottom"><div class="sched-note">◷ &nbsp;30 minutes &nbsp; · &nbsp; Video meeting &nbsp; · &nbsp; Warm Start included</div><button class="btn primary" onclick="bookSession()">Confirm session &nbsp;→</button></div></div></section>
-<section class="screen" id="room"><div class="heading-row"><div><div class="eyebrow">Your shared project room</div><h1 class="title">Let's figure it out.</h1><p class="subtitle">A relaxed space to talk, try, and make something together.</p></div><span class="tag live">● &nbsp;SESSION IN PROGRESS</span></div><div class="room"><div class="roomtop"><div><b>C-rate, made simple</b><span style="font-size:11px;color:#8a958c;margin-left:10px">Fri, Oct 23 · 3:00 PM</span></div><span class="tag">🔒 Private room</span></div><div class="roomgrid"><div class="videoarea"><div class="tile"><span class="mic">🎙</span><span class="person">👩🏽‍🎓</span><span class="who">Maya Chen · Student</span></div><div class="tile mentor"><span class="mic">🎙</span><span class="person">🧑🏻‍🔬</span><span class="who">Jordan Rivera · Mentor</span></div><div class="controls"><button class="control" onclick="this.textContent=this.textContent.includes('Mute')?'🎙 Unmute':'🎙 Mute'">🎙 Mute</button><button class="control" onclick="toast('Camera toggled')">▣ Camera</button><button class="control" onclick="toast('🙌 Reaction sent!')">🙌 React</button><button class="control" onclick="toast('Screen sharing is simulated in this demo')">▣ Share</button><button class="control end" onclick="go('takeaway')">End session</button></div></div><div class="roomside"><h3>✧ &nbsp;Mini activity</h3><div class="task"><small>Try it together · 2 min</small><p>A 120 Ah battery is discharging at 60 A. What's its C-rate?</p><div class="formula">C-rate = current ÷ capacity</div></div><div style="display:flex;gap:7px"><input class="field" style="padding:9px" placeholder="Your answer (e.g. 0.5C)"><button class="btn primary" style="padding:8px 10px" onclick="toast('Nice work! 60 ÷ 120 = 0.5C ✓')">Check</button></div><div class="roomchat"><b>SESSION CHAT</b><span><b>Jordan:</b> What do you think the answer is?</span><span><b>Maya:</b> Is it half the capacity per hour?</span></div></div></div></div></section>
-<section class="screen" id="takeaway"><div class="heading-row"><div><div class="eyebrow">Learning that sticks</div><h1 class="title">Keep the good stuff.</h1><p class="subtitle">Your shared notes are saved in this room for next time.</p></div></div><div class="takeaway-layout"><div class="takeaway"><h3>✧ &nbsp;Session takeaway</h3><div class="saved"><b>What we learned</b><p>C-rate compares a battery's current to its capacity. For 60 A on a 120 Ah battery: <b>60 ÷ 120 = 0.5C.</b> At 0.5C, a full discharge would take about two hours (in an ideal example).</p></div><span class="prompt">Add a note for future you</span><textarea class="field" rows="3" placeholder="What clicked? What do you want to explore next?"></textarea><span class="prompt">Your next step</span><input class="field" placeholder="e.g. Find the capacity of an EV battery pack"><div class="success" id="savedSuccess">✓ &nbsp;Saved to your shared project room.</div><button class="btn primary" style="margin-top:13px" onclick="saveTakeaway()">Save takeaway &nbsp;→</button></div><div class="takeaway"><div class="eyebrow">Keep the momentum</div><h3>That was just the beginning.</h3><div class="mentor-end"><div class="avatar">🧑🏻‍🔬</div><div><b style="font-size:12px">Jordan Rivera</b><div style="font-size:10px;color:#819087;margin-top:3px">Your mentor · Verified</div></div></div><div style="font-size:12px;line-height:1.6;color:#69756b">You explored C-rate and worked through your first battery calculation. Ready to take the next step?</div><div class="pillset"><span class="slot">✓ Notes saved</span><span class="slot">✓ Room shared</span></div><button class="btn darkbtn" style="width:100%;margin-top:14px" onclick="go('schedule')">↻ &nbsp;Meet again</button><button class="btn outline" style="width:100%;margin-top:9px" onclick="go('discover')">Back to discovery</button></div></div></section>
-</main></div><div class="match-modal" id="matchModal"><div class="modal-card"><div class="spark">✦</div><div class="eyebrow">The feeling is mutual</div><h2>It's a match!</h2><div class="duo"><div class="avatar">👩🏽‍🎓</div><div class="avatar">🧑🏻‍🔬</div></div><p>You and Jordan both want to explore <b>EV batteries</b>. Your schedules overlap this Friday. Your private chat and Warm Start are ready.</p><div class="modal-actions"><button class="btn outline" onclick="closeMatch()">Keep exploring</button><button class="btn primary" onclick="closeMatch();go('chat')">Say hello →</button></div></div></div><div class="toast" id="toast"></div>
-<script>
-const names={discover:'Discover',chat:'Messages',schedule:'Sessions',room:'Project room',takeaway:'My takeaways'};function go(id){document.querySelectorAll('.screen').forEach(s=>s.classList.toggle('active',s.id===id));document.querySelectorAll('.nav button').forEach(b=>b.classList.toggle('active',b.dataset.screen===id));document.getElementById('crumb').textContent=names[id];window.scrollTo(0,0)}document.querySelectorAll('.nav button').forEach(b=>b.onclick=()=>go(b.dataset.screen));function likeMentor(){document.getElementById('matchModal').classList.add('show')}function closeMatch(){document.getElementById('matchModal').classList.remove('show')}function toast(msg){let t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');clearTimeout(window.toastTimer);window.toastTimer=setTimeout(()=>t.classList.remove('show'),2400)}function sendMessage(){let i=document.getElementById('messageInput');if(!i.value.trim())return;let e=document.createElement('div');e.className='msg self';e.innerHTML='<div class="avatar">👩🏽‍🎓</div><div class="bubble"></div>';e.querySelector('.bubble').textContent=i.value;document.getElementById('messages').append(e);i.value='';document.getElementById('messages').scrollTop=9999}let chosen='3:00 – 3:30 PM';function selectTime(el){document.querySelectorAll('.time').forEach(x=>x.classList.remove('selected'));el.classList.add('selected');chosen=el.textContent}function bookSession(){if(!document.querySelector('.time.selected'))document.querySelector('.time').classList.add('selected');toast('Session confirmed · Fri, Oct 23 at '+chosen.split('–')[0].trim());setTimeout(()=>go('room'),700)}function saveTakeaway(){document.getElementById('savedSuccess').style.display='block';toast('Your takeaway is saved')}
-</script></body></html>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>AYXchange</title>
+
+    <style>
+        /* ==========================================================
+           1. COLORS + BASICS
+           ========================================================== */
+        :root {
+            --bg: #f6f7f9;          /* page background */
+            --surface: #ffffff;     /* panels */
+            --text: #15171c;        /* main text */
+            --muted: #687080;       /* secondary text */
+            --faint: #9aa1ad;       /* hints */
+            --line: #e3e6eb;        /* borders */
+            --blue: #2c5be8;        /* main color */
+            --blue-dark: #1f45bd;   /* button hover */
+            --blue-tint: #edf1fd;   /* selected things */
+            --danger: #c93c3c;
+            --ok: #1d7a4c;
+            --ok-tint: #e8f5ee;
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            background: var(--bg);
+            color: var(--text);
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+
+        h1 { font-size: 24px; margin: 0 0 4px; letter-spacing: -0.3px; }
+        h2 { font-size: 17px; margin: 0; }
+        h3 { font-size: 15px; margin: 0 0 6px; }
+        p { margin: 0; }
+        .muted { color: var(--muted); }
+        .small { font-size: 13px; }
+        .hidden { display: none !important; }
+
+
+        /* ==========================================================
+           2. BUTTONS + INPUTS
+           ========================================================== */
+        .btn {
+            display: inline-flex; align-items: center; justify-content: center; gap: 6px;
+            height: 38px; padding: 0 16px;
+            border-radius: 8px; border: 1px solid transparent;
+            font: inherit; font-size: 14px; font-weight: 600;
+            cursor: pointer; white-space: nowrap;
+        }
+        .btn-primary { background: var(--blue); color: #fff; }
+        .btn-primary:hover { background: var(--blue-dark); }
+        .btn-secondary { background: var(--surface); color: var(--text); border-color: var(--line); }
+        .btn-secondary:hover { background: var(--bg); }
+        .btn-ghost { background: transparent; color: var(--muted); }
+        .btn-ghost:hover { color: var(--text); }
+        .btn-danger { background: var(--danger); color: #fff; }
+        .btn-block { width: 100%; }
+        .btn-sm { height: 32px; padding: 0 12px; font-size: 13px; }
+        .btn:disabled { opacity: 0.55; cursor: default; }
+        .btn.on { background: var(--blue-tint); border-color: var(--blue); color: var(--blue-dark); }
+
+        .field { display: block; margin-bottom: 14px; }
+        .field span { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+        input, select, textarea {
+            width: 100%;
+            font: inherit; font-size: 15px; color: var(--text);
+            background: var(--surface);
+            border: 1px solid var(--line); border-radius: 8px;
+            padding: 9px 12px;
+        }
+        input:focus, select:focus, textarea:focus {
+            outline: none; border-color: var(--blue);
+            box-shadow: 0 0 0 3px var(--blue-tint);
+        }
+        textarea { resize: vertical; }
+        input:disabled { background: var(--bg); color: var(--muted); }
+        .error { color: var(--danger); font-size: 13px; min-height: 20px; margin: -4px 0 8px; }
+
+
+        /* ==========================================================
+           3. SHARED PIECES
+           ========================================================== */
+        .panel {
+            background: var(--surface);
+            border: 1px solid var(--line);
+            border-radius: 12px;
+        }
+
+        /* Round profile picture (photo or initials) */
+        .avatar {
+            width: 40px; height: 40px; flex: none;
+            border-radius: 50%; overflow: hidden;
+            display: grid; place-items: center;
+            font-weight: 700; font-size: 14px; color: #2a2f3a;
+        }
+        .avatar img { width: 100%; height: 100%; object-fit: cover; }
+        .avatar.sm { width: 32px; height: 32px; font-size: 12px; }
+        .avatar.lg { width: 96px; height: 96px; font-size: 30px; }
+
+        .logo-row { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+        .logo-mark {
+            width: 28px; height: 28px; border-radius: 7px;
+            background: var(--blue); color: #fff;
+            display: grid; place-items: center;
+            font-weight: 800; font-size: 15px;
+        }
+        .logo-text { font-weight: 700; font-size: 18px; letter-spacing: -0.3px; }
+
+        .badge {
+            display: inline-block; font-size: 12px; font-weight: 600;
+            padding: 2px 8px; border-radius: 99px;
+            background: var(--blue-tint); color: var(--blue-dark);
+        }
+        .badge.ok { background: var(--ok-tint); color: var(--ok); }
+
+        .empty-state { padding: 36px 20px; text-align: center; color: var(--muted); }
+        .empty-state h3 { color: var(--text); }
+
+        .toast {
+            position: fixed; left: 50%; bottom: 24px; transform: translateX(-50%);
+            background: var(--text); color: #fff;
+            padding: 10px 16px; border-radius: 8px; font-size: 14px;
+            opacity: 0; transition: opacity 0.2s; pointer-events: none; z-index: 50;
+        }
+        .toast.show { opacity: 1; }
+
+
+        /* ==========================================================
+           4. SIGN-IN PAGE
+           ========================================================== */
+        .auth { min-height: 100vh; display: grid; place-items: center; padding: 24px 16px; }
+        .auth-box { width: 100%; max-width: 400px; }
+        .auth-box > .logo-row { justify-content: center; margin-bottom: 20px; cursor: default; }
+        .auth-panel { padding: 28px; }
+        .auth-panel h1 { font-size: 21px; }
+        .auth-panel .muted { margin-bottom: 20px; }
+        .auth-panel .segmented { margin-bottom: 20px; }
+        .auth .fine { text-align: center; font-size: 12px; color: var(--faint); margin-top: 14px; }
+        .back { display: block; background: none; border: 0; padding: 0; margin-bottom: 14px; color: var(--muted); font: inherit; font-size: 13px; cursor: pointer; }
+        .setup-warning {
+            border: 1px solid #f0c36d; background: #fff8e6; color: #7a5200;
+            border-radius: 8px; padding: 10px 12px; font-size: 13px; margin-bottom: 16px;
+        }
+
+        /* Password box with a Show/Hide button */
+        .pw-wrap { position: relative; }
+        .pw-wrap input { padding-right: 64px; }
+        .pw-toggle {
+            position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+            border: 0; background: none; padding: 6px 8px; cursor: pointer;
+            font: inherit; font-size: 13px; font-weight: 600; color: var(--muted);
+        }
+        .link-btn {
+            display: block; margin: 14px auto 0; border: 0; background: none; cursor: pointer;
+            font: inherit; font-size: 14px; font-weight: 600; color: var(--blue);
+        }
+
+        /* Student / Mentor switch */
+        .segmented { display: grid; grid-template-columns: 1fr 1fr; background: var(--bg); border-radius: 9px; padding: 3px; margin-bottom: 16px; }
+        .segmented button {
+            border: 0; background: transparent; border-radius: 7px; padding: 8px;
+            font: inherit; font-size: 14px; font-weight: 600; color: var(--muted); cursor: pointer;
+        }
+        .segmented button.on { background: var(--surface); color: var(--text); box-shadow: 0 1px 2px rgba(0,0,0,0.08); }
+
+
+        /* ==========================================================
+           5. HEADER + TABS
+           ========================================================== */
+        .header { background: var(--surface); border-bottom: 1px solid var(--line); position: sticky; top: 0; z-index: 10; }
+        .header-inner {
+            max-width: 1040px; margin: 0 auto; padding: 0 20px;
+            display: flex; align-items: center; gap: 24px; height: 60px;
+        }
+        .tabs { display: flex; gap: 4px; height: 100%; flex: 1; overflow-x: auto; }
+        .tabs button {
+            height: 100%; border: 0; background: none; padding: 0 12px;
+            font: inherit; font-size: 14px; font-weight: 600; color: var(--muted);
+            border-bottom: 2px solid transparent; cursor: pointer; white-space: nowrap;
+        }
+        .tabs button:hover { color: var(--text); }
+        .tabs button.on { color: var(--text); border-bottom-color: var(--blue); }
+
+        .me-spot { position: relative; }
+        .avatar-btn { border: 0; padding: 0; background: none; cursor: pointer; border-radius: 50%; }
+        .menu {
+            position: absolute; right: 0; top: 48px; width: 250px; z-index: 20;
+            background: var(--surface); border: 1px solid var(--line); border-radius: 12px;
+            box-shadow: 0 8px 24px rgba(20, 24, 33, 0.12); padding: 6px;
+        }
+        .menu-head { display: flex; gap: 10px; align-items: center; padding: 10px; border-bottom: 1px solid var(--line); margin-bottom: 6px; }
+        .menu-head b { display: block; font-size: 14px; }
+        .menu-item {
+            display: block; width: 100%; text-align: left; border: 0; background: none;
+            padding: 9px 10px; border-radius: 8px; font: inherit; font-size: 14px; color: var(--text); cursor: pointer;
+        }
+        .menu-item:hover { background: var(--bg); }
+        .menu-item.danger { color: var(--danger); }
+
+
+        /* ==========================================================
+           6. PAGE LAYOUT
+           ========================================================== */
+        .page { max-width: 1040px; margin: 0 auto; padding: 28px 20px 60px; }
+        .screen { display: none; }
+        .screen.on { display: block; }
+        .page-head { margin-bottom: 20px; }
+
+        .two-col { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 20px; align-items: start; }
+        .col-main { display: flex; flex-direction: column; gap: 16px; min-width: 0; }
+        .col-side { display: flex; flex-direction: column; gap: 16px; }
+        .side-card { padding: 18px; }
+        .side-card h3 { margin-bottom: 10px; }
+
+
+        /* ==========================================================
+           7. HOME: composer, feed, requests
+           ========================================================== */
+        .composer { padding: 16px; }
+        .composer-row { display: flex; gap: 12px; }
+        .composer textarea { border: 0; padding: 8px 0; box-shadow: none; min-height: 70px; }
+        .composer-foot { display: flex; justify-content: space-between; align-items: center; gap: 12px; border-top: 1px solid var(--line); padding-top: 12px; margin-top: 6px; }
+
+        .feed-title { padding: 14px 18px; border-bottom: 1px solid var(--line); font-weight: 600; }
+        .post { padding: 18px; border-bottom: 1px solid var(--line); }
+        .post:last-child { border-bottom: 0; }
+        .post-head { display: flex; gap: 12px; align-items: center; margin-bottom: 10px; }
+        .post-head b { display: block; font-size: 15px; }
+        .post-text { white-space: pre-wrap; word-wrap: break-word; margin-bottom: 12px; }
+        .post-foot { display: flex; gap: 8px; align-items: center; }
+
+        .person-row { display: flex; align-items: center; gap: 10px; padding: 8px 0; }
+        .person-row + .person-row { border-top: 1px solid var(--line); }
+        .person-row .grow { flex: 1; min-width: 0; }
+        .person-row b { display: block; font-size: 14px; }
+        .person-row .actions { display: flex; gap: 6px; }
+
+
+        /* People page */
+        .people-bar { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; margin-bottom: 16px; }
+        .people-bar input { flex: 1; min-width: 220px; }
+        .filter { display: flex; border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: #fff; }
+        .filter button { border: 0; background: none; padding: 9px 14px; font: inherit; font-size: 14px; color: var(--muted); cursor: pointer; }
+        .filter button + button { border-left: 1px solid var(--line); }
+        .filter button.on { background: var(--blue-tint); color: var(--blue-dark); font-weight: 600; }
+        .people-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 14px; }
+        .person-card { padding: 16px; display: flex; flex-direction: column; gap: 10px; }
+        .person-card .top { display: flex; gap: 12px; align-items: center; }
+        .person-card .grow { flex: 1; min-width: 0; }
+        .person-card b { display: block; }
+        .person-card .bio { flex: 1; margin: 0; }
+        .post-head .badge { margin-left: 6px; vertical-align: 1px; }
+
+
+        /* ==========================================================
+           8. MESSAGES
+           ========================================================== */
+        .chat {
+            display: grid; grid-template-columns: 260px minmax(0, 1fr);
+            grid-template-rows: minmax(0, 1fr);            /* the chat can't grow taller than its box */
+            height: calc(100vh - 190px); min-height: 420px; max-height: 720px;
+            overflow: hidden;
+        }
+        .chat-list { border-right: 1px solid var(--line); overflow-y: auto; padding: 8px; }
+        .contact {
+            display: flex; gap: 10px; align-items: center; width: 100%; text-align: left;
+            border: 0; background: none; border-radius: 8px; padding: 10px;
+            font: inherit; color: var(--text); cursor: pointer;
+        }
+        .contact:hover { background: var(--bg); }
+        .contact.on { background: var(--blue-tint); }
+        .contact b { display: block; font-size: 14px; }
+        .contact .preview { display: block; font-size: 13px; color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .contact .grow { min-width: 0; }
+
+        .chat-main { display: flex; flex-direction: column; min-width: 0; min-height: 0; }
+        .chat-head { display: flex; gap: 10px; align-items: center; padding: 12px 18px; border-bottom: 1px solid var(--line); min-height: 64px; }
+        .chat-head b { display: block; }
+        .chat-head .btn { margin-left: auto; }
+        .chat-body { flex: 1; min-height: 0; overflow-y: auto; padding: 18px; display: flex; flex-direction: column; gap: 6px; }   /* scrolls */
+        .msg { max-width: 72%; }
+        .msg .bubble { padding: 9px 13px; border-radius: 16px; background: #eff1f4; white-space: pre-wrap; word-wrap: break-word; }
+        .msg.mine { align-self: flex-end; }
+        .msg.mine .bubble { background: var(--blue); color: #fff; }
+        .msg .time { font-size: 11px; color: var(--faint); margin: 2px 6px 6px; }
+        .msg.mine .time { text-align: right; }
+        .msg.typing .bubble { color: var(--muted); font-style: italic; }
+
+        .chips { display: flex; gap: 8px; padding: 0 18px 10px; overflow-x: auto; }
+        .chips button {
+            flex: none; border: 1px solid var(--line); background: var(--surface); border-radius: 99px;
+            padding: 6px 12px; font: inherit; font-size: 13px; color: var(--text); cursor: pointer;
+        }
+        .chips button:hover { border-color: var(--blue); color: var(--blue-dark); }
+        .chat-compose { display: flex; gap: 8px; padding: 12px 18px 16px; border-top: 1px solid var(--line); }
+
+
+        /* ==========================================================
+           9. SESSIONS: calendar
+           ========================================================== */
+        .cal { padding: 20px; }
+        .cal-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 14px; }
+        .icon-btn {
+            width: 34px; height: 34px; border-radius: 8px; border: 1px solid var(--line);
+            background: var(--surface); font-size: 18px; cursor: pointer; color: var(--text);
+        }
+        .icon-btn:hover { background: var(--bg); }
+        .cal-grid { display: grid; grid-template-columns: repeat(7, 1fr); gap: 4px; }
+        .cal-dow { text-align: center; font-size: 12px; font-weight: 600; color: var(--faint); padding-bottom: 6px; }
+        .day {
+            position: relative; aspect-ratio: 1 / 1; max-height: 52px;
+            border: 0; background: none; border-radius: 8px;
+            font: inherit; font-size: 14px; color: var(--text); cursor: pointer;
+        }
+        .day:hover:not(:disabled) { background: var(--bg); }
+        .day:disabled { color: #c4c8cf; cursor: default; }
+        .day.today { font-weight: 700; color: var(--blue); }
+        .day.picked { background: var(--blue); color: #fff; }
+        .day .dot { position: absolute; left: 50%; bottom: 6px; width: 5px; height: 5px; margin-left: -2.5px; border-radius: 50%; background: var(--blue); }
+        .day.picked .dot { background: #fff; }
+
+        .book { border-top: 1px solid var(--line); margin-top: 16px; padding-top: 16px; }
+        .times { display: grid; grid-template-columns: repeat(auto-fill, minmax(92px, 1fr)); gap: 8px; margin: 10px 0 16px; }
+        .time-btn {
+            height: 36px; border: 1px solid var(--line); background: var(--surface); border-radius: 8px;
+            font: inherit; font-size: 13px; font-weight: 600; color: var(--text); cursor: pointer;
+        }
+        .time-btn:hover:not(:disabled) { border-color: var(--blue); }
+        .time-btn.picked { background: var(--blue); border-color: var(--blue); color: #fff; }
+        .time-btn:disabled { color: #c4c8cf; text-decoration: line-through; cursor: default; }
+
+        .meeting { padding: 12px 0; border-top: 1px solid var(--line); }
+        .meeting:first-of-type { border-top: 0; }
+        .meeting .when { font-weight: 600; font-size: 14px; }
+        .meeting .row { display: flex; gap: 6px; margin-top: 8px; }
+
+
+        /* ==========================================================
+           10. ROOM: real camera + mic
+           ========================================================== */
+        .room-grid { display: grid; grid-template-columns: minmax(0, 1fr) 320px; gap: 20px; align-items: start; }
+        .tiles { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+        .tile {
+            position: relative; aspect-ratio: 4 / 3; border-radius: 12px; overflow: hidden;
+            background: #1f232b; display: grid; place-items: center;
+        }
+        .tile video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; transform: scaleX(-1); }
+        .tile-name {
+            position: absolute; left: 10px; bottom: 10px;
+            background: rgba(0,0,0,0.55); color: #fff; font-size: 12px; font-weight: 600;
+            padding: 3px 8px; border-radius: 6px;
+        }
+        .tile-status {
+            position: absolute; right: 10px; top: 10px;
+            background: rgba(0,0,0,0.55); color: #fff; font-size: 11px; padding: 3px 8px; border-radius: 6px;
+        }
+        .tile-wait { position: absolute; left: 0; right: 0; bottom: 40px; text-align: center; color: #b9bfca; font-size: 13px; padding: 0 12px; }
+
+        .meter-row { display: flex; align-items: center; gap: 10px; margin: 14px 0; }
+        .meter { flex: 1; height: 6px; background: var(--line); border-radius: 99px; overflow: hidden; }
+        .meter div { height: 100%; width: 0; background: var(--ok); transition: width 0.08s; }
+        .controls { display: flex; gap: 8px; flex-wrap: wrap; }
+        .room-note { margin-top: 12px; }
+
+
+        /* ==========================================================
+           11. NOTES
+           ========================================================== */
+        .note-card { padding: 18px; margin-bottom: 14px; }
+        .note-card .goal { background: var(--blue-tint); border-radius: 8px; padding: 10px 12px; margin: 10px 0; font-weight: 600; }
+        .note-card .text { white-space: pre-wrap; color: var(--text); }
+
+
+        /* ==========================================================
+           11b. PROFILE + SETTINGS
+           ========================================================== */
+        .photo-row { display: flex; align-items: center; gap: 16px; margin-bottom: 18px; }
+        .file-row {
+            display: flex; align-items: center; gap: 12px;
+            border: 1px solid var(--line); border-radius: 10px; padding: 12px; margin: 12px 0;
+        }
+        .file-icon {
+            width: 40px; height: 48px; flex: none; border-radius: 6px;
+            background: #fdecec; color: var(--danger);
+            display: grid; place-items: center; font-size: 11px; font-weight: 800;
+        }
+        .file-row .grow { flex: 1; min-width: 0; }
+        .file-row b { display: block; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .bio { font-size: 13px; color: var(--muted); margin-top: 2px; }
+        .stack { display: flex; flex-direction: column; gap: 16px; }
+
+
+        /* ==========================================================
+           12. SMALLER SCREENS
+           ========================================================== */
+        @media (max-width: 860px) {
+            .two-col, .room-grid { grid-template-columns: 1fr; }
+            .chat { grid-template-columns: 1fr; grid-template-rows: auto minmax(0, 1fr); height: auto; max-height: none; }
+            .chat-list { border-right: 0; border-bottom: 1px solid var(--line); display: flex; overflow-x: auto; }
+            .contact { width: auto; flex: none; }
+            .contact .preview { display: none; }
+            .chat-body { height: 380px; flex: none; }
+        }
+        @media (max-width: 560px) {
+            .header-inner { gap: 12px; padding: 0 12px; }
+            .logo-text { display: none; }
+            .page { padding: 20px 14px 48px; }
+            .tiles { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="toast" id="toast"></div>
+
+
+    <!-- ==============================================================
+         SIGN IN / CREATE ACCOUNT
+         ============================================================== -->
+    <div class="auth" id="auth">
+        <div class="auth-box">
+            <div class="logo-row">
+                <span class="logo-mark">A</span>
+                <span class="logo-text">AYXchange</span>
+            </div>
+
+            <div class="panel auth-panel">
+
+                <!-- Shows if the Supabase keys are missing -->
+                <div class="setup-warning hidden" id="setupWarning"></div>
+
+                <!-- Two tabs: Sign in | Create account -->
+                <div class="segmented" id="authTabs">
+                    <button id="tabSignin" class="on" onclick="authMode('signin')">Sign in</button>
+                    <button id="tabSignup" onclick="authMode('signup')">Create account</button>
+                </div>
+
+                <!-- ===== SIGN IN ===== -->
+                <div id="viewSignin">
+                    <label class="field">
+                        <span>Email</span>
+                        <input id="siEmail" type="email" placeholder="you@example.com" autocomplete="email">
+                    </label>
+                    <label class="field">
+                        <span>Password</span>
+                        <div class="pw-wrap">
+                            <input id="siPass" type="password" placeholder="Your password" autocomplete="current-password"
+                                   onkeydown="if (event.key === 'Enter') $('siBtn').click()">
+                            <button type="button" class="pw-toggle" onclick="togglePw('siPass', this)">Show</button>
+                        </div>
+                    </label>
+                    <p class="error" id="siError"></p>
+                    <button class="btn btn-primary btn-block" id="siBtn" onclick="signIn(this)">Sign in</button>
+                    <button class="link-btn" onclick="authMode('forgot')">Forgot password?</button>
+                </div>
+
+                <!-- ===== CREATE ACCOUNT: enter email ===== -->
+                <div id="viewSignup" class="hidden">
+                    <p class="muted">Enter your email and we'll send you a link to set your password.</p>
+                    <label class="field">
+                        <span>Email</span>
+                        <input id="suEmail" type="email" placeholder="you@example.com" autocomplete="email"
+                               onkeydown="if (event.key === 'Enter') $('suBtn').click()">
+                    </label>
+                    <p class="error" id="suError"></p>
+                    <button class="btn btn-primary btn-block" id="suBtn" onclick="sendLink('signup', this)">Send link</button>
+                </div>
+
+                <!-- ===== FORGOT PASSWORD ===== -->
+                <div id="viewForgot" class="hidden">
+                    <button class="back" onclick="authMode('signin')">← Back to sign in</button>
+                    <h1>Reset your password</h1>
+                    <p class="muted">We'll email you a link to set a new password.</p>
+                    <label class="field">
+                        <span>Email</span>
+                        <input id="fgEmail" type="email" placeholder="you@example.com" autocomplete="email"
+                               onkeydown="if (event.key === 'Enter') $('fgBtn').click()">
+                    </label>
+                    <p class="error" id="fgError"></p>
+                    <button class="btn btn-primary btn-block" id="fgBtn" onclick="sendLink('reset', this)">Send link</button>
+                </div>
+
+                <!-- ===== LINK SENT ===== -->
+                <div id="viewSent" class="hidden">
+                    <h1>Check your email</h1>
+                    <p class="muted">We sent a link to <b id="sentEmail"></b>. Open it to <span id="sentPurpose"></span>. The link works for 1 hour. Check your spam folder too.</p>
+                    <button class="btn btn-secondary btn-block" onclick="resendLink(this)">Resend link</button>
+                    <button class="link-btn" onclick="authMode('signin')">Back to sign in</button>
+                </div>
+
+                <!-- ===== SET UP ACCOUNT (opened from the email link) ===== -->
+                <div id="viewSetup" class="hidden">
+                    <h1>Finish your account</h1>
+                    <p class="muted">for <b id="setupEmail"></b></p>
+
+                    <div class="segmented">
+                        <button id="roleStudent" class="on" onclick="setRole('student')">Student</button>
+                        <button id="roleMentor" onclick="setRole('mentor')">Mentor</button>
+                    </div>
+
+                    <label class="field">
+                        <span>Full name</span>
+                        <input id="nameInput" placeholder="Your name" autocomplete="name">
+                    </label>
+
+                    <!-- Students: major -->
+                    <div id="studentFields">
+                        <label class="field">
+                            <span>Major</span>
+                            <select id="majorSelect" onchange="checkOtherMajor()"></select>
+                        </label>
+                        <label class="field hidden" id="otherMajorField">
+                            <span>Your major</span>
+                            <input id="otherMajorInput" placeholder="Type your major">
+                        </label>
+                    </div>
+
+                    <!-- Mentors: job -->
+                    <div id="mentorFields" class="hidden">
+                        <label class="field">
+                            <span>Job title</span>
+                            <input id="titleInput" placeholder="e.g. Software Engineer">
+                        </label>
+                        <label class="field">
+                            <span>Company or organization</span>
+                            <input id="companyInput" placeholder="e.g. Honda">
+                        </label>
+                    </div>
+
+                    <label class="field">
+                        <span>Create a password</span>
+                        <div class="pw-wrap">
+                            <input id="setupPass" type="password" autocomplete="new-password" placeholder="At least 8 characters">
+                            <button type="button" class="pw-toggle" onclick="togglePw('setupPass', this)">Show</button>
+                        </div>
+                    </label>
+                    <label class="field">
+                        <span>Confirm password</span>
+                        <input id="setupPass2" type="password" autocomplete="new-password" placeholder="Type it again"
+                               onkeydown="if (event.key === 'Enter') $('setupBtn').click()">
+                    </label>
+
+                    <p class="error" id="setupError"></p>
+                    <button class="btn btn-primary btn-block" id="setupBtn" onclick="createAccount(this)">Create account</button>
+                </div>
+
+                <!-- ===== NEW PASSWORD (opened from a reset link) ===== -->
+                <div id="viewReset" class="hidden">
+                    <h1>Set a new password</h1>
+                    <p class="muted">for <b id="resetEmail"></b></p>
+                    <label class="field">
+                        <span>New password</span>
+                        <div class="pw-wrap">
+                            <input id="resetPass" type="password" autocomplete="new-password" placeholder="At least 8 characters">
+                            <button type="button" class="pw-toggle" onclick="togglePw('resetPass', this)">Show</button>
+                        </div>
+                    </label>
+                    <label class="field">
+                        <span>Confirm password</span>
+                        <input id="resetPass2" type="password" autocomplete="new-password" placeholder="Type it again"
+                               onkeydown="if (event.key === 'Enter') $('resetBtn').click()">
+                    </label>
+                    <p class="error" id="resetError"></p>
+                    <button class="btn btn-primary btn-block" id="resetBtn" onclick="savePassword(this)">Save password</button>
+                </div>
+
+                <!-- ===== BROKEN / OLD LINK ===== -->
+                <div id="viewBadLink" class="hidden">
+                    <h1>This link doesn't work</h1>
+                    <p class="muted">It may have expired or already been used.</p>
+                    <button class="btn btn-primary btn-block" onclick="authMode('signup')">Get a new link</button>
+                    <button class="link-btn" onclick="authMode('signin')">Back to sign in</button>
+                </div>
+
+            </div>
+            <p class="fine">Accounts are stored securely with Supabase.</p>
+        </div>
+    </div>
+
+    <!-- ==============================================================
+         THE APP (shows after sign in)
+         ============================================================== -->
+    <div id="app" class="hidden">
+
+        <!-- HEADER -->
+        <header class="header">
+            <div class="header-inner">
+                <div class="logo-row" onclick="go('home')">
+                    <span class="logo-mark">A</span>
+                    <span class="logo-text">AYXchange</span>
+                </div>
+
+                <nav class="tabs">
+                    <button data-screen="home" class="on">Home</button>
+                    <button data-screen="people">People</button>
+                    <button data-screen="messages">Messages</button>
+                    <button data-screen="sessions">Sessions</button>
+                    <button data-screen="room">Room</button>
+                    <button data-screen="notes">Notes</button>
+                </nav>
+
+                <div class="me-spot">
+                    <button class="avatar-btn" id="headerAvatar" onclick="toggleMenu()" aria-label="Your account"></button>
+                    <div class="menu hidden" id="menu">
+                        <div class="menu-head">
+                            <div id="menuAvatar"></div>
+                            <div><b id="menuName"></b><span class="small muted" id="menuInfo"></span></div>
+                        </div>
+                        <button class="menu-item" onclick="go('profile')">Profile &amp; settings</button>
+                        <button class="menu-item danger" onclick="signOut()">Sign out</button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+
+        <main class="page">
+
+            <!-- ==========================================================
+                 HOME
+                 ========================================================== -->
+            <section class="screen on" id="home">
+                <div class="page-head">
+                    <h1 id="homeTitle"></h1>
+                    <p class="muted" id="homeSub"></p>
+                </div>
+
+                <div class="two-col">
+                    <div class="col-main">
+                        <!-- Write a post (students and mentors) -->
+                        <div class="panel composer">
+                            <div class="composer-row">
+                                <div id="composerAvatar"></div>
+                                <textarea id="postInput" rows="3" placeholder="Ask a question, share a project, or post an opportunity…"></textarea>
+                            </div>
+                            <div class="composer-foot">
+                                <span class="small muted">Everyone on AYXchange can see this.</span>
+                                <button class="btn btn-primary" onclick="createPost(this)">Post</button>
+                            </div>
+                        </div>
+
+                        <!-- Posts -->
+                        <div class="panel" id="feed"></div>
+                    </div>
+
+                    <aside class="col-side">
+                        <div class="panel side-card" id="requestsCard"></div>
+                        <div class="panel side-card" id="connectionsCard"></div>
+                        <div class="panel side-card">
+                            <h3>AI study buddy</h3>
+                            <p class="small muted" style="margin-bottom: 12px">Quick help with resumes, interviews, internships, studying, and more.</p>
+                            <button class="btn btn-secondary btn-sm" onclick="openChat('ai')">Open chat</button>
+                        </div>
+                    </aside>
+                </div>
+            </section>
+
+
+            <!-- ==========================================================
+                 PEOPLE (find students and mentors)
+                 ========================================================== -->
+            <section class="screen" id="people">
+                <div class="page-head">
+                    <h1>People</h1>
+                    <p class="muted">Find students and mentors and connect with them.</p>
+                </div>
+
+                <div class="people-bar">
+                    <input id="peopleSearch" type="search" placeholder="Search by name, major, company, or interest" oninput="renderPeople()">
+                    <div class="filter" id="peopleFilter">
+                        <button data-f="all" class="on" onclick="setPeopleFilter('all')">Everyone</button>
+                        <button data-f="student" onclick="setPeopleFilter('student')">Students</button>
+                        <button data-f="mentor" onclick="setPeopleFilter('mentor')">Mentors</button>
+                    </div>
+                </div>
+
+                <div class="people-grid" id="peopleGrid"></div>
+            </section>
+
+
+            <!-- ==========================================================
+                 MESSAGES
+                 ========================================================== -->
+            <section class="screen" id="messages">
+                <div class="page-head">
+                    <h1>Messages</h1>
+                    <p class="muted">You can message someone once you're connected. The AI study buddy is always here.</p>
+                </div>
+
+                <div class="panel chat">
+                    <div class="chat-list" id="chatList"></div>
+                    <div class="chat-main">
+                        <div class="chat-head" id="chatHead"></div>
+                        <div class="chat-body" id="chatBody"></div>
+                        <div class="chips" id="chips"></div>
+                        <form class="chat-compose" id="chatForm" onsubmit="sendMessage(event)">
+                            <input id="chatInput" placeholder="Write a message" autocomplete="off">
+                            <button class="btn btn-primary">Send</button>
+                        </form>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- ==========================================================
+                 SESSIONS (calendar)
+                 ========================================================== -->
+            <section class="screen" id="sessions">
+                <div class="page-head">
+                    <h1>Sessions</h1>
+                    <p class="muted">Pick a day and time to meet with someone you're connected with.</p>
+                </div>
+
+                <div class="two-col">
+                    <div class="panel cal">
+                        <div class="cal-head">
+                            <button class="icon-btn" onclick="moveMonth(-1)" aria-label="Previous month">‹</button>
+                            <h2 id="calTitle"></h2>
+                            <button class="icon-btn" onclick="moveMonth(1)" aria-label="Next month">›</button>
+                        </div>
+                        <div class="cal-grid" id="calGrid"></div>
+                        <div class="book" id="bookArea"></div>
+                    </div>
+
+                    <aside class="panel side-card" id="upcoming"></aside>
+                </div>
+            </section>
+
+
+            <!-- ==========================================================
+                 ROOM (real camera + mic)
+                 ========================================================== -->
+            <section class="screen" id="room">
+                <div class="page-head">
+                    <h1>Room</h1>
+                    <p class="muted" id="roomSub"></p>
+                </div>
+
+                <!-- Shown when no session is open -->
+                <div class="panel" id="roomEmpty"></div>
+
+                <!-- Shown during a session -->
+                <div class="room-grid hidden" id="roomLive">
+                    <div>
+                        <div class="tiles">
+                            <div class="tile">
+                                <video id="myVideo" autoplay playsinline muted class="hidden"></video>
+                                <div id="myTileAvatar"></div>
+                                <span class="tile-status" id="myStatus">Mic off</span>
+                                <span class="tile-name">You</span>
+                            </div>
+                            <div class="tile">
+                                <div id="otherTileAvatar"></div>
+                                <span class="tile-wait" id="otherWait"></span>
+                                <span class="tile-name" id="otherName"></span>
+                            </div>
+                        </div>
+
+                        <div class="meter-row">
+                            <span class="small muted">Mic</span>
+                            <div class="meter"><div id="micLevel"></div></div>
+                        </div>
+
+                        <div class="controls">
+                            <button class="btn btn-secondary" id="camBtn" onclick="toggleCamera()">Turn on camera</button>
+                            <button class="btn btn-secondary" id="micBtn" onclick="toggleMic()">Turn on mic</button>
+                            <button class="btn btn-danger" onclick="leaveRoom()">Leave</button>
+                        </div>
+                        <p class="small muted room-note">Your camera and mic really turn on. Seeing the other person needs a video server, which this demo doesn't have yet.</p>
+                    </div>
+
+                    <div class="panel side-card">
+                        <h3>Shared notes</h3>
+                        <p class="small muted" style="margin-bottom: 12px">Both of you can see these.</p>
+                        <label class="field">
+                            <span>Goal</span>
+                            <input id="goalInput" placeholder="e.g. Apply to 3 internships by Friday">
+                        </label>
+                        <label class="field">
+                            <span>Notes</span>
+                            <textarea id="notesInput" rows="7" placeholder="What did you talk about? What's next?"></textarea>
+                        </label>
+                        <button class="btn btn-primary" onclick="saveRoomNotes()">Save notes</button>
+                    </div>
+                </div>
+            </section>
+
+
+            <!-- ==========================================================
+                 NOTES
+                 ========================================================== -->
+            <section class="screen" id="notes">
+                <div class="page-head">
+                    <h1>Notes</h1>
+                    <p class="muted">Goals and notes from your sessions.</p>
+                </div>
+                <div id="notesList"></div>
+            </section>
+
+
+            <!-- ==========================================================
+                 PROFILE & SETTINGS
+                 ========================================================== -->
+            <section class="screen" id="profile">
+                <div class="page-head">
+                    <h1>Profile &amp; settings</h1>
+                    <p class="muted" id="profileSub"></p>
+                </div>
+
+                <div class="two-col">
+                    <div class="stack">
+
+                        <!-- Your info -->
+                        <div class="panel side-card">
+                            <h3>Your info</h3>
+
+                            <div class="photo-row">
+                                <div id="profAvatar"></div>
+                                <div class="row" style="display:flex; gap:8px; flex-wrap:wrap">
+                                    <label class="btn btn-secondary btn-sm">Upload photo
+                                        <input type="file" accept="image/*" onchange="uploadPhoto(this)" hidden>
+                                    </label>
+                                    <button class="btn btn-ghost btn-sm" onclick="removePhoto()">Remove photo</button>
+                                </div>
+                            </div>
+
+                            <label class="field">
+                                <span>Full name</span>
+                                <input id="profName" autocomplete="name">
+                            </label>
+
+                            <!-- Students -->
+                            <div id="profStudentFields">
+                                <label class="field">
+                                    <span>Major</span>
+                                    <select id="profMajor" onchange="$('profOtherField').classList.toggle('hidden', this.value !== 'Other (type it in)')"></select>
+                                </label>
+                                <label class="field hidden" id="profOtherField">
+                                    <span>Your major</span>
+                                    <input id="profOther" placeholder="Type your major">
+                                </label>
+                            </div>
+
+                            <!-- Mentors -->
+                            <div id="profMentorFields">
+                                <label class="field">
+                                    <span>Job title</span>
+                                    <input id="profTitle">
+                                </label>
+                                <label class="field">
+                                    <span>Company or organization</span>
+                                    <input id="profCompany">
+                                </label>
+                            </div>
+
+                            <label class="field">
+                                <span>About you</span>
+                                <textarea id="profBio" rows="4" maxlength="500" placeholder=""></textarea>
+                            </label>
+
+                            <p class="error" id="profError"></p>
+                            <button class="btn btn-primary" onclick="saveProfile(this)">Save changes</button>
+                        </div>
+
+                        <!-- Resume (students) -->
+                        <div class="panel side-card student-only">
+                            <h3>Resume</h3>
+                            <p class="small muted">Upload a PDF (up to 5 MB). Only mentors you're connected with can open it, so they can review it and give feedback.</p>
+                            <div id="resumeStatus"></div>
+                            <label class="btn btn-primary" id="resumeBtn">
+                                <span id="resumeBtnText">Upload resume</span>
+                                <input type="file" accept="application/pdf" onchange="uploadResume(this)" hidden>
+                            </label>
+                        </div>
+                    </div>
+
+                    <!-- Account -->
+                    <aside class="stack">
+                        <div class="panel side-card">
+                            <h3>Account</h3>
+                            <label class="field">
+                                <span>Email</span>
+                                <input id="profEmail" disabled>
+                            </label>
+                            <label class="field">
+                                <span>New password</span>
+                                <input id="profPass" type="password" autocomplete="new-password" placeholder="At least 8 characters">
+                            </label>
+                            <label class="field">
+                                <span>Confirm new password</span>
+                                <input id="profPass2" type="password" autocomplete="new-password" placeholder="Type it again">
+                            </label>
+                            <p class="error" id="passError"></p>
+                            <button class="btn btn-secondary" onclick="changePassword(this)">Change password</button>
+                        </div>
+                        <div class="panel side-card">
+                            <button class="btn btn-danger btn-block" onclick="signOut()">Sign out</button>
+                        </div>
+                    </aside>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+
+    <!-- Supabase library (talks to your online database) -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4"></script>
+
+    <script>
+        /* ==============================================================
+           SUPABASE SETTINGS
+           Paste your Project URL and Publishable key here.
+           (Project Settings → API Keys). Never paste the secret key.
+           ============================================================== */
+        const SUPABASE_URL = 'PASTE_YOUR_PROJECT_URL_HERE';
+        const SUPABASE_KEY = 'PASTE_YOUR_PUBLISHABLE_KEY_HERE';
+
+        const configured = SUPABASE_URL.startsWith('https://') && !SUPABASE_KEY.startsWith('PASTE');
+        const sb = configured ? window.supabase.createClient(SUPABASE_URL, SUPABASE_KEY) : null;
+
+
+        /* ==============================================================
+           MAJORS (for the dropdown)
+           ============================================================== */
+        const MAJORS = {
+            'Engineering & Architecture': ['Aerospace Engineering', 'Architecture', 'Biomedical Engineering', 'Chemical Engineering', 'City and Regional Planning', 'Civil Engineering', 'Computer Science and Engineering', 'Electrical and Computer Engineering', 'Engineering Physics', 'Environmental Engineering', 'Food, Agricultural and Biological Engineering', 'Industrial and Systems Engineering', 'Landscape Architecture', 'Materials Science and Engineering', 'Mechanical Engineering', 'Welding Engineering'],
+            'Business': ['Accounting', 'Business Administration', 'Economics', 'Finance', 'Hospitality Management', 'Human Resources', 'Information Systems', 'Logistics Management', 'Marketing', 'Operations Management', 'Real Estate'],
+            'Science & Math': ['Actuarial Science', 'Astronomy and Astrophysics', 'Biochemistry', 'Biology', 'Chemistry', 'Data Analytics', 'Earth Sciences', 'Evolution and Ecology', 'Mathematics', 'Microbiology', 'Molecular Genetics', 'Neuroscience', 'Physics', 'Statistics', 'Zoology'],
+            'Health': ['Athletic Training', 'Dental Hygiene', 'Exercise Science', 'Health Sciences', 'Medical Laboratory Science', 'Nursing', 'Nutrition', 'Pharmaceutical Sciences', 'Public Health', 'Radiologic Sciences', 'Respiratory Therapy', 'Speech and Hearing Science'],
+            'Social Sciences': ['Anthropology', 'Communication', 'Criminology', 'Geography', 'International Studies', 'Journalism', 'Political Science', 'Psychology', 'Social Work', 'Sociology'],
+            'Arts & Humanities': ['Art', 'Art History', 'Chinese', 'Classics', 'Dance', 'Design', 'English', 'Film Studies', 'French', 'German', 'History', 'Japanese', 'Korean', 'Linguistics', 'Music', 'Philosophy', 'Religious Studies', 'Spanish', 'Theatre', 'World Literatures'],
+            'Education & Human Sciences': ['Early Childhood Education', 'Fashion and Retail Studies', 'Human Development and Family Science', 'Middle Childhood Education', 'Special Education', 'Sport Industry'],
+            'Food, Agriculture & Environment': ['Agribusiness', 'Animal Sciences', 'Construction Systems Management', 'Environmental Science', 'Forestry', 'Natural Resource Management', 'Plant Health'],
+            'Other': ['Aviation', 'Undecided / Exploring', 'Other (type it in)']
+        };
+
+
+        /* ==============================================================
+           SMALL HELPERS
+           ============================================================== */
+        const $ = id => document.getElementById(id);
+
+        // Make user-typed text safe to put inside HTML
+        function esc(text) {
+            return String(text ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+        }
+
+        function toast(text) {
+            const t = $('toast');
+            t.textContent = text;
+            t.classList.add('show');
+            clearTimeout(window.toastTimer);
+            window.toastTimer = setTimeout(() => t.classList.remove('show'), 2600);
+        }
+
+        function timeAgo(ts) {
+            const s = Math.floor((Date.now() - ts) / 1000);
+            if (s < 60) return 'just now';
+            if (s < 3600) return Math.floor(s / 60) + 'm ago';
+            if (s < 86400) return Math.floor(s / 3600) + 'h ago';
+            return new Date(ts).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+        }
+        function clock(ts) {
+            return new Date(ts).toLocaleTimeString('en-US', { hour: 'numeric', minute: '2-digit' });
+        }
+        function niceDate(dateStr) {
+            const [y, m, d] = dateStr.split('-').map(Number);
+            return new Date(y, m - 1, d).toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' });
+        }
+        function dateKey(d) {
+            return d.getFullYear() + '-' + String(d.getMonth() + 1).padStart(2, '0') + '-' + String(d.getDate()).padStart(2, '0');
+        }
+
+        // Turn Supabase error messages into plain English
+        function friendly(error) {
+            const msg = (error && error.message) || String(error);
+            if (/invalid login credentials/i.test(msg)) return 'Email or password is incorrect.';
+            if (/email not confirmed/i.test(msg)) return 'Please open the link in your email first.';
+            if (/rate limit|too many/i.test(msg)) return 'Too many emails sent. Wait a few minutes and try again (the free plan sends only a few per hour).';
+            if (/not authorized/i.test(msg)) return 'This email can\'t get emails yet. Add it to your Supabase team, or set up custom email.';
+            if (/password should be|weak password/i.test(msg)) return 'Pick a stronger password (at least 8 characters).';
+            if (/same password|different from the old/i.test(msg)) return 'Your new password must be different from your old one.';
+            if (/failed to fetch|network/i.test(msg)) return 'Can\'t reach the server. Check your internet connection.';
+            return msg;
+        }
+
+
+        /* ==============================================================
+           DATA
+           Everything lives in your Supabase database. "state" is a copy
+           in the page, refreshed whenever something changes.
+           ============================================================== */
+        const state = { me: null, profiles: {}, posts: [], connections: [], messages: [], meetings: [] };
+
+        const users    = () => state.profiles;
+        const posts    = () => state.posts;
+        const meetings = () => state.meetings;
+        const me       = () => state.me;
+        const myId     = () => state.me && state.me.id;
+
+        // Load everything this person is allowed to see
+        async function loadAll() {
+            const [p, po, r, m, mt] = await Promise.all([
+                sb.from('profiles').select('*'),
+                sb.from('posts').select('*').order('created_at', { ascending: false }),
+                sb.from('connections').select('*'),
+                sb.from('messages').select('*').order('created_at', { ascending: true }),
+                sb.from('meetings').select('*')
+            ]);
+            const failed = [p, po, r, m, mt].find(x => x.error);
+            if (failed) { toast('Could not load data: ' + friendly(failed.error)); return; }
+
+            state.profiles = Object.fromEntries(p.data.map(u => [u.id, u]));
+            state.posts = po.data;
+            state.connections = r.data;
+            state.messages = m.data;
+            state.meetings = mt.data;
+            if (state.me) state.me = state.profiles[state.me.id] || state.me;
+        }
+
+        // When anything changes in the database, reload and redraw
+        let reloadTimer = null;
+        function listenForChanges() {
+            sb.channel('everything')
+                .on('postgres_changes', { event: '*', schema: 'public' }, () => {
+                    clearTimeout(reloadTimer);
+                    reloadTimer = setTimeout(async () => { await loadAll(); renderAll(); }, 250);
+                })
+                .subscribe();
+        }
+
+        async function refresh() { await loadAll(); renderAll(); }
+
+        // Backup: if the live connection drops, still check every 10 seconds,
+        // and right away when you come back to this tab
+        function startBackupRefresh() {
+            setInterval(() => { if (!document.hidden) refresh(); }, 10000);
+            document.addEventListener('visibilitychange', () => { if (!document.hidden) refresh(); });
+            window.addEventListener('focus', () => refresh());
+        }
+
+        function subtitle(u) {
+            if (!u) return '';
+            if (u.role === 'mentor') return [u.title, u.company].filter(Boolean).join(' · ') || 'Mentor';
+            return u.major || 'Student';
+        }
+
+        // Round picture: their photo, or their initials on a soft color
+        const PASTELS = ['#dbe6ff', '#ffe1d6', '#dff3e4', '#f0e1ff', '#fff0c2', '#d8f1f5'];
+        function avatar(u, size) {
+            const cls = 'avatar' + (size ? ' ' + size : '');
+            if (!u) return '<div class="' + cls + '" style="background:#eee">?</div>';
+            if (u.photo) return '<div class="' + cls + '"><img src="' + esc(u.photo) + '" alt=""></div>';
+            const initials = u.name.split(' ').map(w => w[0]).join('').slice(0, 2).toUpperCase();
+            let n = 0;
+            for (const ch of u.id) n += ch.charCodeAt(0);
+            return '<div class="' + cls + '" style="background:' + PASTELS[n % PASTELS.length] + '">' + esc(initials) + '</div>';
+        }
+
+
+
+        /* ==============================================================
+           SIGN IN / CREATE ACCOUNT
+             Sign in         → email + password
+             Create account  → Supabase emails a link → the link brings
+                               them back here to set a password + profile
+             Forgot password → Supabase emails a link → set a new password
+           ============================================================== */
+        let currentLink = null;     // { email, purpose } for "Resend link"
+        let newRole = 'student';
+        let recovering = false;     // true while setting a new password
+        let signedInAs = null;      // stops us loading twice
+
+        const validEmail = e => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(e);
+        const hereUrl = () => location.origin + location.pathname;
+
+        function authMode(mode) {
+            const views = {
+                signin: 'viewSignin', signup: 'viewSignup', forgot: 'viewForgot',
+                sent: 'viewSent', setup: 'viewSetup', reset: 'viewReset', bad: 'viewBadLink'
+            };
+            Object.values(views).forEach(v => $(v).classList.add('hidden'));
+            $(views[mode]).classList.remove('hidden');
+            $('authTabs').classList.toggle('hidden', mode !== 'signin' && mode !== 'signup');
+            $('tabSignin').classList.toggle('on', mode === 'signin');
+            $('tabSignup').classList.toggle('on', mode === 'signup');
+            document.querySelectorAll('#auth .error').forEach(e => e.textContent = '');
+        }
+
+        function showAuth() {
+            $('app').classList.add('hidden');
+            $('auth').classList.remove('hidden');
+        }
+
+        function togglePw(id, button) {
+            const input = $(id);
+            const show = input.type === 'password';
+            input.type = show ? 'text' : 'password';
+            button.textContent = show ? 'Hide' : 'Show';
+        }
+
+        function checkPassword(pw, pw2) {
+            if (pw.length < 8) return 'Password needs at least 8 characters.';
+            if (pw !== pw2) return 'Passwords don\'t match.';
+            return '';
+        }
+
+        // Disable a button while waiting, so people don't double-click
+        async function busy(button, label, work) {
+            const old = button.textContent;
+            button.disabled = true;
+            button.textContent = label;
+            try { await work(); } finally { button.disabled = false; button.textContent = old; }
+        }
+
+
+        // ---------- SIGN IN ----------
+        async function signIn(button) {
+            const email = $('siEmail').value.trim().toLowerCase();
+            const password = $('siPass').value;
+            const err = $('siError');
+            if (!validEmail(email)) { err.textContent = 'Please enter a valid email address.'; return; }
+            if (!password) { err.textContent = 'Please enter your password.'; return; }
+
+            await busy(button, 'Signing in…', async () => {
+                const { error } = await sb.auth.signInWithPassword({ email, password });
+                if (error) err.textContent = friendly(error);
+                // On success, onAuthStateChange (below) opens the app
+            });
+        }
+
+
+        // ---------- SEND A LINK (new account or reset) ----------
+        async function sendLink(purpose, button) {
+            const input = purpose === 'signup' ? $('suEmail') : $('fgEmail');
+            const err = purpose === 'signup' ? $('suError') : $('fgError');
+            const email = input.value.trim().toLowerCase();
+            if (!validEmail(email)) { err.textContent = 'Please enter a valid email address.'; return; }
+
+            currentLink = { email, purpose };
+            await busy(button, 'Sending…', async () => {
+                const error = await deliverLink();
+                if (error) { err.textContent = friendly(error); return; }
+                $('sentEmail').textContent = email;
+                $('sentPurpose').textContent = purpose === 'signup' ? 'finish creating your account' : 'set a new password';
+                authMode('sent');
+            });
+        }
+
+        async function deliverLink() {
+            const { email, purpose } = currentLink;
+            const result = purpose === 'signup'
+                ? await sb.auth.signInWithOtp({ email, options: { shouldCreateUser: true, emailRedirectTo: hereUrl() } })
+                : await sb.auth.resetPasswordForEmail(email, { redirectTo: hereUrl() });
+            return result.error;
+        }
+
+        async function resendLink(button) {
+            if (!currentLink) return;
+            await busy(button, 'Sending…', async () => {
+                const error = await deliverLink();
+                toast(error ? friendly(error) : 'New link sent');
+            });
+        }
+
+
+        // ---------- FINISH A NEW ACCOUNT (after clicking the email link) ----------
+        function setRole(role) {
+            newRole = role;
+            $('roleStudent').classList.toggle('on', role === 'student');
+            $('roleMentor').classList.toggle('on', role === 'mentor');
+            $('studentFields').classList.toggle('hidden', role !== 'student');
+            $('mentorFields').classList.toggle('hidden', role !== 'mentor');
+        }
+
+        function fillMajors() {
+            let html = '<option value="">Choose your major</option>';
+            for (const group in MAJORS) {
+                html += '<optgroup label="' + group + '">';
+                MAJORS[group].forEach(m => html += '<option>' + m + '</option>');
+                html += '</optgroup>';
+            }
+            $('majorSelect').innerHTML = html;      // sign-up page
+            $('profMajor').innerHTML = html;        // profile page
+        }
+
+        function checkOtherMajor() {
+            $('otherMajorField').classList.toggle('hidden', $('majorSelect').value !== 'Other (type it in)');
+        }
+
+        async function createAccount(button) {
+            const err = $('setupError');
+            const name = $('nameInput').value.trim();
+            if (!name) { err.textContent = 'Please enter your name.'; return; }
+
+            const { data: { user } } = await sb.auth.getUser();
+            if (!user) { authMode('bad'); return; }
+
+            const profile = { id: user.id, email: user.email, name: name, role: newRole };
+            if (newRole === 'student') {
+                let major = $('majorSelect').value;
+                if (major === 'Other (type it in)') major = $('otherMajorInput').value.trim();
+                if (!major) { err.textContent = 'Please choose your major.'; return; }
+                profile.major = major;
+            } else {
+                profile.title = $('titleInput').value.trim();
+                profile.company = $('companyInput').value.trim();
+                if (!profile.title) { err.textContent = 'Please enter your job title.'; return; }
+            }
+
+            const problem = checkPassword($('setupPass').value, $('setupPass2').value);
+            if (problem) { err.textContent = problem; return; }
+
+            await busy(button, 'Creating…', async () => {
+                const pw = await sb.auth.updateUser({ password: $('setupPass').value });
+                if (pw.error) { err.textContent = friendly(pw.error); return; }
+
+                const ins = await sb.from('profiles').insert(profile);
+                if (ins.error) { err.textContent = friendly(ins.error); return; }
+
+                signedInAs = null;
+                await openApp(user);
+            });
+        }
+
+
+        // ---------- SET A NEW PASSWORD (after a reset link) ----------
+        async function savePassword(button) {
+            const err = $('resetError');
+            const problem = checkPassword($('resetPass').value, $('resetPass2').value);
+            if (problem) { err.textContent = problem; return; }
+
+            await busy(button, 'Saving…', async () => {
+                const { data, error } = await sb.auth.updateUser({ password: $('resetPass').value });
+                if (error) { err.textContent = friendly(error); return; }
+                recovering = false;
+                toast('Password updated');
+                signedInAs = null;
+                await openApp(data.user);
+            });
+        }
+
+
+        // ---------- AFTER SIGNING IN ----------
+        async function openApp(user) {
+            if (signedInAs === user.id) return;
+            signedInAs = user.id;
+
+            const { data: profile, error } = await sb.from('profiles').select('*').eq('id', user.id).maybeSingle();
+            if (error) { toast(friendly(error)); signedInAs = null; return; }
+
+            if (!profile) {
+                // Came from a new-account link: finish the profile first
+                showAuth();
+                $('setupEmail').textContent = user.email;
+                authMode('setup');
+                signedInAs = null;
+                return;
+            }
+
+            state.me = profile;
+            await loadAll();
+            startApp();
+            listenForChanges();
+            startBackupRefresh();
+        }
+
+        async function signOut() {
+            stopMedia();
+            await sb.auth.signOut();
+            location.reload();
+        }
+
+        // Supabase tells us when someone signs in, opens a link, or signs out
+        function watchAuth() {
+            sb.auth.onAuthStateChange((event, session) => {
+                // (Supabase asks us not to wait inside this, so we use setTimeout)
+                setTimeout(() => {
+                    if (event === 'PASSWORD_RECOVERY') {
+                        recovering = true;
+                        showAuth();
+                        $('resetEmail').textContent = session.user.email;
+                        authMode('reset');
+                        return;
+                    }
+                    if ((event === 'SIGNED_IN' || event === 'INITIAL_SESSION') && session && !recovering) {
+                        openApp(session.user);
+                    }
+                    if (event === 'INITIAL_SESSION' && !session) {
+                        showAuth();
+                    }
+                    // Clean up the address bar after a link
+                    if (location.hash.includes('access_token') || location.search.includes('code=')) {
+                        history.replaceState(null, '', hereUrl());
+                    }
+                }, 0);
+            });
+        }
+
+        // A link that expired or was already used
+        function checkBadLink() {
+            const params = new URLSearchParams(location.hash.slice(1) || location.search.slice(1));
+            if (params.get('error')) {
+                history.replaceState(null, '', hereUrl());
+                showAuth();
+                authMode('bad');
+            }
+        }
+
+
+        /* ==============================================================
+           START THE APP
+           ============================================================== */
+        function startApp() {
+            $('auth').classList.add('hidden');
+            $('app').classList.remove('hidden');
+            const isMentor = me().role === 'mentor';
+            document.querySelectorAll('.mentor-only').forEach(el => el.classList.toggle('hidden', !isMentor));
+            document.querySelectorAll('.student-only').forEach(el => el.classList.toggle('hidden', isMentor));
+            renderAll();
+        }
+
+        function renderAll() {
+            if (!me()) return;
+            renderHeader();
+            renderHome();
+            renderPeople();
+            renderMessages();
+            renderSessions();
+            renderRoom();
+            renderNotes();
+            renderProfile();
+        }
+
+
+        /* ==============================================================
+           SWITCHING SCREENS
+           ============================================================== */
+        function go(id) {
+            if (id !== 'room') stopMedia();
+            document.querySelectorAll('.screen').forEach(s => s.classList.toggle('on', s.id === id));
+            document.querySelectorAll('.tabs button').forEach(b => b.classList.toggle('on', b.dataset.screen === id));
+            $('menu').classList.add('hidden');
+            if (id === 'profile') fillProfileForm();
+            window.scrollTo(0, 0);
+        }
+        document.querySelectorAll('.tabs button').forEach(b => b.onclick = () => go(b.dataset.screen));
+
+
+        /* ==============================================================
+           HEADER + PROFILE MENU
+           ============================================================== */
+        function renderHeader() {
+            const u = me();
+            $('headerAvatar').innerHTML = avatar(u, 'sm');
+            $('menuAvatar').innerHTML = avatar(u);
+            $('menuName').textContent = u.name;
+            $('menuInfo').textContent = u.email;
+        }
+
+        function toggleMenu() { $('menu').classList.toggle('hidden'); }
+
+        // Shrink the photo, then save it to your profile
+        function uploadPhoto(input) {
+            const file = input.files[0];
+            if (!file) return;
+            const img = new Image();
+            img.onload = async () => {
+                const size = 200;
+                const canvas = document.createElement('canvas');
+                canvas.width = canvas.height = size;
+                const side = Math.min(img.width, img.height);
+                canvas.getContext('2d').drawImage(img, (img.width - side) / 2, (img.height - side) / 2, side, side, 0, 0, size, size);
+                URL.revokeObjectURL(img.src);
+                const { error } = await sb.from('profiles').update({ photo: canvas.toDataURL('image/jpeg', 0.85) }).eq('id', myId());
+                if (error) { toast(friendly(error)); return; }
+                toast('Photo updated');
+                refresh();
+            };
+            img.src = URL.createObjectURL(file);
+            input.value = '';
+        }
+
+        async function removePhoto() {
+            const { error } = await sb.from('profiles').update({ photo: null }).eq('id', myId());
+            if (error) { toast(friendly(error)); return; }
+            refresh();
+        }
+
+
+        /* ==============================================================
+           CONNECTIONS (anyone ↔ anyone)
+           ============================================================== */
+        // The connection between me and someone else (or undefined)
+        function connectionWith(otherId) {
+            const id = myId();
+            return state.connections.find(c =>
+                (c.requester === id && c.addressee === otherId) || (c.requester === otherId && c.addressee === id));
+        }
+
+        function myConnections() {
+            const id = myId();
+            return state.connections
+                .filter(c => c.status === 'accepted' && (c.requester === id || c.addressee === id))
+                .map(c => users()[c.requester === id ? c.addressee : c.requester])
+                .filter(Boolean);
+        }
+
+        // The right button(s) for someone, depending on how we're connected
+        function connectButton(other) {
+            if (!other || other.id === myId()) return '';
+            const c = connectionWith(other.id);
+            if (!c) {
+                return '<button class="btn btn-primary btn-sm" onclick="askToConnect(\'' + other.id + '\', this)">Connect</button>';
+            }
+            if (c.status === 'pending' && c.requester === myId()) {
+                return '<span class="badge">Request sent</span>';
+            }
+            if (c.status === 'pending') {
+                return '<button class="btn btn-primary btn-sm" onclick="answerRequest(\'' + c.id + '\', \'accepted\')">Accept</button>' +
+                       '<button class="btn btn-ghost btn-sm" onclick="answerRequest(\'' + c.id + '\', \'declined\')">Decline</button>';
+            }
+            if (c.status === 'accepted') {
+                return '<span class="badge ok">Connected</span>' +
+                       '<button class="btn btn-secondary btn-sm" onclick="openChat(\'' + other.id + '\')">Message</button>';
+            }
+            return '<span class="small muted">Not connected</span>';
+        }
+
+        async function askToConnect(otherId, button) {
+            if (button) button.disabled = true;
+            const { error } = await sb.from('connections').insert({ requester: myId(), addressee: otherId });
+            if (error) { toast(friendly(error)); if (button) button.disabled = false; return; }
+            toast('Request sent');
+            refresh();
+        }
+
+        async function answerRequest(id, status) {
+            const { error } = await sb.from('connections').update({ status: status }).eq('id', id);
+            if (error) { toast(friendly(error)); return; }
+            toast(status === 'accepted' ? 'Connected! You can message each other now.' : 'Request declined');
+            refresh();
+        }
+
+        function roleBadge(u) {
+            return u.role === 'mentor'
+                ? '<span class="badge ok">Mentor</span>'
+                : '<span class="badge">Student</span>';
+        }
+
+
+        /* ==============================================================
+           HOME
+           ============================================================== */
+        function renderHome() {
+            const u = me();
+            $('homeTitle').textContent = 'Hi, ' + u.name.split(' ')[0];
+            $('homeSub').textContent = u.role === 'mentor'
+                ? 'Share what you know, or find students to help on the People page.'
+                : 'Share what you\'re working on, ask questions, and connect with mentors and other students.';
+            $('composerAvatar').innerHTML = avatar(u);
+
+            // ----- Posts from everyone -----
+            const list = posts();
+            let html = '<div class="feed-title">Latest posts</div>';
+            if (list.length === 0) {
+                html += '<div class="empty-state"><h3>No posts yet</h3><p>Be the first to share something.</p></div>';
+            }
+            list.forEach(p => {
+                const author = users()[p.author];
+                if (!author) return;
+                const mine = author.id === u.id;
+                html += '<div class="post">' +
+                    '<div class="post-head">' + avatar(author) +
+                    '<div><b>' + esc(author.name) + ' ' + roleBadge(author) + '</b>' +
+                    '<span class="small muted">' + esc(subtitle(author)) + ' · ' + timeAgo(new Date(p.created_at).getTime()) + '</span></div></div>' +
+                    '<p class="post-text">' + esc(p.text) + '</p>' +
+                    '<div class="post-foot">' +
+                    (mine ? '<button class="btn btn-ghost btn-sm" onclick="deletePost(\'' + p.id + '\')">Delete</button>' : connectButton(author)) +
+                    '</div></div>';
+            });
+            $('feed').innerHTML = html;
+
+            // ----- Requests waiting for me -----
+            const waiting = state.connections.filter(c => c.addressee === u.id && c.status === 'pending');
+            let r = '<h3>Requests</h3>';
+            if (waiting.length === 0) r += '<p class="small muted">No new requests.</p>';
+            waiting.forEach(c => {
+                const s = users()[c.requester];
+                if (!s) return;
+                r += '<div class="person-row">' + avatar(s, 'sm') +
+                    '<div class="grow"><b>' + esc(s.name) + '</b><span class="small muted">' + esc(subtitle(s)) + '</span>' +
+                    (s.bio ? '<div class="bio">' + esc(s.bio) + '</div>' : '') + '</div>' +
+                    '<div class="actions">' +
+                    '<button class="btn btn-primary btn-sm" onclick="answerRequest(\'' + c.id + '\', \'accepted\')">Accept</button>' +
+                    '<button class="btn btn-ghost btn-sm" onclick="answerRequest(\'' + c.id + '\', \'declined\')">Decline</button>' +
+                    '</div></div>';
+            });
+            $('requestsCard').innerHTML = r;
+
+            // ----- My connections -----
+            const people = myConnections();
+            let c = '<h3>Your connections</h3>';
+            if (people.length === 0) c += '<p class="small muted">Find people to connect with on the <a href="#" onclick="go(\'people\'); return false;">People</a> page.</p>';
+            people.forEach(p => {
+                c += '<div class="person-row">' + avatar(p, 'sm') +
+                    '<div class="grow"><b>' + esc(p.name) + '</b><span class="small muted">' + esc(subtitle(p)) + '</span></div>' +
+                    '<div class="actions">' +
+                    (p.resume_path ? '<button class="btn btn-ghost btn-sm" onclick="viewResume(\'' + p.id + '\')">Resume</button>' : '') +
+                    '<button class="btn btn-secondary btn-sm" onclick="openChat(\'' + p.id + '\')">Message</button></div></div>';
+            });
+            $('connectionsCard').innerHTML = c;
+        }
+
+        async function createPost(button) {
+            const text = $('postInput').value.trim();
+            if (!text) { toast('Write something first'); return; }
+            await busy(button, 'Posting…', async () => {
+                const { error } = await sb.from('posts').insert({ author: myId(), text: text });
+                if (error) { toast(friendly(error)); return; }
+                $('postInput').value = '';
+                toast('Posted');
+                await refresh();
+            });
+        }
+
+        async function deletePost(id) {
+            const { error } = await sb.from('posts').delete().eq('id', id);
+            if (error) { toast(friendly(error)); return; }
+            refresh();
+        }
+
+
+        /* ==============================================================
+           PEOPLE (find students and mentors)
+           ============================================================== */
+        let peopleFilter = 'all';
+
+        function setPeopleFilter(f) {
+            peopleFilter = f;
+            document.querySelectorAll('#peopleFilter button').forEach(b => b.classList.toggle('on', b.dataset.f === f));
+            renderPeople();
+        }
+
+        function renderPeople() {
+            const words = $('peopleSearch').value.toLowerCase().split(/\s+/).filter(Boolean);
+            const everyone = Object.values(users())
+                .filter(p => p.id !== myId())
+                .filter(p => peopleFilter === 'all' || p.role === peopleFilter)
+                .filter(p => {
+                    const text = [p.name, p.major, p.title, p.company, p.bio, p.role].join(' ').toLowerCase();
+                    return words.every(w => text.includes(w));
+                })
+                .sort((a, b) => a.name.localeCompare(b.name));
+
+            if (everyone.length === 0) {
+                $('peopleGrid').innerHTML = '<div class="panel empty-state" style="grid-column:1/-1"><h3>No one found</h3><p>Try a different search or filter.</p></div>';
+                return;
+            }
+
+            $('peopleGrid').innerHTML = everyone.map(p =>
+                '<div class="panel person-card">' +
+                    '<div class="top">' + avatar(p) +
+                    '<div class="grow"><b>' + esc(p.name) + '</b><span class="small muted">' + esc(subtitle(p)) + '</span></div>' +
+                    roleBadge(p) + '</div>' +
+                    '<p class="bio">' + (p.bio ? esc(p.bio) : '<span style="color:var(--faint)">No bio yet.</span>') + '</p>' +
+                    '<div class="post-foot">' + connectButton(p) + '</div>' +
+                '</div>').join('');
+        }
+
+
+        /* ==============================================================
+           MESSAGES
+           ============================================================== */
+        let openWith = null;            // a person's id, or 'ai'
+        let aiChat = [];                // AI chat (not saved)
+
+        // Question ideas, depending on who you're talking to
+        const STARTERS = {
+            toMentor: [
+                'How did you get started in your field?',
+                'What does a normal day at work look like?',
+                'What skills should I learn first?',
+                'Could you look over my resume?',
+                'What do you wish you knew as a student?'
+            ],
+            toStudent: [
+                'Hi! What would you like to learn?',
+                'What are you working on right now?',
+                'Want to set up a time to talk?'
+            ],
+            toPeer: [
+                'Hey! What classes are you taking?',
+                'Want to work on a project together?',
+                'Are you going to the career fair?',
+                'Want to form a study group?'
+            ],
+            ai: [
+                'How do I write a good resume?',
+                'How do I prepare for an interview?',
+                'How do I find an internship?',
+                'How do I study for exams?',
+                'What can I do on AYXchange?'
+            ]
+        };
+
+        function openChat(who) {
+            openWith = who;
+            go('messages');
+            renderMessages();
+            $('chatInput').focus();
+        }
+
+        function chatWith(otherId) {
+            const id = myId();
+            return state.messages.filter(m =>
+                (m.sender === id && m.receiver === otherId) || (m.sender === otherId && m.receiver === id));
+        }
+
+        function renderMessages() {
+            const u = me();
+            const people = myConnections();
+
+            if (!openWith || (openWith !== 'ai' && !people.find(p => p.id === openWith))) {
+                openWith = people.length ? people[0].id : 'ai';
+            }
+
+            // ----- Contact list -----
+            let list = '';
+            people.forEach(p => {
+                const msgs = chatWith(p.id);
+                const last = msgs[msgs.length - 1];
+                list += '<button class="contact' + (openWith === p.id ? ' on' : '') + '" onclick="openChat(\'' + p.id + '\')">' +
+                    avatar(p, 'sm') + '<span class="grow"><b>' + esc(p.name) + '</b>' +
+                    '<span class="preview">' + (last ? esc(last.text) : 'No messages yet') + '</span></span></button>';
+            });
+            list += '<button class="contact' + (openWith === 'ai' ? ' on' : '') + '" onclick="openChat(\'ai\')">' +
+                '<div class="avatar sm" style="background:var(--blue-tint);color:var(--blue-dark)">AI</div>' +
+                '<span class="grow"><b>AI study buddy</b><span class="preview">Always available</span></span></button>';
+            $('chatList').innerHTML = list;
+            $('chatForm').classList.remove('hidden');
+
+            // ----- Header -----
+            let msgs, starters;
+            if (openWith === 'ai') {
+                msgs = aiChat;
+                starters = STARTERS.ai;
+                $('chatHead').innerHTML =
+                    '<div class="avatar" style="background:var(--blue-tint);color:var(--blue-dark)">AI</div>' +
+                    '<div><b>AI study buddy</b><span class="small muted">Help with school, careers, and AYXchange</span></div>';
+            } else {
+                const other = users()[openWith];
+                msgs = chatWith(openWith);
+                starters = other.role === 'mentor' ? STARTERS.toMentor
+                         : u.role === 'mentor' ? STARTERS.toStudent
+                         : STARTERS.toPeer;
+                $('chatHead').innerHTML = avatar(other) +
+                    '<div><b>' + esc(other.name) + '</b><span class="small muted">' + esc(subtitle(other)) + '</span></div>' +
+                    '<div class="actions" style="margin-left:auto; display:flex; gap:6px">' +
+                    (other.resume_path ? '<button class="btn btn-ghost btn-sm" onclick="viewResume(\'' + other.id + '\')">Resume</button>' : '') +
+                    '<button class="btn btn-secondary btn-sm" onclick="go(\'sessions\')">Schedule</button></div>';
+            }
+
+            // ----- Messages -----
+            let body = '';
+            if (msgs.length === 0) {
+                body = '<div class="empty-state" style="margin:auto"><h3>No messages yet</h3><p>' +
+                    (openWith === 'ai' ? 'Ask me anything about school, careers, or this app.' : 'Say hi, or tap a question below.') + '</p></div>';
+            }
+            msgs.forEach(m => {
+                const mine = m.sender === u.id || m.sender === 'me';
+                body += '<div class="msg' + (mine ? ' mine' : '') + (m.typing ? ' typing' : '') + '">' +
+                    '<div class="bubble">' + esc(m.text) + '</div>' +
+                    (m.typing ? '' : '<div class="time">' + clock(new Date(m.created_at).getTime()) + '</div>') + '</div>';
+            });
+            $('chatBody').innerHTML = body;
+            $('chatBody').scrollTop = $('chatBody').scrollHeight;
+
+            $('chips').innerHTML = msgs.length > 0 ? '' :
+                starters.map(q => '<button type="button" onclick="sendText(\'' + esc(q).replace(/&#39;/g, '\\&#39;') + '\')">' + esc(q) + '</button>').join('');
+        }
+
+        function sendMessage(event) {
+            event.preventDefault();
+            const text = $('chatInput').value.trim();
+            if (!text) return;
+            $('chatInput').value = '';
+            sendText(text);
+        }
+
+        async function sendText(text) {
+            const now = new Date().toISOString();
+
+            if (openWith === 'ai') {
+                aiChat.push({ sender: 'me', text: text, created_at: now });
+                aiChat.push({ sender: 'ai', text: 'Thinking…', typing: true, created_at: now });
+                renderMessages();
+                setTimeout(() => {
+                    aiChat.pop();
+                    aiChat.push({ sender: 'ai', text: aiReply(text), created_at: new Date().toISOString() });
+                    renderMessages();
+                }, 700);
+                return;
+            }
+
+            // Show it right away, then save it
+            const to = openWith;
+            state.messages.push({ sender: myId(), receiver: to, text: text, created_at: now });
+            renderMessages();
+            const { error } = await sb.from('messages').insert({ sender: myId(), receiver: to, text: text });
+            if (error) toast('Message not sent: ' + friendly(error));
+            refresh();
+        }
+
+
+        /* ==============================================================
+           AI STUDY BUDDY
+           Each topic has key words and a few tips. The buddy picks the
+           topic that matches your question best. Say "more" for another tip.
+           ============================================================== */
+        const AI_TOPICS = [
+            { name: 'greeting', keys: ['hi', 'hello', 'hey', 'good morning', 'good afternoon', 'whats up', 'sup'],
+              tips: ['Hi! I can help with resumes, interviews, internships, studying, time management, and using AYXchange. What\'s on your mind?'] },
+
+            { name: 'thanks', keys: ['thank', 'thanks', 'thx', 'appreciate'],
+              tips: ['Anytime! Good luck. Come back whenever you have another question.'] },
+
+            { name: 'stress', keys: ['stress', 'anxious', 'anxiety', 'burnout', 'burned out', 'tired', 'sad', 'lonely', 'mental health'],
+              tips: ['That sounds hard, and it\'s really common in college. Sleep, food, and talking to someone help more than people expect. Ohio State students can reach Counseling and Consultation Service (CCS) for free support. If you ever feel unsafe, call or text 988 any time.'] },
+
+            { name: 'app', keys: ['ayxchange', 'this app', 'how does this work', 'what can i do here', 'how do i use this', 'features', 'this website'],
+              tips: ['On AYXchange you can: post on Home, find students and mentors on People, send connection requests, message your connections, book a time in Sessions, meet in the Room, and save notes. Upload your resume in Profile & settings so mentors can review it.'] },
+
+            { name: 'connect', keys: ['connect', 'find a mentor', 'find mentor', 'find people', 'meet people', 'network with', 'mentor'],
+              tips: ['Go to the People page, search for a major, company, or interest, and tap Connect. Once they accept, you can message them and book a session.',
+                     'Tip: write a short bio in Profile & settings first. People are much more likely to accept when they know who you are.'] },
+
+            { name: 'post', keys: ['post', 'share something', 'what should i post'],
+              tips: ['Good posts are short and specific: a question you\'re stuck on, a project you want teammates for, or something you just learned. Example: "Looking for 2 people to build a budgeting app for HackOHI/O!"'] },
+
+            { name: 'session', keys: ['session', 'schedule', 'book', 'meeting', 'calendar', 'room'],
+              tips: ['Open Sessions, pick a day on the calendar, choose a time, pick who to meet with, and tap Book. When it\'s time, tap Join room. Save a goal and notes so you both remember what you talked about.'] },
+
+            { name: 'resume', keys: ['resume', 'cv', 'resumé'],
+              tips: ['Keep it to one page. Put Education first, then Projects and Experience. Start each bullet with an action verb (Built, Designed, Led) and add a result or number when you can.',
+                     'For students, projects matter a lot. Include class projects, club projects, and hackathons. Say what YOU did and what tools you used.',
+                     'Upload your resume in Profile & settings, then ask a connected mentor to review it. Fresh eyes catch things you miss.'] },
+
+            { name: 'cover letter', keys: ['cover letter', 'motivation letter'],
+              tips: ['Keep it under one page: (1) why this company, (2) one or two stories that prove you fit the role, (3) a short, confident closing. Make it specific to the company, not generic.'] },
+
+            { name: 'interview', keys: ['interview', 'behavioral', 'tell me about yourself', 'star method'],
+              tips: ['Use the STAR method for behavioral questions: Situation, Task, Action, Result. Prepare 4 or 5 stories (a challenge, teamwork, a failure, leadership) that you can adapt.',
+                     'For "Tell me about yourself": 30 seconds on who you are, 30 seconds on what you\'ve done, 30 seconds on why you want this role.',
+                     'Always have 2 or 3 questions ready for them, like "What does success look like in the first 3 months?"'] },
+
+            { name: 'technical interview', keys: ['technical interview', 'coding interview', 'leetcode', 'whiteboard'],
+              tips: ['Practice explaining your thinking out loud. Start with a simple solution, then improve it. Review arrays, strings, hash maps, and basic recursion first.'] },
+
+            { name: 'internship', keys: ['internship', 'intern', 'co-op', 'coop', 'summer job', 'apply'],
+              tips: ['Start early: many internships open in August to October. Use Handshake, LinkedIn, and company career pages, and apply to 20+ places, not just a few.',
+                     'Don\'t wait to feel "ready". First-year students get internships too, especially through research, campus jobs, and smaller companies.',
+                     'Ask a mentor on AYXchange for a referral or advice about their company. A personal connection helps a lot.'] },
+
+            { name: 'career fair', keys: ['career fair', 'job fair', 'recruiter', 'elevator pitch'],
+              tips: ['Bring printed resumes, research 5 companies you really want to talk to, and prepare a 20-second pitch: name, major, year, what you\'re interested in, and one project.',
+                     'After you talk, ask for the recruiter\'s card or LinkedIn and send a short thank-you message within a day.'] },
+
+            { name: 'linkedin', keys: ['linkedin', 'networking', 'network', 'cold email', 'reach out'],
+              tips: ['On LinkedIn: a clear photo, a headline like "ECE student at Ohio State | Interested in embedded systems", and your projects. When reaching out, keep messages short and ask one specific question.'] },
+
+            { name: 'study', keys: ['study', 'exam', 'test', 'midterm', 'final', 'quiz', 'grades', 'gpa', 'fail', 'failing'],
+              tips: ['Active recall beats re-reading: close the notes and quiz yourself, or do practice problems without looking at the solution first.',
+                     'Space it out: three 1-hour sessions over a week beat one 3-hour cram the night before.',
+                     'Go to office hours and tutoring early, not just before the exam. Also try teaching the topic to a friend. If you can explain it, you know it.'] },
+
+            { name: 'time', keys: ['time management', 'manage my time', 'procrastinat', 'busy', 'overwhelmed', 'deadline', 'schedule my', 'productive', 'focus'],
+              tips: ['Plan your week on Sunday: put classes and work in first, then 2 or 3 focused blocks for what matters most.',
+                     'Try the Pomodoro method: 25 minutes of focus, 5-minute break. Put your phone in another room.',
+                     'Break big assignments into small steps with their own mini-deadlines.'] },
+
+            { name: 'imposter', keys: ['imposter', 'not smart enough', 'behind everyone', 'not good enough', 'everyone knows more'],
+              tips: ['Almost everyone feels this, including people who seem confident. Compare yourself to where you were last semester, not to others. Talking to a mentor about how they started can really help.'] },
+
+            { name: 'classes', keys: ['class', 'classes', 'course', 'schedule classes', 'professor', 'office hours', 'major', 'minor', 'switch major'],
+              tips: ['Talk to your academic advisor before big decisions, and ask upper-year students which professors and course combos worked for them. Posting your question on AYXchange is a great way to get answers.',
+                     'Office hours are one of the most underused resources. Professors notice and remember students who come.'] },
+
+            { name: 'research', keys: ['research', 'lab', 'undergraduate research', 'professor research'],
+              tips: ['Find professors whose work interests you, read one of their recent papers, then email them briefly: who you are, what interested you, and that you\'d love to help in their lab.'] },
+
+            { name: 'project', keys: ['project', 'portfolio', 'build something', 'side project', 'project idea'],
+              tips: ['Pick something small you\'d actually use, like a tool for one of your classes or your club. Finishing a small project beats starting a big one.',
+                     'Ideas: a class schedule planner, a club event page, a budget tracker, or a sensor project with an Arduino. Post on AYXchange to find teammates!'] },
+
+            { name: 'coding', keys: ['code', 'coding', 'programming', 'python', 'java', 'javascript', 'c++', 'learn to code', 'html', 'css'],
+              tips: ['Start with one language and build small things. Python is great for beginners. For websites, learn HTML, CSS, and JavaScript, which is what AYXchange is made with!',
+                     'Use free resources like freeCodeCamp, CS50, and the official docs. Building projects teaches more than only watching tutorials.'] },
+
+            { name: 'git', keys: ['git', 'github', 'version control'],
+              tips: ['Git saves versions of your code. Learn the basics: clone, add, commit, push, pull. Put your projects on GitHub. Recruiters do look at them.'] },
+
+            { name: 'hackathon', keys: ['hackathon', 'hackohio', 'hack ohio', 'hackohi/o'],
+              tips: ['At hackathons: pick one clear idea, build one complete flow, and practice your demo early. Judges love a working demo with a clear story.'] },
+
+            { name: 'grad school', keys: ['grad school', 'graduate school', 'masters', 'phd'],
+              tips: ['Research experience and strong recommendation letters matter most. Talk to professors early, and ask grad students what their program is really like.'] },
+
+            { name: 'email', keys: ['email a professor', 'write an email', 'email to', 'how to email'],
+              tips: ['Keep emails short: a clear subject line, a polite greeting, one or two sentences of context, your specific question, and a thank-you. Always include your class and section.'] },
+
+            { name: 'money', keys: ['scholarship', 'financial aid', 'salary', 'negotiate', 'pay'],
+              tips: ['Check your school\'s scholarship site and your department, since many smaller scholarships get few applicants. For job offers, it\'s normal to politely ask if there\'s flexibility in pay.'] },
+
+            { name: 'clubs', keys: ['club', 'clubs', 'organization', 'student org', 'get involved', 'make friends'],
+              tips: ['Join one or two clubs and actually show up. Project teams (like EcoCAR or robotics) give you real experience and friends. Leadership roles look great later.'] },
+
+            { name: 'motivation', keys: ['motivation', 'motivated', 'lazy', 'give up', 'quit'],
+              tips: ['Start tiny: commit to 10 minutes. Starting is the hardest part. Remind yourself why you chose this path, and celebrate small wins.'] },
+
+            { name: 'sleep', keys: ['sleep', 'all nighter', 'all-nighter', 'tired'],
+              tips: ['Sleep is when your brain stores what you learned. An all-nighter usually hurts your exam score more than it helps. Aim for 7 to 9 hours.'] }
+        ];
+
+        let lastTopic = null;
+        let tipIndex = {};
+
+        function aiReply(text) {
+            const t = ' ' + text.toLowerCase().replace(/[^a-z0-9+/'\s-]/g, ' ').replace(/\s+/g, ' ') + ' ';
+
+            // "more" / "another tip" → next tip on the same topic
+            if (lastTopic && /\b(more|another|else|next|again|go on|continue)\b/.test(t)) {
+                return nextTip(lastTopic) + moreHint(lastTopic);
+            }
+
+            // Score each topic by how many of its key words appear
+            let best = null, bestScore = 0;
+            AI_TOPICS.forEach(topic => {
+                let score = 0;
+                topic.keys.forEach(k => {
+                    const short = k.length <= 3;   // short words must match a whole word ("hi" is not in "this")
+                    if (t.includes(short ? ' ' + k + ' ' : k)) score += k.split(' ').length + 1;
+                });
+                if (score > bestScore) { best = topic; bestScore = score; }
+            });
+
+            if (!best) {
+                lastTopic = null;
+                return 'I\'m not sure about that one yet. I can help with resumes, cover letters, interviews, internships, career fairs, LinkedIn, studying, time management, stress, classes, research, projects, coding, Git, and using AYXchange. You can also post your question on Home so students and mentors can answer.';
+            }
+
+            lastTopic = best;
+            tipIndex[best.name] = 0;
+            return best.tips[0] + moreHint(best);
+        }
+
+        function nextTip(topic) {
+            tipIndex[topic.name] = ((tipIndex[topic.name] || 0) + 1) % topic.tips.length;
+            return topic.tips[tipIndex[topic.name]];
+        }
+
+        function moreHint(topic) {
+            return topic.tips.length > 1 ? ' (Say "more" for another tip.)' : '';
+        }
+
+
+        /* ==============================================================
+           SESSIONS (calendar)
+           ============================================================== */
+        const today = new Date();
+        let viewYear = today.getFullYear();
+        let viewMonth = today.getMonth();
+        let pickedDate = null;      // 'YYYY-MM-DD'
+        let pickedTime = null;      // '3:00 PM'
+
+        const TIMES = [];
+        for (let h = 9; h <= 17; h++) {
+            ['00', '30'].forEach(min => {
+                if (h === 17 && min === '30') return;
+                const hour = h > 12 ? h - 12 : h;
+                TIMES.push(hour + ':' + min + (h >= 12 ? ' PM' : ' AM'));
+            });
+        }
+
+        function moveMonth(step) {
+            viewMonth += step;
+            if (viewMonth < 0) { viewMonth = 11; viewYear--; }
+            if (viewMonth > 11) { viewMonth = 0; viewYear++; }
+            renderSessions();
+        }
+
+        function myMeetings() {
+            const id = myId();
+            return meetings().filter(m => m.student === id || m.mentor === id);
+        }
+        function otherPerson(m) {
+            return users()[m.student === myId() ? m.mentor : m.student];
+        }
+
+        function renderSessions() {
+            const mine = myMeetings();
+            const busyDays = new Set(mine.map(m => m.day));
+
+            $('calTitle').textContent = new Date(viewYear, viewMonth, 1).toLocaleDateString('en-US', { month: 'long', year: 'numeric' });
+
+            let grid = ['S', 'M', 'T', 'W', 'T', 'F', 'S'].map(d => '<div class="cal-dow">' + d + '</div>').join('');
+            const firstDay = new Date(viewYear, viewMonth, 1).getDay();
+            const daysInMonth = new Date(viewYear, viewMonth + 1, 0).getDate();
+            const todayKey = dateKey(today);
+
+            for (let i = 0; i < firstDay; i++) grid += '<div></div>';
+            for (let d = 1; d <= daysInMonth; d++) {
+                const key = dateKey(new Date(viewYear, viewMonth, d));
+                let cls = 'day';
+                if (key === todayKey) cls += ' today';
+                if (key === pickedDate) cls += ' picked';
+                grid += '<button class="' + cls + '"' + (key < todayKey ? ' disabled' : '') + ' onclick="pickDate(\'' + key + '\')">' + d +
+                    (busyDays.has(key) ? '<span class="dot"></span>' : '') + '</button>';
+            }
+            $('calGrid').innerHTML = grid;
+
+            // ----- Booking area -----
+            const people = myConnections();
+            let book = '';
+            if (!pickedDate) {
+                book = '<p class="muted small">Choose a day to see open times.</p>';
+            } else if (people.length === 0) {
+                book = '<h3>' + niceDate(pickedDate) + '</h3><p class="muted small">You need a connection before you can book. ' +
+                    'Find someone on the <a href="#" onclick="go(\'people\'); return false;">People</a> page.' + '</p>';
+            } else {
+                const taken = mine.filter(m => m.day === pickedDate).map(m => m.time);
+                book = '<h3>' + niceDate(pickedDate) + '</h3><div class="times">' +
+                    TIMES.map(t => '<button class="time-btn' + (t === pickedTime ? ' picked' : '') + '"' +
+                        (taken.includes(t) ? ' disabled' : '') + ' onclick="pickTime(\'' + t + '\')">' + t + '</button>').join('') +
+                    '</div><label class="field"><span>Meet with</span><select id="withSelect">' +
+                    people.map(p => '<option value="' + p.id + '">' + esc(p.name) + '</option>').join('') +
+                    '</select></label><button class="btn btn-primary" onclick="bookSession(this)">Book ' + (pickedTime || 'session') + '</button>';
+            }
+            const keepWith = $('withSelect') ? $('withSelect').value : null;
+            $('bookArea').innerHTML = book;
+            if (keepWith && $('withSelect')) $('withSelect').value = keepWith;
+
+            // ----- Upcoming list -----
+            const upcoming = mine.filter(m => m.day >= todayKey)
+                .sort((a, b) => (a.day + toMinutes(a.time)).localeCompare(b.day + toMinutes(b.time)));
+            let up = '<h3>Upcoming</h3>';
+            if (upcoming.length === 0) up += '<p class="small muted">Nothing booked yet.</p>';
+            upcoming.forEach(m => {
+                const other = otherPerson(m);
+                up += '<div class="meeting"><div class="when">' + niceDate(m.day) + ' · ' + m.time + '</div>' +
+                    '<div class="small muted">with ' + esc(other ? other.name : 'someone') + '</div>' +
+                    '<div class="row"><button class="btn btn-primary btn-sm" onclick="joinRoom(\'' + m.id + '\')">Join room</button>' +
+                    '<button class="btn btn-ghost btn-sm" onclick="cancelSession(\'' + m.id + '\')">Cancel</button></div></div>';
+            });
+            $('upcoming').innerHTML = up;
+        }
+
+        function toMinutes(t) {
+            const [hm, ap] = t.split(' ');
+            let [h, m] = hm.split(':').map(Number);
+            if (ap === 'PM' && h !== 12) h += 12;
+            return String(h * 60 + m).padStart(4, '0');
+        }
+
+        function pickDate(key) { pickedDate = key; pickedTime = null; renderSessions(); }
+        function pickTime(t) { pickedTime = t; renderSessions(); }
+
+        async function bookSession(button) {
+            if (!pickedTime) { toast('Pick a time first'); return; }
+            const other = $('withSelect').value;
+            await busy(button, 'Booking…', async () => {
+                const { error } = await sb.from('meetings').insert({
+                    student: myId(),        // the two people in the session
+                    mentor: other,
+                    day: pickedDate, time: pickedTime
+                });
+                if (error) { toast(friendly(error)); return; }
+                toast('Booked for ' + niceDate(pickedDate) + ' at ' + pickedTime);
+                pickedTime = null;
+                await refresh();
+            });
+        }
+
+        async function cancelSession(id) {
+            const { error } = await sb.from('meetings').delete().eq('id', id);
+            if (error) { toast(friendly(error)); return; }
+            if (roomMeeting === id) roomMeeting = null;
+            toast('Session canceled');
+            refresh();
+        }
+
+
+        /* ==============================================================
+           ROOM (real camera + mic)
+           ============================================================== */
+        let roomMeeting = null;
+        let camStream = null;
+        let micStream = null;
+        let audioCtx = null;
+        let meterLoop = null;
+
+        function joinRoom(id) {
+            roomMeeting = id;
+            go('room');
+            renderRoom();
+            const m = meetings().find(x => x.id === id);
+            $('goalInput').value = m ? m.goal : '';
+            $('notesInput').value = m ? m.notes : '';
+        }
+
+        function renderRoom() {
+            const m = meetings().find(x => x.id === roomMeeting);
+            if (!m) {
+                $('roomLive').classList.add('hidden');
+                $('roomEmpty').classList.remove('hidden');
+                $('roomSub').textContent = 'Join a session from the Sessions page.';
+                $('roomEmpty').innerHTML = '<div class="empty-state"><h3>No session open</h3><p>Book a time in Sessions, then tap "Join room".</p>' +
+                    '<p style="margin-top:14px"><button class="btn btn-secondary" onclick="go(\'sessions\')">Go to Sessions</button></p></div>';
+                return;
+            }
+            $('roomEmpty').classList.add('hidden');
+            $('roomLive').classList.remove('hidden');
+
+            const other = otherPerson(m);
+            $('roomSub').textContent = niceDate(m.day) + ' · ' + m.time + ' with ' + (other ? other.name : 'someone');
+            $('myTileAvatar').innerHTML = camStream ? '' : avatar(me(), 'lg');
+            $('otherTileAvatar').innerHTML = avatar(other, 'lg');
+            $('otherName').textContent = other ? other.name : '';
+            $('otherWait').textContent = 'Waiting for ' + (other ? other.name.split(' ')[0] : 'them') + ' to join';
+        }
+
+        function mediaProblem(e) {
+            if (!navigator.mediaDevices) return 'Open this page with Live Server (or https) to use your camera and mic.';
+            if (e && e.name === 'NotAllowedError') return 'Access was blocked. Click the camera icon in your address bar to allow it.';
+            if (e && e.name === 'NotFoundError') return 'No camera or mic was found on this device.';
+            return 'Could not start it. Is another app using it?';
+        }
+
+        async function toggleCamera() {
+            if (camStream) {
+                camStream.getTracks().forEach(t => t.stop());
+                camStream = null;
+            } else {
+                if (!navigator.mediaDevices) { toast(mediaProblem()); return; }
+                try {
+                    camStream = await navigator.mediaDevices.getUserMedia({ video: true });
+                    $('myVideo').srcObject = camStream;
+                } catch (e) { toast(mediaProblem(e)); camStream = null; }
+            }
+            $('myVideo').classList.toggle('hidden', !camStream);
+            $('camBtn').textContent = camStream ? 'Turn off camera' : 'Turn on camera';
+            $('camBtn').classList.toggle('on', !!camStream);
+            renderRoom();
+        }
+
+        async function toggleMic() {
+            if (micStream) {
+                stopMic();
+            } else {
+                if (!navigator.mediaDevices) { toast(mediaProblem()); return; }
+                try {
+                    micStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                    audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+                    const analyser = audioCtx.createAnalyser();
+                    analyser.fftSize = 256;
+                    audioCtx.createMediaStreamSource(micStream).connect(analyser);
+                    const data = new Uint8Array(analyser.frequencyBinCount);
+                    const tick = () => {
+                        analyser.getByteFrequencyData(data);
+                        let sum = 0;
+                        for (const v of data) sum += v;
+                        $('micLevel').style.width = Math.min(100, (sum / data.length) * 2) + '%';
+                        meterLoop = requestAnimationFrame(tick);
+                    };
+                    tick();
+                } catch (e) { toast(mediaProblem(e)); micStream = null; }
+            }
+            $('micBtn').textContent = micStream ? 'Turn off mic' : 'Turn on mic';
+            $('micBtn').classList.toggle('on', !!micStream);
+            $('myStatus').textContent = micStream ? 'Mic on' : 'Mic off';
+        }
+
+        function stopMic() {
+            if (micStream) micStream.getTracks().forEach(t => t.stop());
+            micStream = null;
+            if (meterLoop) cancelAnimationFrame(meterLoop);
+            if (audioCtx) audioCtx.close();
+            audioCtx = null;
+            $('micLevel').style.width = '0';
+        }
+
+        function stopMedia() {
+            if (camStream) {
+                camStream.getTracks().forEach(t => t.stop());
+                camStream = null;
+                $('myVideo').classList.add('hidden');
+                $('camBtn').textContent = 'Turn on camera';
+                $('camBtn').classList.remove('on');
+            }
+            if (micStream) {
+                stopMic();
+                $('micBtn').textContent = 'Turn on mic';
+                $('micBtn').classList.remove('on');
+                $('myStatus').textContent = 'Mic off';
+            }
+        }
+
+        async function saveRoomNotes() {
+            if (!roomMeeting) return;
+            const { error } = await sb.from('meetings')
+                .update({ goal: $('goalInput').value.trim(), notes: $('notesInput').value.trim() })
+                .eq('id', roomMeeting);
+            if (error) { toast(friendly(error)); return; }
+            toast('Notes saved');
+            refresh();
+        }
+
+        async function leaveRoom() {
+            stopMedia();
+            await saveRoomNotes();
+            roomMeeting = null;
+            renderRoom();
+            go('notes');
+        }
+
+
+        /* ==============================================================
+           NOTES
+           ============================================================== */
+        function renderNotes() {
+            const list = myMeetings().filter(m => m.goal || m.notes).sort((a, b) => b.day.localeCompare(a.day));
+            if (list.length === 0) {
+                $('notesList').innerHTML = '<div class="panel empty-state"><h3>No notes yet</h3><p>Notes you save in the Room show up here.</p></div>';
+                return;
+            }
+            $('notesList').innerHTML = list.map(m => {
+                const other = otherPerson(m);
+                return '<div class="panel note-card">' +
+                    '<div class="post-head">' + avatar(other, 'sm') + '<div><b>' + esc(other ? other.name : 'Someone') + '</b>' +
+                    '<span class="small muted">' + niceDate(m.day) + ' · ' + m.time + '</span></div></div>' +
+                    (m.goal ? '<div class="goal">Goal: ' + esc(m.goal) + '</div>' : '') +
+                    (m.notes ? '<p class="text">' + esc(m.notes) + '</p>' : '') +
+                    '</div>';
+            }).join('');
+        }
+
+
+        /* ==============================================================
+           PROFILE & SETTINGS
+           ============================================================== */
+        const allMajors = () => Object.values(MAJORS).flat();
+
+        // Put your saved info into the form (only when the page opens,
+        // so it doesn't erase what you're typing)
+        function fillProfileForm() {
+            const u = me();
+            const isStudent = u.role === 'student';
+
+            $('profileSub').textContent = isStudent
+                ? 'Mentors see this when you ask to connect.'
+                : 'Students see this on your posts.';
+            $('profName').value = u.name || '';
+            $('profEmail').value = u.email || '';
+            $('profBio').value = u.bio || '';
+            $('profBio').placeholder = isStudent
+                ? 'e.g. 2nd-year ECE student interested in EV batteries and embedded systems.'
+                : 'e.g. I help students with internships, resumes, and getting started in engineering.';
+
+            $('profStudentFields').classList.toggle('hidden', !isStudent);
+            $('profMentorFields').classList.toggle('hidden', isStudent);
+
+            if (isStudent) {
+                const known = allMajors().includes(u.major);
+                $('profMajor').value = known ? u.major : 'Other (type it in)';
+                $('profOther').value = known ? '' : (u.major || '');
+                $('profOtherField').classList.toggle('hidden', known);
+            } else {
+                $('profTitle').value = u.title || '';
+                $('profCompany').value = u.company || '';
+            }
+
+            $('profPass').value = '';
+            $('profPass2').value = '';
+            $('profError').textContent = '';
+            $('passError').textContent = '';
+        }
+
+        // Parts that can update any time (photo, resume)
+        function renderProfile() {
+            const u = me();
+            $('profAvatar').innerHTML = avatar(u, 'lg');
+
+            if (u.role !== 'student') return;
+            if (u.resume_path) {
+                const when = u.resume_updated ? new Date(u.resume_updated).toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }) : '';
+                $('resumeStatus').innerHTML =
+                    '<div class="file-row"><div class="file-icon">PDF</div>' +
+                    '<div class="grow"><b>' + esc(u.resume_name || 'resume.pdf') + '</b><span class="small muted">Uploaded ' + when + '</span></div>' +
+                    '<button class="btn btn-secondary btn-sm" onclick="viewResume(\'' + u.id + '\')">View</button>' +
+                    '<button class="btn btn-ghost btn-sm" onclick="removeResume()">Remove</button></div>';
+                $('resumeBtnText').textContent = 'Replace resume';
+            } else {
+                $('resumeStatus').innerHTML = '<p class="small muted" style="margin:12px 0">No resume uploaded yet.</p>';
+                $('resumeBtnText').textContent = 'Upload resume';
+            }
+        }
+
+        async function saveProfile(button) {
+            const u = me();
+            const err = $('profError');
+            const changes = { name: $('profName').value.trim(), bio: $('profBio').value.trim() };
+            if (!changes.name) { err.textContent = 'Please enter your name.'; return; }
+
+            if (u.role === 'student') {
+                let major = $('profMajor').value;
+                if (major === 'Other (type it in)') major = $('profOther').value.trim();
+                if (!major) { err.textContent = 'Please choose your major.'; return; }
+                changes.major = major;
+            } else {
+                changes.title = $('profTitle').value.trim();
+                changes.company = $('profCompany').value.trim();
+                if (!changes.title) { err.textContent = 'Please enter your job title.'; return; }
+            }
+
+            err.textContent = '';
+            await busy(button, 'Saving…', async () => {
+                const { error } = await sb.from('profiles').update(changes).eq('id', u.id);
+                if (error) { err.textContent = friendly(error); return; }
+                toast('Profile saved');
+                await refresh();
+            });
+        }
+
+        async function changePassword(button) {
+            const err = $('passError');
+            const problem = checkPassword($('profPass').value, $('profPass2').value);
+            if (problem) { err.textContent = problem; return; }
+            err.textContent = '';
+            await busy(button, 'Saving…', async () => {
+                const { error } = await sb.auth.updateUser({ password: $('profPass').value });
+                if (error) { err.textContent = friendly(error); return; }
+                $('profPass').value = '';
+                $('profPass2').value = '';
+                toast('Password changed');
+            });
+        }
+
+
+        /* ---------- RESUME ---------- */
+        async function uploadResume(input) {
+            const file = input.files[0];
+            input.value = '';
+            if (!file) return;
+            if (file.type !== 'application/pdf') { toast('Please choose a PDF file.'); return; }
+            if (file.size > 5 * 1024 * 1024) { toast('That file is over 5 MB. Try a smaller PDF.'); return; }
+
+            const path = myId() + '/resume.pdf';
+            toast('Uploading…');
+            const up = await sb.storage.from('resumes').upload(path, file, { upsert: true, contentType: 'application/pdf' });
+            if (up.error) { toast('Upload failed: ' + friendly(up.error)); return; }
+
+            const { error } = await sb.from('profiles').update({
+                resume_path: path, resume_name: file.name, resume_updated: new Date().toISOString()
+            }).eq('id', myId());
+            if (error) { toast(friendly(error)); return; }
+            toast('Resume uploaded');
+            refresh();
+        }
+
+        async function removeResume() {
+            const path = me().resume_path;
+            if (path) await sb.storage.from('resumes').remove([path]);
+            const { error } = await sb.from('profiles').update({ resume_path: null, resume_name: null, resume_updated: null }).eq('id', myId());
+            if (error) { toast(friendly(error)); return; }
+            toast('Resume removed');
+            refresh();
+        }
+
+        // Open a resume in a new tab (the link only works for 10 minutes)
+        async function viewResume(userId) {
+            const u = users()[userId];
+            if (!u || !u.resume_path) { toast('No resume uploaded yet.'); return; }
+            const tab = window.open('', '_blank');      // open now so pop-up blockers allow it
+            const { data, error } = await sb.storage.from('resumes').createSignedUrl(u.resume_path, 600);
+            if (error) {
+                if (tab) tab.close();
+                toast('Could not open the resume: ' + friendly(error));
+                return;
+            }
+            if (tab) tab.location = data.signedUrl;
+            else window.location = data.signedUrl;
+        }
+
+
+        /* ==============================================================
+           GO!
+           ============================================================== */
+        fillMajors();
+        document.addEventListener('click', e => {
+            if (!e.target.closest('.me-spot')) $('menu').classList.add('hidden');
+        });
+
+        if (!configured) {
+            $('setupWarning').textContent = 'Paste your Supabase Project URL and Publishable key at the top of the script to turn on sign-in.';
+            $('setupWarning').classList.remove('hidden');
+        } else if (location.protocol === 'file:') {
+            $('setupWarning').textContent = 'Open this page with Live Server (right-click index.html → Open with Live Server) so email links can come back here.';
+            $('setupWarning').classList.remove('hidden');
+        } else {
+            checkBadLink();
+            watchAuth();
+        }
+    </script>
+
+</body>
+
+</html>
